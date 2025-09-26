@@ -4,14 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function HelloWorld() {
-  return <h1 className="greeting">Hello, world!</h1>;
+function HomePageTitle() {
+  return (
+    <h1 className="greeting"> Welcome to Macopoly!</h1>
+  );
 }
+
+function HomePageDescription() {
+  return (
+    <p className="description"> This is the home page for our project for <i>COMP225</i>, Fall 2025.
+    Created by Josh, Chenhao, Bavo, and Colin.</p>
+  );
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HelloWorld />
+    <HomePageTitle />
+    <HomePageDescription />
   </React.StrictMode>
 );
 
