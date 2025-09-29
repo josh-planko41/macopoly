@@ -1,25 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+
+function MyButton() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <button>
+      Click Me
+    </button>
+  );
+  }
+
+  function HomePageTitle() {
+    return (
+      <h1 className="greeting"> Welcome to Macopoly!</h1>
+    );
+  }
+  
+  function HomePageDescription() {
+    return (
+      <p className="description"> This is the home page for our project for <i>COMP225</i>, Fall 2025.
+      Created by Josh, Chenhao, Bavo, and Colin.</p>
+    );
+  }
+
+export default function App() {
+  return (
+    <div>
+      <HomePageTitle />
+      <HomePageDescription />
+      <MyButton />
     </div>
   );
 }
 
-export default App;
