@@ -1,4 +1,5 @@
 import React from 'react';
+import PlayButton from './PlayButtons.js';
 
 function HomePageTitle() {
   return (
@@ -19,11 +20,7 @@ function BackgroundImage() {
   );
 }
 
-function PlayButton() {
-    return (
-        <button className="PlayButton"> Play! </button>
-    )
-}
+
 
 export default function HomePage(){
     return (
