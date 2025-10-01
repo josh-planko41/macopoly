@@ -12,3 +12,26 @@ function HomePageDescription() {
     Created by Josh, Chenhao, Bavo, and Colin.</p>
   );
 }
+
+function BackgroundImage() {
+  return (
+    <div className="BackgroundImage"></div>
+  );
+}
+
+function PlayButton() {
+    return (
+        <button className="PlayButton"> Play! </button>
+    )
+}
+
+export default function HomePage(){
+    return (
+        <div>
+            <BackgroundImage />
+            <HomePageTitle />
+            <HomePageDescription />
+            <PlayButton />
+        </div>
+    )
+}

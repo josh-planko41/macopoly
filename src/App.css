@@ -39,7 +39,7 @@
 .BackgroundImage {
   width: 100%;
   height: 100vh;
-  background-image: url('https://example.com/background.jpg');
+  background-image : url('../images/old-main.jpg');
   background-size: cover;
   background-position: center;
   position: fixed;
@@ -60,4 +60,14 @@
   margin-top: 20px;
   font-weight: bold;
   text-align: center;
+}
+
+.PlayButton {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+  position: fixed;
+    bottom : 400px;
+    left : 47.5%;
 }
