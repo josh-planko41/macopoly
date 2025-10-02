@@ -15,13 +15,13 @@ export default function PlayButton() {
 
 
 function RemoveHomeText(){
-    const greeting = document.querySelector('.Greeting');
-    const description = document.querySelector('.Description');
+    const greeting = document.getElementById('HomePageTitle');
+    const description = document.getElementById('HomePageDescription');
     const backgroungImg = document.querySelector('.BackgroundImage');
     const playButton = document.querySelector('.PlayButton');
 
     if (greeting) 
-        greeting.textContent = '';
+        greeting.remove();
     if (description) {
         description.textContent = '';
         description.style.backgroundColor = 'rgb(255, 255, 255)';

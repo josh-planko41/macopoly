@@ -1,14 +1,5 @@
 import React from 'react';
 
-export default function CreateGamePage(){
-    return (
-        <div>
-            <GPText />
-            <GPBackground />
-            {/* Replace the above two components with the actual game board and related components later */}
-        </div>
-    )
-}
 
 // Test Code to replace with board
 function GPText(){
@@ -22,3 +13,14 @@ function GPBackground(){
         <div className='GamePageBackground'></div>
     )
 }
+
+export default function CreateGamePage(){
+    return (
+        <div>
+            <GPText />
+            <GPBackground />
+            {/* Replace the above two components with the actual game board and related components later */}
+        </div>
+    )
+}
+
