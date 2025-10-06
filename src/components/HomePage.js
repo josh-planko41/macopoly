@@ -1,34 +1,27 @@
 import React from 'react';
 import PlayButton from './PlayButtons.js';
+import CreateGamePage from './GamePage.js';
 
-function HomePageTitle() {
+
+export default function HomePage() {
+  const [showGame, setShowGame] = React.useState(false);
+
+  const handleClick = () => {
+    setShowGame(true);
+  };
+
+  if (showGame) {
+    return <CreateGamePage />;
+  }
   return (
-    <h1 className="Greeting" id="homePageTitle"> Welcome to Macopoly!</h1>
+    <div>
+      <div className="BackgroundImage"></div>
+      <h1 className="Greeting" id="HomePageTitle"> Welcome to Macopoly!</h1>
+      <p className="Description" id="HomePageDescription">
+        This is the home page for our project for <i>COMP225</i>, Fall 2025.
+        Created by Josh, Chenhao, Bavo, and Colin.
+      </p>
+      <button id="pb" className="PlayButton" onClick={handleClick}> Play! </button>
+    </div>
   );
-}
-
-function HomePageDescription() {
-  return (
-    <p className="Description" id="HomePageDescription"> This is the home page for our project for <i>COMP225</i>, Fall 2025.
-    Created by Josh, Chenhao, Bavo, and Colin.</p>
-  );
-}
-
-function BackgroundImage() {
-  return (
-    <div className="BackgroundImage"></div>
-  );
-}
-
-
-
-export default function HomePage(){
-    return (
-        <div>
-            <BackgroundImage />
-            <HomePageTitle />
-            <HomePageDescription />
-            <PlayButton />
-        </div>
-    )
 }
