@@ -6,9 +6,13 @@ import CreateGamePage from './GamePage.js';
 export default function HomePage() {
   const [showGame, setShowGame] = React.useState(false);
 
-  const handleClick = () => {
+  const handlePlayClick = () => {
     setShowGame(true);
   };
+
+  const handleBackClick = () => {
+    setShowGame(false);
+  }
 
   if (showGame) {
     return <CreateGamePage />;
@@ -21,7 +25,7 @@ export default function HomePage() {
         This is the home page for our project for <i>COMP225</i>, Fall 2025.
         Created by Josh, Chenhao, Bavo, and Colin.
       </p>
-      <button id="pb" className="PlayButton" onClick={handleClick}> Play! </button>
+      <button id="pb" className="PlayButton" onClick={handlePlayClick}> Play! </button>
     </div>
   );
 }

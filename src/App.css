@@ -62,8 +62,11 @@
     left : 20%;
 }
 
-.GamePage {
-  background-color : rgba(70, 70, 234, 0.74);
+.GamePageBackground {
+  position: fixed;
+  inset: 0;
+  background-color : lightblue;
+  z-index: 0;
 }
 
 .Greeting {
