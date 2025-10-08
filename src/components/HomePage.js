@@ -13,7 +13,8 @@ export default function HomePage() {
   };
 
   if (startGame) {
-    return <PlayerSelect />;
+
+    return <CreateGamePage />;
   }
   return (
     <div>
