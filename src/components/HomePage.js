@@ -1,21 +1,19 @@
 import React from 'react';
-import PlayButton from './PlayButtons.js';
 import CreateGamePage from './GamePage.js';
+import PlayerSelect from '../containers/PlayerSelect.js';
 
 
 export default function HomePage() {
-  const [showGame, setShowGame] = React.useState(false);
+// State to track whether to show the game page, 
+// got this from ChatGPT after asking how to do this in React
+  const [startGame, setStartGame] = React.useState(false); 
 
   const handlePlayClick = () => {
-    setShowGame(true);
+    setStartGame(true);
   };
 
-  const handleBackClick = () => {
-    setShowGame(false);
-  }
-
-  if (showGame) {
-    return <CreateGamePage />;
+  if (startGame) {
+    return <PlayerSelect />;
   }
   return (
     <div>
@@ -26,6 +24,7 @@ export default function HomePage() {
         Created by Josh, Chenhao, Bavo, and Colin.
       </p>
       <button id="pb" className="PlayButton" onClick={handlePlayClick}> Play! </button>
+
     </div>
   );
 }
