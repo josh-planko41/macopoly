@@ -5,47 +5,49 @@ import "./Board.css";
 export default function Board() {
 
     const squares = [
-    "Hayden Courts",
-    "Chance",
-    "Nicholson Field",
-    "Macalester Stadium",
-    "B Line",
-    "President's Home",
-    "Weyerhaeuser Memorial Chapel",
-    "Public Safety",
-    "Old Main",
-    "Go To Duprison",
-    "Dewitt Wallace Library",
-    "Olin-Rice Science Center",
-    "Community Chest",
-    "Campus Center",
-    "Green Line",
-    "Chance",
-    "Janet Wallace Fine Arts Center",
-    "MacBooks",
-    "Leonard Center",
-    "Pass Go To the Left",
-    "Turck Hall",
-    "Community Chest",
-    "Doty Hall",
-    "Activity Fee",
-    "Route 63",
-    "Bigelow Hall",
-    "Chance",
-    "Wallace Hall",
-    "30 Mac",
-    "Duprison + Just Visiting",
-    "Kirk Hall",
-    "Facilities",
-    "George Draper Dayton Hall",
-    "Grand Cambridge Apartments",
-    "A Line",
-    "Humanities",
-    "Community Chest",
-    "Weyerhaeuser Hall (Adimission Office)",
-    "Carnegie Hall",
-    "Free Parking",
+    {name : "Free Parking", color : "white"},
+    {name : "Hayden Courts", color : "red"},
+    {name : "Chance", color : "white"},
+    {name : "Nicholson Field", color : "red"},
+    {name : "Macalester Stadium", color : "red"},
+    {name : "B Line", color : "gray"},
+    {name : "President's Home", color : "#FFFF00"},
+    {name : "Weyerhaeuser Memorial Chapel", color : "#FFFF00"},
+    {name : "Public Safety", color : "black"},
+    {name : "Old Main", color : "#FFFF00"},
+    {name : "Go To Duprison", color : "white"},
+    {name : "Carnegie Hall", color : "#F7B16B"},
+    {name : "Dewitt Wallace Library", color : "#92C47D"},
+    {name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B"},
+    {name : "Olin-Rice Science Center", color : "#92C47D"},
+    {name : "Community Chest", color : "white"},
+    {name : "Community Chest", color : "white"},
+    {name : "Humanities", color : "#F7B16B"},
+    {name : "Campus Center", color : "#92C47D"},
+    {name : "A Line", color : "gray"},
+    {name : "Green Line", color : "gray"},
+    {name : "Grand Cambridge Apartments", color : "#C27BA0"},
+    {name : "Chance", color : "white"},
+    {name : "George Draper Dayton Hall", color : "#C27BA0"},
+    {name : "Janet Wallace Fine Arts Center", color : "#3B77D8"},
+    {name : "Facilities", color : "black"},
+    {name : "MacBooks", color : "white"},
+    {name : "Kirk Hall", color : "#C27BA0"},
+    {name : "Leonard Center", color : "#3B77D8"},
+    {name : "Duprison + Just Visiting", color : "white"},
+    {name : "30 Mac", color : "#6EA8DC"},
+    {name : "Wallace Hall", color : "#6EA8DC"},
+    {name : "Chance", color : "white"},
+    {name : "Bigelow Hall", color : "#6EA8DC"},
+    {name : "Route 63", color : "gray"},
+    {name : "Activity Fee", color : "white"},
+    {name : "Doty Hall", color : "#8E7CC3"},
+    {name : "Community Chest", color : "white"},
+    {name : "Turck Hall", color : "#8E7CC3"},
+    {name : "Pass Go To the Left", color : "white"},
 ];
+
+
     let squares_index = 0;
 
     const total = 11 * 11;
@@ -55,9 +57,14 @@ export default function Board() {
         
         const isEdge = row === 0 || row === 10 || col === 0 || col === 10;
         if (isEdge) {
-            const name = squares[squares_index];
+            const square = squares[squares_index];
             squares_index++;
-            return <div key={i} className="square">{name}</div>;
+            return <div key={i} 
+                        className="square"
+                        style = {{backgroundColor: square.color}}
+                    >
+                        {square.name}
+                    </div>;
         }
         else{
             return <div key={i} className="empty"></div>;
