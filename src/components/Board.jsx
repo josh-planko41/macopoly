@@ -5,48 +5,47 @@ import "./Board.css";
 export default function Board() {
 
     const squares = [
-    {name : "Free Parking", color : "white"},
-    {name : "Hayden Courts", color : "red"},
-    {name : "Chance", color : "white"},
-    {name : "Nicholson Field", color : "red"},
-    {name : "Macalester Stadium", color : "red"},
-    {name : "B Line", color : "gray"},
-    {name : "President's Home", color : "#FFFF00"},
-    {name : "Weyerhaeuser Memorial Chapel", color : "#FFFF00"},
-    {name : "Public Safety", color : "black"},
-    {name : "Old Main", color : "#FFFF00"},
-    {name : "Go To Duprison", color : "white"},
-    {name : "Carnegie Hall", color : "#F7B16B"},
-    {name : "Dewitt Wallace Library", color : "#92C47D"},
-    {name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B"},
-    {name : "Olin-Rice Science Center", color : "#92C47D"},
-    {name : "Community Chest", color : "white"},
-    {name : "Community Chest", color : "white"},
-    {name : "Humanities", color : "#F7B16B"},
-    {name : "Campus Center", color : "#92C47D"},
-    {name : "A Line", color : "gray"},
-    {name : "Green Line", color : "gray"},
-    {name : "Grand Cambridge Apartments", color : "#C27BA0"},
-    {name : "Chance", color : "white"},
-    {name : "George Draper Dayton Hall", color : "#C27BA0"},
-    {name : "Janet Wallace Fine Arts Center", color : "#3B77D8"},
-    {name : "Facilities", color : "black"},
-    {name : "MacBooks", color : "white"},
-    {name : "Kirk Hall", color : "#C27BA0"},
-    {name : "Leonard Center", color : "#3B77D8"},
-    {name : "Duprison + Just Visiting", color : "white"},
-    {name : "30 Mac", color : "#6EA8DC"},
-    {name : "Wallace Hall", color : "#6EA8DC"},
-    {name : "Chance", color : "white"},
-    {name : "Bigelow Hall", color : "#6EA8DC"},
-    {name : "Route 63", color : "gray"},
-    {name : "Activity Fee", color : "white"},
-    {name : "Doty Hall", color : "#8E7CC3"},
-    {name : "Community Chest", color : "white"},
-    {name : "Turck Hall", color : "#8E7CC3"},
-    {name : "Pass Go To the Left", color : "white"},
+    {name : "Free Parking", color : "white", price : null},
+    {name : "Hayden Courts", color : "red", price : 220},
+    {name : "Chance", color : "white", price : null},
+    {name : "Nicholson Field", color : "red", price : 220},
+    {name : "Macalester Stadium", color : "red", price : 240},
+    {name : "B Line", color : "gray", price : 200},
+    {name : "President's Home", color : "#FFFF00", price : 260},
+    {name : "Weyerhaeuser Memorial Chapel", color : "#FFFF00", price : 260},
+    {name : "Public Safety", color : "black", price : 150},
+    {name : "Old Main", color : "#FFFF00", price : 280},
+    {name : "Go To Duprison", color : "white", price : null},
+    {name : "Carnegie Hall", color : "#F7B16B", price : 200},
+    {name : "Dewitt Wallace Library", color : "#92C47D", price : 300},
+    {name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B", price : 180},
+    {name : "Olin-Rice Science Center", color : "#92C47D", price : 300},
+    {name : "Community Chest", color : "white", price : null},
+    {name : "Community Chest", color : "white", price : null},
+    {name : "Humanities", color : "#F7B16B", price : 180},
+    {name : "Campus Center", color : "#92C47D", price : 320},
+    {name : "A Line", color : "gray", price : 200},
+    {name : "Green Line", color : "gray", price : 200},
+    {name : "Grand Cambridge Apartments", color : "#C27BA0", price : 160},
+    {name : "Chance", color : "white", price : null},
+    {name : "George Draper Dayton Hall", color : "#C27BA0", price : 140},
+    {name : "Janet Wallace Fine Arts Center", color : "#3B77D8", price : 350},
+    {name : "Facilities", color : "black", price : 150},
+    {name : "MacBooks", color : "white", price : 75},
+    {name : "Kirk Hall", color : "#C27BA0", price : 140},
+    {name : "Leonard Center", color : "#3B77D8", price : 400},
+    {name : "Duprison + Just Visiting", color : "white", price : null},
+    {name : "30 Mac", color : "#6EA8DC", price : 120},
+    {name : "Wallace Hall", color : "#6EA8DC", price : 100},
+    {name : "Chance", color : "white", price : null},
+    {name : "Bigelow Hall", color : "#6EA8DC", price : 100},
+    {name : "Route 63", color : "gray", price : 200},
+    {name : "Activity Fee", color : "white", price : 200 /* Or 10% of FP Balance */},
+    {name : "Doty Hall", color : "#8E7CC3", price : 60},
+    {name : "Community Chest", color : "white", price : null},
+    {name : "Turck Hall", color : "#8E7CC3", price : 60},
+    {name : "Pass Go To the Left", color : "white", price : null},
 ];
-
 
     let squares_index = 0;
 
@@ -61,9 +60,12 @@ export default function Board() {
             squares_index++;
             return <div key={i} 
                         className="square"
-                        style = {{backgroundColor: square.color}}
+                        style = {{backgroundColor: square.color,
+                                color : square.color === "black" ? "white" : "black"
+                        }}
                     >
-                        {square.name}
+                        {square.name}<br />
+                        {square.price != null ? `Price: ${square.price}FP` : null}
                     </div>;
         }
         else{
