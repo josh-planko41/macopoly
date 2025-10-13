@@ -20,6 +20,7 @@
     width: 85px;
     height: 68px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
@@ -34,6 +35,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.1;
+}
+
+.square-name{
+  font-weight: bold;       
+  font-size: 0.7rem;       
+  text-align: center;
+  margin-bottom: 2px;    
+}
+
+.square-price {
+  font-weight: normal;     
+  font-size: 0.6rem;     
+  text-align: center;
 }
 
 .empty {
