@@ -79,8 +79,10 @@ export default function Board() {
     });
 
     return (
-        <div className="board-container">
-            <div className="board">{tilesForShowing}</div>
+        <div className="board-scroll">
+            <div className="board-container">
+                <div className="board">{tilesForShowing}</div>
+            </div>
         </div>
     );
 }
