@@ -1,9 +1,19 @@
+.board-scroll {
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  /* https://stackoverflow.com/a/38994837 */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+  /* */
+}
 
 .board-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;   /* full-screen height minus header */
+  /* justify-content: center; Justify-content does not work with scrolling*/
+  align-items: center; /* for vertical centering*/
+  min-height: 100vh;   /* full-screen height minus header */
+  min-width: 100vw;
 }
 
 .board{
@@ -14,6 +24,7 @@
     height: fit-content;
     border: 4px solid black;
     background-color: navy;
+    margin: auto; /*for horizantal centering*/
 }
 
 .square{

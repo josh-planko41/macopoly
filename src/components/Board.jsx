@@ -83,15 +83,17 @@ export default function Board() {
     });
 
     return (
-        <div className="board-container">
-            <div className="board">{tilesForShowing}</div>
-            {hoveredSquare && (
+        <div className="board-scroll">
+            <div className="board-container">
+                <div className="board">{tilesForShowing}</div>
+                {hoveredSquare && (
                 <div className="tooltip">
                 <strong>{hoveredSquare.name}</strong>
                 {hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p>}
                 {hoveredSquare.description && <p>{hoveredSquare.description}</p>}
                 </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
