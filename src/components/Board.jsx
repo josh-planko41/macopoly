@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Board.css";
 
 
 export default function Board() {
+
+    const [hoveredSquare, setHoveredSquare] = useState(null);
 
     const squares = [
     {name : "Free Parking", color : "white", price : null, owner: null},
@@ -63,6 +65,8 @@ export default function Board() {
                         style = {{backgroundColor: square.color,
                                 color : square.color === "black" ? "white" : "black"
                         }}
+                        onMouseEnter={() => setHoveredSquare(square)}
+                        onMouseLeave={() => setHoveredSquare(null)}
                     >
                         <div className="square-name">{square.name}</div>
                         
@@ -81,6 +85,13 @@ export default function Board() {
     return (
         <div className="board-container">
             <div className="board">{tilesForShowing}</div>
+            {hoveredSquare && (
+                <div className="tooltip">
+                <strong>{hoveredSquare.name}</strong>
+                {hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p>}
+                {hoveredSquare.description && <p>{hoveredSquare.description}</p>}
+                </div>
+            )}
         </div>
     );
 }

@@ -55,3 +55,22 @@
   width: 85px;
   height: 68px;
 }
+
+.tooltip {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.9;
+}
+
+.square:hover {
+  filter: brightness(0.5);
+}
