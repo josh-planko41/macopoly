@@ -1,41 +1,65 @@
 import React, { Component } from 'react';
-import '../App.css';
 
+import '../App.css';
+import Players from '../components/Players.js';
 
 class PlayerSelect extends Component {
     state = {
         pawns: ['bell', 'cow', 'ensign', 'pushball'],
         currentPlayerSelect: 1,
-        players: []
+        players: [],
+        readyToStart: false
     }
 
     setPlayer = (pawn) => {
-        this.setState((prevState) => ({
+        if(this.state.players.find(player => player.pawn === pawn)) {
+            alert('This is what you get for being greedy - pick a different pawn! 🤬');
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        } else {
+            this.setState((prevState) => ({
             currentPlayerSelect: prevState.currentPlayerSelect + 1,
             players: [
-                ...prevState.players, {
-                    number: prevState.currentPlayerSelect, 
+                ...prevState.players,
+                {
+                    number: prevState.currentPlayerSelect,
                     pawn
                 }
-            ]
+            ],
+            readyToStart: prevState.currentPlayerSelect === 2 ? true : false
         }));
+        }
+        
+    }
+
+    startGame = () => {
+        this.props.startGame(this.state.players);
     }
 
     render() {
         return (
             <div className="GamePageBackground">
-                <h1> Player {this.state.currentPlayerSelect}, select your pawn: </h1>
+                <Players players = {this.state.players} />
+                {
+                    this.state.readyToStart ? 
+                    <React.Fragment>
+                        <h1> Click Start to Begin!</h1>
+                        <button onClick={this.startGame} className="StartButton">Start</button>
+                    </React.Fragment> : 
+                    <React.Fragment>
+                        <h1> Player {this.state.currentPlayerSelect}, select your pawn: </h1>
                 {
                     this.state.pawns.map(pawn => (
-                        <img 
-                            onClick={() => this.setPlayer(pawn)}
-                            key={pawn} 
+                        <div className="PawnContainer" key={pawn} onClick={() => this.setPlayer(pawn)}>
+                        <img
                             className="Pawn"
                             alt={pawn}
-                            src={`./images/${pawn}-pawn.png`}/>
+                            src={`/images/${pawn}-pawn.png`} />
+                            </div>
                     ))
                 }
-                <button className="PlayButton" onClick={() => window.location.reload()}> Back to Home </button>
+                    </React.Fragment>
+                }
+                {/* <button className="PlayButton" onClick={() => window.location.reload()}> Back to Home </button> */}
             </div>
         );
     }

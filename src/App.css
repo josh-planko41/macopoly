@@ -3,43 +3,9 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  flex-direction: column;
+  align-items: center;
 }
 
 .BackgroundImage {
@@ -74,6 +40,47 @@
   z-index: 0;
 }
 
+.GameBoard {
+  display:grid;
+  width: min(80vmin, 900px);
+  height: min(80vmin, 900px);
+  border-radius: 8px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.GameBoardWrapper {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.GameSquare {
+  width: 85px;
+    height: 68px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 0.7rem;
+    background-color: lightgrey;
+    text-align: center;
+    padding: 2px;
+
+    box-sizing: border-box;
+
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+
+    
+}
+
 .Greeting {
   color: rgb(192, 99, 7);
   font-family: 'Georgia', serif;
@@ -83,10 +90,20 @@
   text-align: center;
 }
 
-.Pawn {
+.Pawn, .PlayerPawn {
   width: 100px;
   height: 100px;
   cursor: pointer;
+}
+
+.Pawn:hover {
+  transform: scale(1.25);
+}
+
+.PawnContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .PlayButton {
@@ -97,4 +114,35 @@
   position: fixed;
     bottom : 400px;
     left : 47.5%;
+}
+
+.Player {
+  font-family:"Georgia", serif;
+  text-align: center;
+
+}
+.Players {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.StartButton {
+  margin:auto;
+  text-align: center;
+  position: relative;
+  display: block;
+  height: 65px;
+  width: 200px;
+  background-color: rgb(224, 144, 58);
+  color: white;
+  padding: 8px solid black;
+  font-family: "Georgia", serif;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.StartButton:hover {
+  opacity: 0.8;
 }
