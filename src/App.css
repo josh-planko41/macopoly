@@ -54,6 +54,27 @@
   z-index: -1;
 }
 
+.container {
+  text-align: center;
+  padding: 2rem 2rem;
+  margin: 1rem;
+}
+
+.imgSquare {
+  height: 200px;
+  width: 200px;
+  background-color: white;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1rem 1rem;
+}
+
+.diceButton {
+  width: center;
+  height: auto;
+  color: yellow;
+}
+
 .Description {
   font-size: 18px;
   margin-top: 10px;
