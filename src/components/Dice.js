@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import {useState} from 'react';
 
-import Img1 from '../diceImages/Number1.png';
+import Image1 from '../diceImages/Number1.png';
 import Image2 from "../diceImages/Number2.png";
 import Image3 from "../diceImages/Number3.png";
 import Image4 from "../diceImages/Number4.png";
@@ -11,7 +11,7 @@ import Image6 from "../diceImages/Number6.png";
 
 
 export default function Roll() {
-    const diceImages = [Img1, Image2, Image3, Image4, Image5, Image6];
+    const diceImages = [Image1, Image2, Image3, Image4, Image5, Image6];
 
     const [image, setNewImage] = useState(diceImages[0])
     const [image2, setNewImage2] = useState(diceImages[1])
