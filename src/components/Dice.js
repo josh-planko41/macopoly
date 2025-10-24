@@ -38,7 +38,3 @@ export default function Roll() {
         </div>
     )
 }
-
-function setNewImage() {
-    
-}
