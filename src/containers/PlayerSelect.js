@@ -38,7 +38,9 @@ class PlayerSelect extends Component {
     render() {
         return (
             <div className="GamePageBackground">
+                <div className="pawnsHomepage">
                 <Players players = {this.state.players} />
+                </div>
                 {
                     this.state.readyToStart ? 
                     <React.Fragment>
@@ -46,7 +48,7 @@ class PlayerSelect extends Component {
                         <button onClick={this.startGame} className="StartButton">Start</button>
                     </React.Fragment> : 
                     <React.Fragment>
-                        <h1> Player {this.state.currentPlayerSelect}, select your pawn: </h1>
+                        <h1 className='PlayerSelect'> Player {this.state.currentPlayerSelect}, select your pawn: </h1>
                 {
                     this.state.pawns.map(pawn => (
                         <div className="PawnContainer" key={pawn} onClick={() => this.setPlayer(pawn)}>

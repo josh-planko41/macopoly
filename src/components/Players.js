@@ -5,7 +5,7 @@ const Players = (props) => (
         {
          props.players.map(player => (
             <div key={player.number} className="Player">
-                <p>Player {player.number}</p>
+                <p>  Player {player.number}</p>
                 <img
                     className="PlayerPawn"
                     alt={player.pawn}
