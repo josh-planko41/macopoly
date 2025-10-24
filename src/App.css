@@ -59,6 +59,15 @@
   inset: 0;
   background-color : lightblue;
   z-index: 0;
+
+}
+
+.pawnsHomepage{
+  margin-top: 20%;
+}
+
+.singlePlayerPawn{
+  margin-right: 50px;
 }
 
 .GameBoard {
@@ -115,7 +124,9 @@
   width: 100px;
   height: 100px;
   cursor: pointer;
+  margin-right: 50px;
 }
+
 
 .Pawn:hover {
   transform: scale(1.25);
@@ -140,11 +151,17 @@
 .Player {
   font-family:"Georgia", serif;
   text-align: center;
-
 }
+
+.PlayerSelect {
+  margin-bottom: 80px;
+}
+
+
 .Players {
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
 
 }
