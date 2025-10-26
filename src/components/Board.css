@@ -86,3 +86,17 @@
 .square:hover {
   filter: brightness(0.5);
 }
+
+.player-pawns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  gap: 4px;
+}
+
+.player-pawn-icon {
+  width: 25px;
+  height: 25px;
+}

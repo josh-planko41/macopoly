@@ -8,10 +8,6 @@ export default function Board({ players = [] }) {
 
     const squares = properties; // list of properties from Properties.js
 
-    // get the players from playerSelect on the board. 
-    // presumably set their position to inside the first edge square
-
-
     let squares_index = 0;
 
     const total = 11 * 11;
@@ -57,6 +53,19 @@ export default function Board({ players = [] }) {
                             </>
                         )}
                     </div>
+                    
+                    {propIndex === 0 && players.length > 0 && (
+                    <div className="player-pawns">
+                        {players.map(player => (
+                            <img
+                                key={player.number}
+                                src={`/images/${player.pawn}-pawn.png`}
+                                alt={player.pawn}
+                                className="player-pawn-icon"
+                            />
+                        ))}
+                    </div>
+                    )}
                 </div>
             );
         }
