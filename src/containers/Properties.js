@@ -24,7 +24,6 @@ export const properties = [
     {index : 17, name : "Community Chest", color : "white", price : null, owner: null},
     {index : 18, name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B", price : 180, owner: null},
     {index : 19, name : "Carnegie Hall", color : "#F7B16B", price : 200, owner: null},
-
     
     {index : 20, name : "Free Parking", color : "white", price : null, owner: null},
     {index : 21, name : "Hayden Courts", color : "red", price : 220, owner: null},
@@ -36,7 +35,7 @@ export const properties = [
     {index : 27, name : "Weyerhaeuser Memorial Chapel", color : "#FFFF00", price : 260, owner: null},
     {index : 28, name : "Public Safety", color : "black", price : 150, owner: null},
     {index : 29, name : "Old Main", color : "#FFFF00", price : 280, owner: null},
-    
+
     {index : 30, name : "Go To Duprison", color : "white", price : null, owner: null},
     {index : 31, name : "Dewitt Wallace Library", color : "#92C47D", price : 300, owner: null},
     {index : 32, name : "Olin-Rice Science Center", color : "#92C47D", price : 300, owner: null},
