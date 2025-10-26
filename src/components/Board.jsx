@@ -54,9 +54,10 @@ export default function Board({ players = [] }) {
                         )}
                     </div>
                     
-                    {propIndex === 0 && players.length > 0 && (
+                    {players.some(p => (p.location % properties.length) === propIndex) && (
                     <div className="player-pawns">
-                        {players.map(player => (
+                        {players.filter(p => (p.location % properties.length) === propIndex)
+                                .map(player => (
                             <img
                                 key={player.number}
                                 src={`/images/${player.pawn}-pawn.png`}
