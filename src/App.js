@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import './App.css';
-import PlayerSelect from './containers/PlayerSelect.js'
+import PlayerSelect from './containers/PlayerSelect.js';
 import HomePage from './components/HomePage.js';
 import Board from './components/Board.jsx';
 import './components/Board.css';

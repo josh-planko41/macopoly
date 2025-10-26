@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./Board.css";
 import { properties } from '../containers/Properties.js';
+import Players from "./Players.js";
 
 
 export default function Board() {
@@ -8,6 +9,10 @@ export default function Board() {
     const [hoveredSquare, setHoveredSquare] = useState(null);
 
     const squares = properties; // list of properties from Properties.js
+
+    // get the players from playerSelect on the board. 
+    // presumably set their position to inside the first edge square
+
 
     let squares_index = 0;
 
