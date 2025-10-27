@@ -77,7 +77,14 @@ export default function Board({ players = [] }) {
     return (
         <div className="board-scroll">
             <div className="board-container">
-                <div className="board">{tilesForShowing}</div>
+                <div className="board">
+                    {tilesForShowing}
+                    <img
+                        src="/images/macopoly-logo.png"
+                        alt="Macopoly Logo"
+                        className="macopoly-logo"
+                    />
+                </div>
                 {hoveredSquare && (
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>

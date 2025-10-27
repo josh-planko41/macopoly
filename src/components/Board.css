@@ -25,6 +25,7 @@
     border: 4px solid black;
     background-color: navy;
     margin: auto; /*for horizantal centering*/
+    position: relative;
 }
 
 .square{
@@ -99,4 +100,15 @@
 .player-pawn-icon {
   width: 25px;
   height: 25px;
+}
+
+.macopoly-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-40deg);
+  width: 80%;        
+  height: auto;
+  opacity: 0.95;    
+  pointer-events: none;
 }
