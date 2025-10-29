@@ -1,7 +1,11 @@
+/**
+ * Board Component
+ * Displays the game board with properties and player pawns
+ */
+
 import React, { useState } from "react";
-import "./Board.css";
+import "../styles/Board.css";
 import { properties } from "../containers/Properties.js";
-import Players from "./Players.js";
 
 export default function Board({ players = [] }) {
     const [hoveredSquare, setHoveredSquare] = useState(null);

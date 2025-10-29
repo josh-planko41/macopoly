@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-import './App.css';
+import './styles/App.css';
 import PlayerSelect from './containers/PlayerSelect.js';
 import HomePage from './components/HomePage.js';
 import Board from './components/Board.jsx';
-import './components/Board.css';
+import './styles/Board.css';
 import { properties as BOARD } from './containers/Properties';
 import Roll from './components/Dice.js';
 

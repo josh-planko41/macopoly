@@ -1,3 +1,8 @@
+/**
+ * Players Component
+ * Displays the list of players with their pawns in the player select screen
+ */
+
 import React from'react'
 
 const Players = (props) => (

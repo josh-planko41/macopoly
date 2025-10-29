@@ -1,6 +1,11 @@
+/**
+ * Player Select Component
+ * Allows players to select their pawns before starting the game without duplicating the pawn selection
+ */
+
 import React, { Component } from 'react';
 
-import '../App.css';
+import '../styles/App.css';
 import Players from '../components/Players.js';
 
 class PlayerSelect extends Component {
