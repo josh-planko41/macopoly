@@ -27,8 +27,8 @@
 }
 
 .imgSquare {
-  height: 200px;
-  width: 200px;
+  height: 60px;
+  width: 60px;
   background-color: white;
   display: inline-block;
   vertical-align: middle;
