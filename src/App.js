@@ -81,8 +81,11 @@ class App extends Component {
       return (
         <div className="App">
           <Roll
-            onRoll={(total, dice) => this.setState({ lastRoll: total, lastDice: dice })}  // ADDED
-            onMove={(total) => this.movePlayer(total)}  // ADDED
+            onRoll={(total, dice) => {
+              this.setState({ lastRoll: total, lastDice: dice })
+              this.movePlayer(total);
+              } 
+             } 
           />
           <Board players={this.state.players} />
         </div>
