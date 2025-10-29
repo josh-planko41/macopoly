@@ -32,7 +32,7 @@ export const properties = [
     {index : 24, name : "Macalester Stadium", color : "red", price : 240, owner: null},
     {index : 25, name : "B Line", color : "gray", price : 200, owner: null},
     {index : 26, name : "President's Home", color : "#FFFF00", price : 260, owner: null},
-    {index : 27, name : "Weyerhaeuser Memorial Chapel", color : "#FFFF00", price : 260, owner: null},
+    {index : 27, name : "Memorial Chapel", color : "#FFFF00", price : 260, owner: null},
     {index : 28, name : "Public Safety", color : "black", price : 150, owner: null},
     {index : 29, name : "Old Main", color : "#FFFF00", price : 280, owner: null},
 
