@@ -33,8 +33,11 @@ export default function Roll({ onRoll, onMove }) {
         if (onRoll) onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2]);
     };
     // Handler to tell parent to move using the stored total
-    const handleMove = () => onMove && onMove(count);
-
+    const handleMove = () => {
+        if (onMove) {
+           onMove(count);
+        }
+    }
     return (
         <div>
             <center>
@@ -54,3 +57,6 @@ export default function Roll({ onRoll, onMove }) {
         </div>
     );
 }
+
+
+
