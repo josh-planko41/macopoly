@@ -7,12 +7,14 @@ import Board from './components/Board.jsx';
 import './styles/Board.css';
 import { properties as BOARD } from './containers/Properties';
 import Roll from './components/Dice.js';
+import Buy from "./components/Buy.js";
 
 class App extends Component {
   state = {
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
+    selectedProperty : null,
 
     // Added simple game state
     currentPlayer: 1,
@@ -70,9 +72,26 @@ class App extends Component {
         },
         // Keep lastRoll in sync 
         lastRoll: total,
+        //Trigger Buy Feature when applicable
+        selectedProperty: landingSquare.price && !landingSquare.owner ? landingSquare: null,
       };
     });
   };
+
+  /**
+   * The Buying features.
+   * Once confirm to buy, set owner to the current player, and deduct FP from curr player's account balance.
+   * The player can also choose not to buy.
+   * @param {*} player 
+   * @param {*} property 
+   */
+  handleConfirmBuy = (player, property) => {
+    property.owner = player.number;
+    player.balance -= property.price;
+    this.setState({ selectedProperty: null });
+  };
+
+  handleCancelBuy = () => {this.setState({ selectedProperty : null})};
 
   render() {
     const { showPlayerSelect, gameStarted } = this.state;
@@ -87,7 +106,20 @@ class App extends Component {
               } 
              } 
           />
+
           <Board players={this.state.players} />
+
+          {this.state.selectedProperty && (
+            <Buy
+              property = {this.state.selectedProperty}
+              player = {this.state.players.find(
+                (p) => p.number === this.state.currentPlayer
+              )}
+              onConfirm = {this.handleConfirmBuy}
+              onCancel = {this.handleCancelBuy}
+            />
+          )}
+
         </div>
       );
     }

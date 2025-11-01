@@ -44,7 +44,7 @@ export default function Board({ players = [] }) {
                         backgroundColor: square.color,
                         color: square.color === "black" ? "white" : "black",
                     }}
-                    onMouseEnter={() => setHoveredSquare(square)}
+                    onMouseEnter={() => setHoveredSquare(properties[propIndex])}
                     onMouseLeave={() => setHoveredSquare(null)}
                 >
                     <div className="square-name">{square.name}</div>
@@ -79,7 +79,7 @@ export default function Board({ players = [] }) {
     });
 
     return (
-        <div className="board-scroll">
+        // <div className="board-scroll">
             <div className="board-container">
                 <div className="board">
                     {tilesForShowing}
@@ -93,10 +93,11 @@ export default function Board({ players = [] }) {
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>
                         {hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p>}
+                        {hoveredSquare.owner && <p>Owner: Player {hoveredSquare.owner}</p>}
                         {hoveredSquare.description && <p>{hoveredSquare.description}</p>}
                     </div>
                 )}
             </div>
-        </div>
+        //</div>
     );
 }
