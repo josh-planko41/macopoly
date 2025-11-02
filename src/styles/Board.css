@@ -10,10 +10,29 @@
 
 .board-container {
   display: flex;
+  flex-direction: row;
   /* justify-content: center; Justify-content does not work with scrolling*/
   align-items: center; /* for vertical centering*/
   min-height: 100vh;   /* full-screen height minus header */
   min-width: 100vw;
+}
+
+.dashboard{
+    display : flex;
+    flex-direction: column;
+    width: 400px;
+    height: 600px;
+    border: 4px solid black;
+    background-color: lightgrey;
+    margin: auto; /*for horizantal centering*/
+    position: relative;
+}
+
+.player-pawns {
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: lightgrey;
 }
 
 .board{
@@ -113,3 +132,4 @@
   opacity: 0.95;    
   pointer-events: none;
 }
+

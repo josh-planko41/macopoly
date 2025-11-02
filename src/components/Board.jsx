@@ -89,6 +89,22 @@ export default function Board({ players = [] }) {
                         className="macopoly-logo"
                     />
                 </div>
+
+                <div className="dashboard">
+
+                    <div className="player-pawns">
+                        {players.map(player => (
+                            <img
+                                key={player.number}
+                                src={`/images/${player.pawn}-pawn.png`}
+                                alt={player.pawn}
+                                className="player-pawn-icon"
+                            />
+                        ))}
+                    </div>
+
+
+                </div>
                 {hoveredSquare && (
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>
