@@ -6,8 +6,10 @@
 import React, { useState } from "react";
 import "../styles/Board.css";
 import { properties } from "../containers/Properties.js";
+import DashBoard from "./DashBoard.jsx";
 
-export default function Board({ players = [] }) {
+export default function Board({ state }) {
+    const players = state.players;
     const [hoveredSquare, setHoveredSquare] = useState(null);
 
     const squares = properties; // list of properties from Properties.js
@@ -28,7 +30,7 @@ export default function Board({ players = [] }) {
         if (col === 0) return 31 + (9 - row);
         return null;
     };
-
+    
     const tilesForShowing = Array.from({ length: total }, (_, i) => {
         const row = Math.floor(i / 11);
         const col = i % 11;
@@ -90,21 +92,7 @@ export default function Board({ players = [] }) {
                     />
                 </div>
 
-                <div className="dashboard">
-
-                    <div className="player-pawns">
-                        {players.map(player => (
-                            <img
-                                key={player.number}
-                                src={`/images/${player.pawn}-pawn.png`}
-                                alt={player.pawn}
-                                className="player-pawn-icon"
-                            />
-                        ))}
-                    </div>
-
-
-                </div>
+                <DashBoard state={state} />
                 {hoveredSquare && (
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>

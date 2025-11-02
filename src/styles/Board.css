@@ -17,23 +17,71 @@
   min-width: 100vw;
 }
 
-.dashboard{
-    display : flex;
-    flex-direction: column;
-    width: 400px;
-    height: 600px;
-    border: 4px solid black;
-    background-color: lightgrey;
-    margin: auto; /*for horizantal centering*/
-    position: relative;
+
+.DashBoard {
+  width: 360px;
+  min-width: 320px;
+  max-height: 90vh;
+  overflow: auto;
+  background: #f7f8fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
+
+/* Make each block look like a card */
+.DashBoard > div {
+  background: #ffffff;
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+/* Headings: smaller, consistent */
+.DashBoard h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+/* Current player pops a bit larger */
+.CurrentPlayer h1 {
+  font-size: 20px;
+}
+
 
 .player-pawns {
     display : flex;
     flex-direction: row;
     justify-content: center;
     background-color: lightgrey;
+    gap: 60px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
+
+/* .CurrentSquare, .LastMove {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 13px;
+  color: #374151;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.CurrentSquare h2, .LastMove h2 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+} */
 
 .board{
     display : grid;
@@ -108,14 +156,6 @@
   filter: brightness(0.5);
 }
 
-.player-pawns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5px;
-  gap: 4px;
-}
 
 .player-pawn-icon {
   width: 25px;

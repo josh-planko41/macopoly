@@ -1,75 +1,50 @@
-/**
- * Player Select Component
- * Allows players to select their pawns before starting the game without duplicating the pawn selection
- */
-
 import React, { Component } from 'react';
-
 import '../styles/App.css';
-import Players from '../components/Players.js';
+import Players from '../components/Players';
+import { PlayersContext } from '../context/PlayersContext';
 
 class PlayerSelect extends Component {
-    state = {
-        pawns: ['bell', 'cow', 'ensign', 'pushball'],
-        currentPlayerSelect: 1,
-        players: [],
-        readyToStart: false
-    }
+  static contextType = PlayersContext;
 
-    setPlayer = (pawn) => {
-        if(this.state.players.find(player => player.pawn === pawn)) {
-            alert('This is what you get for being greedy - pick a different pawn! 🤬');
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-        } else {
-            this.setState((prevState) => ({
-            currentPlayerSelect: prevState.currentPlayerSelect + 1,
-            players: [
-                ...prevState.players,
-                {
-                    number: prevState.currentPlayerSelect,
-                    pawn
-                }
-            ],
-            readyToStart: prevState.currentPlayerSelect === 2 ? true : false
-        }));
-        }
-        
-    }
+  handleStart = () => {
+    const { players } = this.context;          
+    this.props.startGame(players);          
+  };
 
-    startGame = () => {
-        this.props.startGame(this.state.players);
-    }
+  render() {
+    const {
+      pawns,
+      currentPlayerSelect,
+      players,
+      readyToStart,
+      setPlayer
+    } = this.context;
 
-    render() {
-        return (
-            <div className="GamePageBackground">
-                <div className="pawnsHomepage">
-                <Players players = {this.state.players} />
-                </div>
-                {
-                    this.state.readyToStart ? 
-                    <React.Fragment>
-                        <h1> Click Start to Begin!</h1>
-                        <button onClick={this.startGame} className="StartButton">Start</button>
-                    </React.Fragment> : 
-                    <React.Fragment>
-                        <h1 className='PlayerSelect'> Player {this.state.currentPlayerSelect}, select your pawn: </h1>
-                {
-                    this.state.pawns.map(pawn => (
-                        <div className="PawnContainer" key={pawn} onClick={() => this.setPlayer(pawn)}>
-                        <img
-                            className="Pawn"
-                            alt={pawn}
-                            src={`/images/${pawn}-pawn.png`} />
-                            </div>
-                    ))
-                }
-                    </React.Fragment>
-                }
-                {/* <button className="PlayButton" onClick={() => window.location.reload()}> Back to Home </button> */}
-            </div>
-        );
-    }
+    return (
+      <div className="GamePageBackground">
+        <div className="pawnsHomepage">
+          <Players players={players} />
+        </div>
+
+        {readyToStart ? (
+          <>
+            <h1>Click Start to Begin!</h1>
+            {/* ✅ wire to this.handleStart, not context.startGame */}
+            <button className="StartButton" onClick={this.handleStart}>Start</button>
+          </>
+        ) : (
+          <>
+            <h1 className="PlayerSelect">Player {currentPlayerSelect}, select your pawn:</h1>
+            {pawns.map(pawn => (
+              <div key={pawn} className="PawnContainer" onClick={() => setPlayer(pawn)}>
+                <img className="Pawn" alt={pawn} src={`/images/${pawn}-pawn.png`} />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    );
+  }
 }
 
 export default PlayerSelect;

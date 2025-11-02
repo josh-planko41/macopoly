@@ -1,0 +1,42 @@
+import React from 'react';
+import "../styles/Board.css";
+import { PlayersContext } from '../context/PlayersContext';
+
+
+function DashBoard({ state }) {
+    const players = state.players;
+    return (
+        <div className="DashBoard">
+         <div className="player-pawns">
+                        {players.map(player => (
+                            <img
+                                key={player.number}
+                                src={`/images/${player.pawn}-pawn.png`}
+                                alt={player.pawn}
+                                className="player-pawn-icon"
+                            />
+                        ))}
+            </div>
+
+            <div className='CurrentPlayer'>
+                <h1>Current Player: {state.currentPlayer}  </h1>
+            </div>
+
+           <div className="CurrentSquare">
+                <h2>Current Square:</h2>
+                <pre>{state.square?.name_sqaure || ""}</pre>
+            </div>
+
+            <div className="LastMove">
+                <h2>Last Move:</h2>
+                <pre>
+                    {state.square?.last_move
+                    ? `${state.square.last_move.initial_square} → ${state.square.last_move.final_square}`
+                    : ""}
+                </pre>
+            </div>
+        </div>
+        
+    );
+}
+export default DashBoard;

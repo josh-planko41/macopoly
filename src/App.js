@@ -66,9 +66,14 @@ class App extends Component {
         players: [...others, updated].sort((a, b) => a.number - b.number),
         currentPlayer: prevState.currentPlayer === 1 ? 2 : 1,
         square: {
-          player: updated.number,
-          type: landingType,
-          points: (increaseScore > 0 ? '+' : '') + increaseScore,
+          // player: updated.number,
+          // type: landingType,
+          // points: (increaseScore > 0 ? '+' : '') + increaseScore,
+          name_sqaure: BOARD[newLocation].name,
+          last_move: {
+            initial_square: BOARD[active.location].name,
+            final_square: BOARD[newLocation].name
+          }
         },
         // Keep lastRoll in sync 
         lastRoll: total,
@@ -107,7 +112,7 @@ class App extends Component {
              } 
           />
 
-          <Board players={this.state.players} />
+          <Board state={this.state} />
 
           {this.state.selectedProperty && (
             <Buy
