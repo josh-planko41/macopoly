@@ -35,6 +35,21 @@ function DashBoard({ state }) {
                     : ""}
                 </pre>
             </div>
+
+            <div className="Balance">
+                <h2>Balance Player 1: </h2>
+                <pre>
+                    {state.balancePlayer1}
+                </pre>
+            </div>
+
+
+            <div className="Balance">
+                <h2>Balance Player 2: </h2>
+                <pre>
+                    {state.balancePlayer2}
+                </pre>
+            </div>
         </div>
         
     );

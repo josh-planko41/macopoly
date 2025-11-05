@@ -11,6 +11,8 @@ import Buy from "./components/Buy.js";
 
 class App extends Component {
   state = {
+    balancePlayer1: 1500,
+    balancePlayer2: 1500,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
@@ -28,12 +30,11 @@ class App extends Component {
   }
 
   startGame = (players) => {
-    // Tried to normalize incoming players so they have location/score/number. Not really sure about this code
+    // Tried to normalize incoming players so they have location/balance/number. Not really sure about this code
     const normalized = players.map((p, idx) => ({
       number: p.number ?? (idx + 1),
       pawn: p.pawn ?? p.color ?? 'red',
       location: p.location ?? 0,
-      score: p.score ?? 0,
       ...p
     }));
 
@@ -73,7 +74,7 @@ class App extends Component {
           last_move: {
             initial_square: BOARD[active.location].name,
             final_square: BOARD[newLocation].name
-          }
+          }, 
         },
         // Keep lastRoll in sync 
         lastRoll: total,
@@ -91,8 +92,11 @@ class App extends Component {
    * @param {*} property 
    */
   handleConfirmBuy = (player, property) => {
+    // if (condition) {
+      
+    // }
     property.owner = player.number;
-    player.balance -= property.price;
+    this.balance -= this.price;
     this.setState({ selectedProperty: null });
   };
 
