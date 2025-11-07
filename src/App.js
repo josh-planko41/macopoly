@@ -62,7 +62,7 @@ class App extends Component {
         location: newLocation,
         score: Math.max(0, active.score + increaseScore),
       };
-  
+      // We need to move this to the finish button so that the turn doesn't switch autmoatically
       return {
         players: [...others, updated].sort((a, b) => a.number - b.number),
         currentPlayer: prevState.currentPlayer === 1 ? 2 : 1,
@@ -92,9 +92,12 @@ class App extends Component {
    * @param {*} property 
    */
   handleConfirmBuy = (player, property) => {
-    // if (condition) {
-      
-    // }
+    // unfinished
+    if (this.state.currentPlayer === 1) {
+      const positionPlayer = this.state.selectedProperty
+      this.state.balancePlayer1 -= BOARD[positionPlayer]
+
+    }
     property.owner = player.number;
     this.balance -= this.price;
     this.setState({ selectedProperty: null });

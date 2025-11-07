@@ -40,7 +40,7 @@ export default function Roll({ onRoll, onMove }) {
           <img className="imgSquare" src={`/images/diceImages/${image2}.png`} alt="die 2" />
           <button className="diceButton" onClick={rollDice}>Roll Dice</button>
           <button className="diceButton" onClick={handleMove} style={{ marginLeft:'10px' }}>
-            Move / Finish Turn
+            Finish Turn
           </button>
         </div>
       </center>
