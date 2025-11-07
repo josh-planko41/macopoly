@@ -41,6 +41,8 @@ class App extends Component {
     this.setState({ players: normalized, gameStarted: true });
   }
 
+
+
   // movePlayer function that incorporates Dice
   movePlayer = (total) => {
     if (typeof total !== 'number') {
@@ -94,12 +96,13 @@ class App extends Component {
   handleConfirmBuy = (player, property) => {
     // unfinished
     if (this.state.currentPlayer === 1) {
-      const positionPlayer = this.state.selectedProperty
-      this.state.balancePlayer1 -= BOARD[positionPlayer]
-
+      // const positionPlayer = this.state.selectedProperty
+      this.state.balancePlayer1 -= property.price
+    }
+    else if (this.state.currentPlayer === 2){
+      this.state.balancePlayer2 -= property.price
     }
     property.owner = player.number;
-    this.balance -= this.price;
     this.setState({ selectedProperty: null });
   };
 
@@ -131,7 +134,6 @@ class App extends Component {
               onCancel = {this.handleCancelBuy}
             />
           )}
-
         </div>
       );
     }
