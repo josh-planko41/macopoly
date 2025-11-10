@@ -94,7 +94,6 @@ class App extends Component {
    * @param {*} property 
    */
   handleConfirmBuy = (player, property) => {
-    // unfinished
     if (this.state.currentPlayer === 1) {
       // const positionPlayer = this.state.selectedProperty
       this.state.balancePlayer1 -= property.price
