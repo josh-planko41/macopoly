@@ -6,7 +6,7 @@ import HomePage from './components/HomePage.js';
 import Board from './components/Board.jsx';
 import './styles/Board.css';
 import { properties as BOARD } from './containers/Properties';
-import Roll from './components/Dice.js';
+import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
 
 class App extends Component {
@@ -43,69 +43,71 @@ class App extends Component {
 
 
 
-  // movePlayer function that incorporates Dice
   movePlayer = (total) => {
-    if (typeof total !== 'number') {
-      console.warn('movePlayer requires a rolled total. Roll first, then Move / Finish Turn.');
-      return;
-    }
-  
-    this.setState((prevState) => {
-      const active = prevState.players.find(p => p.number === prevState.currentPlayer);
-      const others = prevState.players.filter(p => p.number !== prevState.currentPlayer);
-  
-      const newLocation = (active.location + total) % BOARD.length;
-      const landingSquare = BOARD[newLocation];
-      const landingType = landingSquare?.type ?? landingSquare?.color;
-      const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
-  
-      const updated = {
-        ...active,
-        location: newLocation,
-        score: Math.max(0, active.score + increaseScore),
-      };
-      // We need to move this to the finish button so that the turn doesn't switch autmoatically
-      return {
-        players: [...others, updated].sort((a, b) => a.number - b.number),
-        currentPlayer: prevState.currentPlayer === 1 ? 2 : 1,
-        square: {
-          // player: updated.number,
-          // type: landingType,
-          // points: (increaseScore > 0 ? '+' : '') + increaseScore,
-          name_sqaure: BOARD[newLocation].name,
-          last_move: {
-            initial_square: BOARD[active.location].name,
-            final_square: BOARD[newLocation].name
-          }, 
+  if (typeof total !== 'number') {
+    console.warn('movePlayer requires a rolled total. Roll first, then Move / Finish Turn.');
+    return;
+  }
+
+  this.setState((prevState) => {
+    const active = prevState.players.find(p => p.number === prevState.currentPlayer);
+    const others = prevState.players.filter(p => p.number !== prevState.currentPlayer);
+
+    const newLocation = (active.location + total) % BOARD.length;
+    const landingSquare = BOARD[newLocation];
+    const landingType = landingSquare?.type ?? landingSquare?.color;
+    const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
+
+    const updated = {
+      ...active,
+      location: newLocation,
+      score: Math.max(0, (active.score ?? 0) + increaseScore),
+    };
+
+    return {
+      players: [...others, updated].sort((a, b) => a.number - b.number),
+      square: {
+        name_sqaure: BOARD[newLocation].name,
+        last_move: {
+          initial_square: BOARD[active.location].name,
+          final_square: BOARD[newLocation].name
         },
-        // Keep lastRoll in sync 
-        lastRoll: total,
-        //Trigger Buy Feature when applicable
-        selectedProperty: landingSquare.price && !landingSquare.owner ? landingSquare: null,
-      };
-    });
-  };
+      },
+      lastRoll: total,
+      selectedProperty: landingSquare.price && !landingSquare.owner ? landingSquare : null,
+    };
+  });
+};
 
   /**
-   * The Buying features.
-   * Once confirm to buy, set owner to the current player, and deduct FP from curr player's account balance.
-   * The player can also choose not to buy.
-   * @param {*} player 
-   * @param {*} property 
-   */
-  handleConfirmBuy = (player, property) => {
-    if (this.state.currentPlayer === 1) {
-      // const positionPlayer = this.state.selectedProperty
-      this.state.balancePlayer1 -= property.price
-    }
-    else if (this.state.currentPlayer === 2){
-      this.state.balancePlayer2 -= property.price
-    }
+ * Buying: set owner and deduct from the **active** player's balance.
+ */
+handleConfirmBuy = (player, property) => {
+  this.setState(prev => {
+    const isP1 = prev.currentPlayer === 1;
+    // assign owner (mutating BOARD entry is OK in your setup, but we still do it here)
     property.owner = player.number;
-    this.setState({ selectedProperty: null });
-  };
+    return {
+      balancePlayer1: isP1 ? prev.balancePlayer1 - property.price : prev.balancePlayer1,
+      balancePlayer2: !isP1 ? prev.balancePlayer2 - property.price : prev.balancePlayer2,
+      selectedProperty: null
+    };
+  });
+};
 
-  handleCancelBuy = () => {this.setState({ selectedProperty : null})};
+handleCancelBuy = () => {
+  this.setState({ selectedProperty: null });
+};
+
+// Flip turn only when player clicks "Finish Turn"
+handleFinishTurn = () => {
+  this.setState(prev => ({
+    currentPlayer: prev.currentPlayer === 1 ? 2 : 1,
+    // optional: keep square highlight or clear it
+    square: prev.square,
+  }));
+};
+
 
   render() {
     const { showPlayerSelect, gameStarted } = this.state;
@@ -113,12 +115,13 @@ class App extends Component {
     if (gameStarted) {
       return (
         <div className="App">
-          <Roll
+          <Dice
             onRoll={(total, dice) => {
               this.setState({ lastRoll: total, lastDice: dice })
               this.movePlayer(total);
               } 
-             } 
+             }
+             onFinishTurn={this.handleFinishTurn} 
           />
 
           <Board state={this.state} />

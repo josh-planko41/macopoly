@@ -2,7 +2,7 @@ import React, { useState, useContext, Component } from 'react';
 import '../styles/App.css';
 import { PlayersContext } from '../context/PlayersContext';   
 
-export default function Roll({ onRoll, onMove }) {
+export default function Roll({ onRoll, onMove, onFinishTurn }) {
   const diceImages = { 1:'d1', 2:'d2', 3:'d3', 4:'d4', 5:'d5', 6:'d6' };
 
   const { players } = useContext(PlayersContext);
@@ -27,7 +27,9 @@ export default function Roll({ onRoll, onMove }) {
   };
 
   const handleTurn = () => {
+    if (onFinishTurn) onFinishTurn();
     setHasRolled(false);
+    
   };
 
   return (
