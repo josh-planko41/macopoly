@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 
 import './styles/App.css';
 import PlayerSelect from './containers/PlayerSelect.js';
-import HomePage from './components/HomePage.js';
+import { HomePage, Credits } from './components/HomePage.js';
 import Board from './components/Board.jsx';
 import './styles/Board.css';
 import { properties as BOARD } from './containers/Properties';
 import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
+
 
 class App extends Component {
   state = {
@@ -17,6 +18,7 @@ class App extends Component {
     players: [],
     gameStarted: false,
     selectedProperty : null,
+    showCredits: false,
 
     // Added simple game state
     currentPlayer: 1,
@@ -28,6 +30,10 @@ class App extends Component {
   handlePlay = () => {
     this.setState({ showPlayerSelect: true });
   }
+
+  handleCredits = () => {
+      this.setState({ showCredits: true });
+    }
 
   startGame = (players) => {
     // Tried to normalize incoming players so they have location/balance/number. Not really sure about this code
@@ -110,7 +116,7 @@ handleFinishTurn = () => {
 
 
   render() {
-    const { showPlayerSelect, gameStarted } = this.state;
+    const { showPlayerSelect, gameStarted, showCredits } = this.state;
   
     if (gameStarted) {
       return (
@@ -147,10 +153,18 @@ handleFinishTurn = () => {
         </div>
       );
     }
-  
+
+    if (showCredits) {
+      return (
+        <div className="App">
+          <Credits/>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
-        <HomePage onPlay={this.handlePlay} />
+        <HomePage onPlay={this.handlePlay} credits={this.handleCredits} />
       </div>
     );
   }

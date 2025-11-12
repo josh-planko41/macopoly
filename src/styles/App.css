@@ -26,6 +26,10 @@
   margin: 1rem;
 }
 
+.credits {
+  
+}
+
 .imgSquare {
   height: 60px;
   width: 60px;
@@ -43,7 +47,7 @@
 
 .Description {
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 60%;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -114,10 +118,11 @@
 .Greeting {
   color: rgb(192, 99, 7);
   font-family: 'Georgia', serif;
-  font-size: 48px;
+  font-size: 60px;
   margin-top: 20px;
   font-weight: bold;
   text-align: center;
+  margin-top: 50px;
 }
 
 .Pawn, .PlayerPawn {
@@ -139,13 +144,18 @@
 }
 
 .PlayButton {
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 65px 120px;
+  font-size: 36px;
   margin-top: 20px;
   cursor: pointer;
+  border-color: navy;
   position: fixed;
-    bottom : 400px;
-    left : 47.5%;
+    bottom : 350px;
+    left : 39.5%;
+}
+
+.PlayButton:hover {
+  opacity: 0.8;
 }
 
 .Player {
