@@ -26,9 +26,31 @@
   margin: 1rem;
 }
 
+/* Formatting for the credits page */
+
+.contributors{
+
+  background-color: white;
+  opacity: 0.5;
+  
+  color: black;
+
+  font-size: 18px;
+  margin-top: 20px;
+  width: 40%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  position: fixed;
+    left : 5%;
+
+}
+
 .credits {
   
 }
+
+
 
 .imgSquare {
   height: 60px;
@@ -112,7 +134,6 @@
     text-overflow: ellipsis;
     line-height: 1.1;
 
-    
 }
 
 .Greeting {

@@ -12,15 +12,20 @@ function Credits() {
     <div className="BackgroundImage">
       
       <h1 className = "Greeting"> Credits and Acknowledgments</h1>
-      <button onClick={window.location.reload()}> </button>
-      <p1>Contributors: <br/> 
+  
+      <p1 className = "contributors"> Contributors: <br/> 
         Josh Planko - Project/Product Manager, Graphic Designer <br/>
         Chenhao Ma - Technical Lead <br />
         Bavo Vandenhoeck - UX Developer<br />
         Karim Amra - Back-End Developer<br />
         Colin Mathews - Tester, Writer
       </p1>
-      <p2></p2>
+      <p2> Acknowledgments: <br/>
+        Thank you to Lian Duan for teaching our COMP 225 class and for all the guidance <br/>
+        throughout our progress in this project. Thank you to preceptors Makol and Karla <br/>
+        for their help in facilitating group work and providing advice on project management, <br/>
+        learning new languages, and offering support throughout the development process.
+      </p2>
     </div>
   )
 }
