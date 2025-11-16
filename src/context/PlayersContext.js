@@ -4,7 +4,7 @@ export const PlayersContext = createContext();
 
 export class PlayersProvider extends Component {
   state = {
-    pawns: ['bell', 'cow', 'ensign', 'pushball'],
+    pawns: ['bell', 'cow', 'insignia', 'pushball'],
     currentPlayerSelect: 1,
     players: [],
     readyToStart: false,
@@ -26,7 +26,7 @@ export class PlayersProvider extends Component {
 
   startGame = () => this.setState({ gameStarted: true });
   resetPlayers = () => this.setState({
-    pawns: ['bell', 'cow', 'ensign', 'pushball'],
+    pawns: ['bell', 'cow', 'insignia', 'pushball'],
     currentPlayerSelect: 1,
     players: [],
     readyToStart: false,

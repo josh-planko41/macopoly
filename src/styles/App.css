@@ -8,7 +8,9 @@
   align-items: center;
 }
 
-.BackgroundImage {
+/* home page formatting styles */
+
+.background-image {
   width: 100%;
   height: 100vh;
   background-image : url('../../public/images/old-main.jpg');
@@ -20,18 +22,82 @@
   z-index: -1;
 }
 
-.container {
+.description {
+  font-size: 18px;
+  font-family: 'Georgia', serif;
+  color: rgb(4, 18, 137);
+  margin-top: 20px;
+  width: 60%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  padding: 2rem 2rem;
-  margin: 1rem;
+  position: fixed;
+    left : 20%;
+
+  border-radius: 10px;
 }
+
+.greeting {
+  color: rgb(192, 99, 7);
+  font-family: 'Georgia', serif;
+  font-size: 60px;
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
+  width: 60%;
+  margin-left: 20%;
+
+  background-color: rgba(255, 255, 255, 0.5);
+  
+  border-radius: 10px;
+  
+}
+
+.play-button {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgb(4, 18, 137);
+  font-family: 'Georgia', serif;
+  padding: 65px 120px;
+  font-size: 36px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-color: rgb(4, 18, 137);
+  position: fixed;
+    bottom : 350px;
+    left : 39.5%;
+}
+
+.play-button:hover {
+  opacity: 0.8;
+}
+
+/* end of home page styling */
 
 /* Formatting for the credits page */
 
+.acknowledgements {
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  color: black;
+
+  font-size: 18px;
+  margin-top: 20px;
+  width: 40%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  position: fixed;
+    left : 55%;
+
+  border-radius: 10px;
+}
+
 .contributors{
 
-  background-color: white;
-  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.5);
   
   color: black;
 
@@ -44,160 +110,157 @@
   position: fixed;
     left : 5%;
 
+  border-radius: 10px;
+
 }
 
-.credits {
-  
+.credit-background {
+
+  width: 100%;
+  height: 100vh;
+  background-image : url('../../public/images/entry-sign.jpg');
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
+.credit-button {
 
-
-.imgSquare {
-  height: 60px;
-  width: 60px;
-  background-color: white;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 1rem 1rem;
-}
-
-.diceButton {
-  width: center;
-  height: auto;
-  color: black;
-}
-
-.Description {
-  font-size: 18px;
+  background-color: rgba(4, 18, 137, 0.75);
+  font-family: "Georgia", serif;
+  color: white;
+  padding: 30px 60px;
+  font-size: 36px;
   margin-top: 20px;
-  width: 60%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: white;
-  opacity: 0.5;
-  text-align: center;
+  cursor: pointer;
+  border-color: navy;
   position: fixed;
-    left : 20%;
-}
-
-.GamePageBackground {
-  position: fixed;
-  inset: 0;
-  background-color : lightblue;
-  z-index: 0;
+    bottom : 25px;
+    left : 25px;
 
 }
 
-.pawnsHomepage{
-  margin-top: 20%;
+.credit-button:hover {
+  opacity: 0.8;
 }
 
-.singlePlayerPawn{
-  margin-right: 50px;
-}
-
-.GameBoard {
-  display:grid;
-  width: min(80vmin, 900px);
-  height: min(80vmin, 900px);
-  border-radius: 8px;
-  padding: 6px;
-  box-sizing: border-box;
-}
-
-.GameBoardWrapper {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-.GameSquare {
-  width: 85px;
-    height: 68px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    font-size: 0.7rem;
-    background-color: lightgrey;
-    text-align: center;
-    padding: 2px;
-
-    box-sizing: border-box;
-
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.1;
-
-}
-
-.Greeting {
-  color: rgb(192, 99, 7);
+.credit-title {
+  color: rgb(4, 18, 137);
   font-family: 'Georgia', serif;
   font-size: 60px;
   margin-top: 20px;
   font-weight: bold;
   text-align: center;
   margin-top: 50px;
+  width: 68%;
+  margin-left: 18%;
+
+  background-color: rgba(255, 255, 255, 0.5);
+  
+  border-radius: 10px;
 }
 
-.Pawn, .PlayerPawn {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-  margin-right: 50px;
+.resources {
+
+  background-color: rgba(255, 255, 255, 0.5);
+  
+  color: black;
+
+  font-size: 18px;
+  margin-top: 20px;
+  width: 40%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  position: fixed;
+    top: 40%;
+    left: 30%;
+
+  border-radius: 10px;
 }
 
+.return-button {
 
-.Pawn:hover {
-  transform: scale(1.25);
-}
-
-.PawnContainer {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.PlayButton {
-  padding: 65px 120px;
+  background-color: rgba(4, 18, 137, 0.75);
+  
+  color: white;
+  padding: 30px 60px;
   font-size: 36px;
   margin-top: 20px;
   cursor: pointer;
   border-color: navy;
   position: fixed;
-    bottom : 350px;
-    left : 39.5%;
+    bottom: 100px;
+    left: 37.5%;
 }
 
-.PlayButton:hover {
-  opacity: 0.8;
+/* end of credits page css styles */
+
+/* css styles for player select page */
+
+.pawn, .player-pawn {
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  margin-right: 50px;
 }
 
-.Player {
+.pawn:hover {
+  transform: scale(1.25);
+}
+
+.pawn-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.pawns-homepage{
+  margin-top: 20%;
+}
+
+.player {
   font-family:"Georgia", serif;
-  text-align: center;
+  color: white;
+  font-size: 20px;
+  text-align: left;
 }
 
-.PlayerSelect {
-  margin-bottom: 80px;
-}
-
-
-.Players {
-  width: 100%;
+.players {
+  margin-top: 150px;
+  width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
+  position: relative;
+    left: 15%;
 }
 
-.StartButton {
+.player-select {
+  font-family:"Georgia", serif;
+  color: white;
+  position: fixed;
+    top: 30%;
+    left: 35%
+}
+
+.player-select-background {
+  width: 100%;
+  height: 100vh;
+  /* background: linear-gradient(to right, rgba(4, 18, 137, 0.8), orange); */
+  background-image : url('../../public/images/jwall.jpg');
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.start-button {
   margin:auto;
   text-align: center;
   position: relative;
@@ -212,8 +275,38 @@
   cursor: pointer;
 }
 
-.StartButton:hover {
+.start-button:hover {
   opacity: 0.8;
+}
+
+/* check if .singlePlayerPawn does anything */
+
+/* .singlePlayerPawn{
+  margin-right: 50px;
+} */
+
+/* end of player select page css styles */
+
+
+.container {
+  text-align: center;
+  padding: 2rem 2rem;
+  margin: 1rem;
+}
+
+.imgSquare {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1rem 1rem;
+}
+
+.diceButton {
+  width: center;
+  height: auto;
+  color: black;
 }
 
 .buy-window {

@@ -21,23 +21,21 @@ class PlayerSelect extends Component {
     } = this.context;
 
     return (
-      <div className="GamePageBackground">
-        <div className="pawnsHomepage">
+      <div className="player-select-background">
+        <div className="pawns-homepage">
           <Players players={players} />
         </div>
 
         {readyToStart ? (
-          <>
-            <h1>Click Start to Begin!</h1>
-            {/* ✅ wire to this.handleStart, not context.startGame */}
-            <button className="StartButton" onClick={this.handleStart}>Start</button>
-          </>
+          <div>
+            <button className="start-button" onClick={this.handleStart}>Start</button>
+          </div>
         ) : (
           <>
-            <h1 className="PlayerSelect">Player {currentPlayerSelect}, select your pawn:</h1>
+            <h1 className="player-select">Player {currentPlayerSelect}, select your pawn:</h1>
             {pawns.map(pawn => (
-              <div key={pawn} className="PawnContainer" onClick={() => setPlayer(pawn)}>
-                <img className="Pawn" alt={pawn} src={`/images/${pawn}-pawn.png`} />
+              <div key={pawn} className="pawn-container" onClick={() => setPlayer(pawn)}>
+                <img className="pawn" alt={pawn} src={`/images/${pawn}-pawn.png`} />
               </div>
             ))}
           </>

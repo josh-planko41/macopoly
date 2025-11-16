@@ -6,13 +6,13 @@
 import React from'react'
 
 const Players = (props) => (
-    <div className="Players">
+    <div className="players">
         {
          props.players.map(player => (
-            <div key={player.number} className="Player">
-                <p>  Player {player.number}</p>
+            <div key={player.number} className="player">
+                <p>  Player {player.number}: </p>
                 <img
-                    className="PlayerPawn"
+                    className="player-pawn"
                     alt={player.pawn}
                     src={`/images/${player.pawn}-pawn.png`} />
             </div>
