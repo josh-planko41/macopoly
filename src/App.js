@@ -8,7 +8,7 @@ import './styles/Board.css';
 import { properties as BOARD } from './containers/Properties';
 import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
-
+import PayRent from './components/PayRent.js';
 
 class App extends Component {
   state = {
@@ -17,7 +17,8 @@ class App extends Component {
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
-    selectedProperty : null,
+    selectedPropertyBuy : null,
+    selectedPropertyPayRent : null,
     showCredits: false,
 
     // Added simple game state
@@ -80,7 +81,8 @@ class App extends Component {
         },
       },
       lastRoll: total,
-      selectedProperty: landingSquare.price && !landingSquare.owner ? landingSquare : null,
+      selectedPropertyBuy: landingSquare.price && !landingSquare.owner ? landingSquare : null,
+      selectedPropertyPayRent: landingSquare.owner && landingSquare.owner != prevState.currentPlayer ? landingSquare : null,
     };
   });
 };
@@ -96,14 +98,42 @@ handleConfirmBuy = (player, property) => {
     return {
       balancePlayer1: isP1 ? prev.balancePlayer1 - property.price : prev.balancePlayer1,
       balancePlayer2: !isP1 ? prev.balancePlayer2 - property.price : prev.balancePlayer2,
-      selectedProperty: null
+      selectedPropertyBuy: null
     };
   });
 };
 
 handleCancelBuy = () => {
-  this.setState({ selectedProperty: null });
+  this.setState({ selectedPropertyBuy: null });
 };
+
+handleConfirmPayRent = (property) => {
+  this.setState(prev => {
+    const payerIsP1 = prev.currentPlayer === 1;
+
+    const price = property.price;
+
+    const balancePlayer1 = prev.balancePlayer1;
+    const balancePlayer2 = prev.balancePlayer2;
+
+    const newBalanceP1 = payerIsP1 ? 
+    balancePlayer1 - price : balancePlayer1 + price;
+
+    const newBalanceP2 = payerIsP1 ? 
+    balancePlayer2 + price : balancePlayer2 - price;
+    
+    return {
+      balancePlayer1 : newBalanceP1,
+      balancePlayer2 : newBalanceP2,
+      selectedPropertyPayRent : null,
+    }
+  })
+};
+
+handleLookingForOtherOptions = (property) => {
+  //TODO: This is just temporary code when the player cannot afford the rent. Add more features, such as liquidate properties and bankruptcy, later.
+  this.setState({ selectedPropertyPayRent : null });
+}
 
 // Flip turn only when player clicks "Finish Turn"
 handleFinishTurn = () => {
@@ -132,14 +162,28 @@ handleFinishTurn = () => {
 
           <Board state={this.state} />
 
-          {this.state.selectedProperty && (
+          {this.state.selectedPropertyBuy && (
             <Buy
-              property = {this.state.selectedProperty}
+              property = {this.state.selectedPropertyBuy}
               player = {this.state.players.find(
                 (p) => p.number === this.state.currentPlayer
               )}
               onConfirm = {this.handleConfirmBuy}
               onCancel = {this.handleCancelBuy}
+            />
+          )}
+
+          {this.state.selectedPropertyPayRent && (
+            <PayRent
+              property = {this.state.selectedPropertyPayRent}
+              payer = {this.state.players.find(
+                (p) => p.number === this.state.currentPlayer
+              )}
+              payee = {this.state.players.filter(
+                (p) => p.number != this.state.currentPlayer
+              )}
+              onConfirm = {this.handleConfirmPayRent}
+              onLookingForOtherOptions = {this.handleLookingForOtherOptions}
             />
           )}
         </div>
