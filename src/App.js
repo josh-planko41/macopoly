@@ -151,7 +151,7 @@ handleFinishTurn = () => {
     if (gameStarted) {
       return (
         <div className="App">
-          <Dice
+          <Dice state = {this.state}
             onRoll={(total, dice) => {
               this.setState({ lastRoll: total, lastDice: dice })
               this.movePlayer(total);
