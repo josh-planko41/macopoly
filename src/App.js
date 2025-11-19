@@ -111,16 +111,16 @@ handleConfirmPayRent = (property) => {
   this.setState(prev => {
     const payerIsP1 = prev.currentPlayer === 1;
 
-    const price = property.price;
+    const rent = property.baseRent;
 
     const balancePlayer1 = prev.balancePlayer1;
     const balancePlayer2 = prev.balancePlayer2;
 
     const newBalanceP1 = payerIsP1 ? 
-    balancePlayer1 - price : balancePlayer1 + price;
+    balancePlayer1 - rent : balancePlayer1 + rent;
 
     const newBalanceP2 = payerIsP1 ? 
-    balancePlayer2 + price : balancePlayer2 - price;
+    balancePlayer2 + rent : balancePlayer2 - rent;
     
     return {
       balancePlayer1 : newBalanceP1,
@@ -176,12 +176,7 @@ handleFinishTurn = () => {
           {this.state.selectedPropertyPayRent && (
             <PayRent
               property = {this.state.selectedPropertyPayRent}
-              payer = {this.state.players.find(
-                (p) => p.number === this.state.currentPlayer
-              )}
-              payee = {this.state.players.filter(
-                (p) => p.number != this.state.currentPlayer
-              )}
+              rent = {this.state.selectedPropertyPayRent.baseRent} // To Be Changed, actual rent payment will be determined by many factors
               onConfirm = {this.handleConfirmPayRent}
               onLookingForOtherOptions = {this.handleLookingForOtherOptions}
             />
