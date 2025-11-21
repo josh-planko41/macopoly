@@ -13,7 +13,7 @@ const properties = [
     {index : 1, name : "Turck Hall", color : "#8E7CC3", price : 60, baseRent: 3, owner: null},
     {index : 2, name : "Community Chest", color : "white"},
     {index : 3, name : "Doty Hall", color : "#8E7CC3", price : 60, baseRent: 3, owner: null},
-    {index : 4, name : "Activity Fee", color : "white", price : 200},
+    {index : 4, name : "Activity Fee", color : "white", taxAmount : 200},
     {index : 5, name : "Route 63", color : "gray", price : 200, owner: null},
     {index : 6, name : "Bigelow Hall", color : "#6EA8DC", price : 100, baseRent: 6, owner: null},
     {index : 7, name : "Chance", color : "white"},
@@ -53,7 +53,7 @@ const properties = [
     {index : 35, name : "Green Line", color : "gray", price : 200, owner: null},
     {index : 36, name : "Chance", color : "white"},
     {index : 37, name : "Janet Wallace Fine Arts Center", color : "#3B77D8", price : 350, baseRent: 35, owner: null},
-    {index : 38, name : "MacBooks", color : "white", price : 75, owner: null},
+    {index : 38, name : "MacBooks", color : "white", taxAmount : 75},
     {index : 39, name : "Leonard Center", color : "#3B77D8", price : 400, baseRent: 50, owner: null},
     
 ];

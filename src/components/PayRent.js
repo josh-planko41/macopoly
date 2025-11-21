@@ -1,4 +1,3 @@
-
 export default function PayRent({property, rent, onConfirm, onLookingForOtherOptions}){
 
     return(

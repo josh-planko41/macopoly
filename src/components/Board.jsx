@@ -55,9 +55,7 @@ export default function Board({ state }) {
                         ? <div className="square-price">
                             {square.price != null && (
                                 <>
-                                    {`Price: ${square.price}FP ${
-                                        square.name === "Activity Fee" ? "or pay 10% net worth" : ""
-                                    }`}
+                                    {`Price: ${square.price}FP`}
                                 </>
                             )}
                         </div>
@@ -69,6 +67,18 @@ export default function Board({ state }) {
                             )}
                         </div>
                     }
+
+                    {square.taxAmount != null
+                        ? <div className="square-price">
+                            {square.taxAmount != null && (
+                                <>
+                                    {`TaxRate: ${square.taxAmount}`}
+                                </>
+                            )}
+                        </div>
+                        : null
+                    }
+                    
                     
                     {players.some(p => (p.location % properties.length) === propIndex) && (
                     <div className="player-pawns">
@@ -110,6 +120,7 @@ export default function Board({ state }) {
                                 ? hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p> 
                                 : hoveredSquare.baseRent && <p>Base Rent: {hoveredSquare.baseRent} FP</p>
                         }
+                        {hoveredSquare.taxAmount && <p>Tax Rate: {hoveredSquare.taxAmount} FP</p>}
                         {hoveredSquare.owner && <p>Owner: Player {hoveredSquare.owner}</p>}
                     </div>
                 )}

@@ -9,6 +9,7 @@ import { properties as BOARD } from './containers/Properties';
 import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
+import PayTax from './components/PayTax.js';
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
     gameStarted: false,
     selectedPropertyBuy : null,
     selectedPropertyPayRent : null,
+    selectedPropertyPayTax : null,
     showCredits: false,
     rolledDoubles: false,
 
@@ -83,6 +85,7 @@ class App extends Component {
       lastRoll: total,
       selectedPropertyBuy: landingSquare.price && !landingSquare.owner ? landingSquare : null,
       selectedPropertyPayRent: landingSquare.owner && landingSquare.owner != prevState.currentPlayer ? landingSquare : null,
+      selectedPropertyPayTax: landingSquare.taxAmount ? landingSquare : null,
     };
   });
 };
@@ -133,6 +136,30 @@ handleConfirmPayRent = (property) => {
 handleLookingForOtherOptions = (property) => {
   //TODO: This is just temporary code when the player cannot afford the rent. Add more features, such as liquidate properties and bankruptcy, later.
   this.setState({ selectedPropertyPayRent : null });
+}
+
+handleAcceptPayTax = (property) => {
+  this.setState(prev => {
+    const payerIsP1 = prev.currentPlayer === 1;
+    const taxAmount = property.taxAmount
+
+    const balancePlayer1 = prev.balancePlayer1;
+    const balancePlayer2 = prev.balancePlayer2;
+
+    const newBalanceP1 = (payerIsP1 
+      ? balancePlayer1 - taxAmount 
+      : balancePlayer1)
+    
+    const newBalanceP2 = (payerIsP1
+      ? balancePlayer2
+      : balancePlayer2 - taxAmount
+    )
+    return{
+      balancePlayer1 : newBalanceP1,
+      balancePlayer2 : newBalanceP2,
+      selectedPropertyPayTax : null,
+    }
+  })
 }
 
 // Flip turn only when player clicks "Finish Turn"
@@ -187,6 +214,13 @@ handleFinishTurn = () => {
               rent = {this.state.selectedPropertyPayRent.baseRent} // To Be Changed, actual rent payment will be determined by many factors
               onConfirm = {this.handleConfirmPayRent}
               onLookingForOtherOptions = {this.handleLookingForOtherOptions}
+            />
+          )}
+
+          {this.state.selectedPropertyPayTax && (
+            <PayTax
+              property = {this.state.selectedPropertyPayTax}
+              onAccept = {this.handleAcceptPayTax}
             />
           )}
         </div>
