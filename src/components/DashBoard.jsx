@@ -50,6 +50,13 @@ function DashBoard({ state }) {
                     {state.balancePlayer2}
                 </pre>
             </div>
+
+           <div className="Balance">
+            <h2>Rolled Doubles: </h2>
+            <pre>
+                {state.rolledDoubles  == true ? "Yes" : "No"}
+            </pre>
+           </div>
         </div>
         
     );

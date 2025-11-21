@@ -50,15 +50,25 @@ export default function Board({ state }) {
                     onMouseLeave={() => setHoveredSquare(null)}
                 >
                     <div className="square-name">{square.name}</div>
-                    <div className="square-price">
-                        {square.price != null && (
-                            <>
-                                {`Price: ${square.price}FP ${
-                                    square.name === "Activity Fee" ? "or pay 10% net worth" : ""
-                                }`}
-                            </>
-                        )}
-                    </div>
+                    
+                    {square.owner === null 
+                        ? <div className="square-price">
+                            {square.price != null && (
+                                <>
+                                    {`Price: ${square.price}FP ${
+                                        square.name === "Activity Fee" ? "or pay 10% net worth" : ""
+                                    }`}
+                                </>
+                            )}
+                        </div>
+                        : <div className="square-rent">
+                            {square.baseRent != null && (
+                                <>
+                                    {`Rent: ${square.baseRent}FP`}
+                                </>
+                            )}
+                        </div>
+                    }
                     
                     {players.some(p => (p.location % properties.length) === propIndex) && (
                     <div className="player-pawns">
@@ -96,9 +106,11 @@ export default function Board({ state }) {
                 {hoveredSquare && (
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>
-                        {hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p>}
+                        {hoveredSquare.owner === null 
+                                ? hoveredSquare.price && <p>Price: {hoveredSquare.price} FP</p> 
+                                : hoveredSquare.baseRent && <p>Base Rent: {hoveredSquare.baseRent} FP</p>
+                        }
                         {hoveredSquare.owner && <p>Owner: Player {hoveredSquare.owner}</p>}
-                        {hoveredSquare.description && <p>{hoveredSquare.description}</p>}
                     </div>
                 )}
             </div>

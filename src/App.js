@@ -10,6 +10,7 @@ import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
 
+
 class App extends Component {
   state = {
     balancePlayer1: 1500,
@@ -20,6 +21,7 @@ class App extends Component {
     selectedPropertyBuy : null,
     selectedPropertyPayRent : null,
     showCredits: false,
+    rolledDoubles: false,
 
     // Added simple game state
     currentPlayer: 1,
@@ -47,8 +49,6 @@ class App extends Component {
 
     this.setState({ players: normalized, gameStarted: true });
   }
-
-
 
   movePlayer = (total) => {
   if (typeof total !== 'number') {
@@ -142,6 +142,10 @@ handleFinishTurn = () => {
     // optional: keep square highlight or clear it
     square: prev.square,
   }));
+  
+  console.log(this.state.rolledDoubles)
+
+  
 };
 
 
@@ -151,13 +155,17 @@ handleFinishTurn = () => {
     if (gameStarted) {
       return (
         <div className="App">
-          <Dice state = {this.state}
-            onRoll={(total, dice) => {
-              this.setState({ lastRoll: total, lastDice: dice })
+          <Dice
+            state={this.state}
+            onRoll={(total, dice, isDoubles) => {
+              this.setState({
+                lastRoll: total,
+                lastDice: dice,
+                rolledDoubles: isDoubles,   
+              });
               this.movePlayer(total);
-              } 
-             }
-             onFinishTurn={this.handleFinishTurn} 
+            }}
+            onFinishTurn={this.handleFinishTurn}
           />
 
           <Board state={this.state} />

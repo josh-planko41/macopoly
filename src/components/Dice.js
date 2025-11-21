@@ -3,15 +3,16 @@ import '../styles/App.css';
 import { PlayersContext } from '../context/PlayersContext';   
 import Players from './Players';
 
-export default function Roll({ onRoll, onMove, onFinishTurn, state }) {
+export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDoubles }) {
   const diceImages = { 1:'d1', 2:'d2', 3:'d3', 4:'d4', 5:'d5', 6:'d6' };
-
+  rolledDoubles = false;
   const { players } = useContext(PlayersContext);
 
   const [image, setNewImage] = useState(diceImages[1]);
   const [image2, setNewImage2] = useState(diceImages[1]);
   const [count, setCount] = useState(1);
   const [hasRolled, setHasRolled] = useState(false);
+  
 
   const rollDice = () => {
     const randomNum1 = Math.floor(Math.random() * 6) + 1;
@@ -21,8 +22,12 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state }) {
     setNewImage2(diceImages[randomNum2]);
     setCount(randomNum1 + randomNum2);
     setHasRolled(true);
-
-    if (onRoll) onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2]);
+    if (randomNum1 % 2 == 0 && randomNum2 % 2 == 0) {
+      rolledDoubles = true;
+    }
+    if (onRoll) {
+      onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2], rolledDoubles);
+    };
 
     console.log('players:', players);
   };
@@ -30,7 +35,6 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state }) {
   const handleTurn = () => {
     if (onFinishTurn) onFinishTurn();
     setHasRolled(false);
-    
   };
 
   return (

@@ -61,4 +61,4 @@ function reload() {
   window.location.reload();
 }
 
-export { HomePage, Credits};
+export {HomePage, Credits};
