@@ -101,7 +101,6 @@ export default function Board({ state }) {
     });
 
     return (
-        // <div className="board-scroll">
             <div className="board-container">
                 <div className="board">
                     {tilesForShowing}
@@ -125,6 +124,5 @@ export default function Board({ state }) {
                     </div>
                 )}
             </div>
-        //</div>
     );
 }

@@ -5,7 +5,7 @@ import PlayerSelect from './containers/PlayerSelect.js';
 import { HomePage, Credits } from './components/HomePage.js';
 import Board from './components/Board.jsx';
 import './styles/Board.css';
-import { properties as BOARD } from './containers/Properties';
+import { properties as BOARD, properties } from './containers/Properties';
 import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
@@ -110,11 +110,9 @@ handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
 
-handleConfirmPayRent = (property) => {
+handleConfirmPayRent = (rent) => {
   this.setState(prev => {
     const payerIsP1 = prev.currentPlayer === 1;
-
-    const rent = property.baseRent;
 
     const balancePlayer1 = prev.balancePlayer1;
     const balancePlayer2 = prev.balancePlayer2;
@@ -169,11 +167,34 @@ handleFinishTurn = () => {
     // optional: keep square highlight or clear it
     square: prev.square,
   }));
-  
   console.log(this.state.rolledDoubles)
-
-  
 };
+
+ getRentForSquares = (square) =>{
+
+  if (square.color === 'gray'){
+
+    const count = this.getRailroadsOwnedCount(square.owner);
+    const rentTable = [25, 50, 100, 200];
+    const index = count - 1;
+
+    return rentTable[index];
+  }
+
+  if (square.baseRent) {
+    //Temporary
+    const baseRent = square.baseRent;
+
+    return baseRent;
+  }
+
+ }
+
+ getRailroadsOwnedCount = (owner) => {
+  return properties.filter(function (sq) {
+    return sq.color === 'gray' && sq.owner === owner;
+  }).length;
+ }
 
 
   render() {
@@ -211,7 +232,7 @@ handleFinishTurn = () => {
           {this.state.selectedPropertyPayRent && (
             <PayRent
               property = {this.state.selectedPropertyPayRent}
-              rent = {this.state.selectedPropertyPayRent.baseRent} // To Be Changed, actual rent payment will be determined by many factors
+              rent = {this.getRentForSquares(this.state.selectedPropertyPayRent)} // To Be Changed, actual rent payment will be determined by many factors
               onConfirm = {this.handleConfirmPayRent}
               onLookingForOtherOptions = {this.handleLookingForOtherOptions}
             />
