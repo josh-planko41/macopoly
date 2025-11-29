@@ -10,7 +10,7 @@ import Dice from './components/Dice.js';
 import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
 import PayTax from './components/PayTax.js';
-
+import MakeATrade from './components/trade.js';
 
 class App extends Component {
   state = {
@@ -30,7 +30,17 @@ class App extends Component {
     square: null,
     lastDice: [1, 1],
     lastRoll: 2,
+
+    //added trade required variables
+    showMakeATrade: false,
+    propertiesPlayer1: [],
+    propertiesPlayer2: []
   };
+
+  // handleMakeATrade = () => {
+  //   this.setState({ showMakeATrade: true });
+    
+  // }
 
   handlePlay = () => {
     this.setState({ showPlayerSelect: true });
@@ -98,10 +108,13 @@ handleConfirmBuy = (player, property) => {
     const isP1 = prev.currentPlayer === 1;
     // assign owner (mutating BOARD entry is OK in your setup, but we still do it here)
     property.owner = player.number;
+
     return {
       balancePlayer1: isP1 ? prev.balancePlayer1 - property.price : prev.balancePlayer1,
       balancePlayer2: !isP1 ? prev.balancePlayer2 - property.price : prev.balancePlayer2,
-      selectedPropertyBuy: null
+      selectedPropertyBuy: null,
+      propertiesPlayer1: isP1 ? [...prev.propertiesPlayer1, property] : prev.propertiesPlayer1 ,
+      propertiesPlayer2: !isP1 ? [...prev.propertiesPlayer2, property] : prev.propertiesPlayer2,
     };
   });
 };
@@ -215,6 +228,8 @@ handleFinishTurn = () => {
             }}
             onFinishTurn={this.handleFinishTurn}
           />
+
+          < MakeATrade />
 
           <Board state={this.state} />
 
