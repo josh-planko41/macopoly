@@ -143,55 +143,42 @@ removeProperty = (properties, property) => {
 };
 
   
-handleTrade = () => {
- 
- this.setState((prev) => {
-  const propertyP1 = prev.tradedProperties.find(p => p.owner === 1);
-  const propertyP2 = prev.tradedProperties.find(p => p.owner === 2);
+handleAcceptTrade = () => {
+  this.setState((prev) => {
+    if (!prev.startATrade) return prev;
 
-    if (prev.currentPlayer === 1 && prev.startATrade === true) {
-  
-      this.setPropertiesActive(prev.propertiesPlayer1);
-      propertyP2.owner = 1;  
-      propertyP1.owner = 2;
+    const propertyP1 = prev.tradedProperties.find((p) => p.owner === 1);
+    const propertyP2 = prev.tradedProperties.find((p) => p.owner === 2);
 
-      const newPlayer1Properties = prev.propertiesPlayer2.filter(
-        (p) => p.owner === 1
-      );
-      const newPlayer2Properties = prev.propertiesPlayer2.filter(
-        (p) => p.owner === 2
-      );
-      
-      return {
-        propertiesPlayer1: newPlayer1Properties,
-        propertiesPlayer2: newPlayer2Properties,
-        startATrade: false,
-      };
+    if (!propertyP1 || !propertyP2) {
+      console.warn("Need one property from each player before processing trade");
+      return prev;
     }
 
-    if (prev.currentPlayer === 2 && prev.startATrade === true) {
-      this.setPropertiesActive(prev.propertiesPlayer2);
+    const p1Without = prev.propertiesPlayer1.filter(
+      (p) => p.name !== propertyP1.name
+    );
+    const p2Without = prev.propertiesPlayer2.filter(
+      (p) => p.name !== propertyP2.name
+    );
 
-      propertyP1.owner = 2;
-      propertyP2.owner = 1;
+    const p1AfterTrade = [ ...p1Without, { ...propertyP2, owner: 1 }];
+    const p2AfterTrade = [...p2Without, { ...propertyP1, owner: 2 }];
 
-      const newPlayer2Properties = prev.propertiesPlayer1.filter(
-        (p) => p.owner === 2
-      );
-
-      const newPlayer1Properties = prev.propertiesPlayer1.filter(
-        (p) => p.owner === 1
-      );
-
-      return {
-        propertiesPlayer1: newPlayer1Properties,
-        propertiesPlayer2: newPlayer2Properties,
-        startATrade: false,        
-      };
-
-    }
-    return {};
+    return {
+      propertiesPlayer1: p1AfterTrade,
+      propertiesPlayer2: p2AfterTrade,
+      tradedProperties: [],
+      startATrade: false,
+    };
   });
+};
+
+handleDeclineTrade = () => {
+  this.setState((prev) => ({
+    tradedProperties: [],
+    startATrade: false
+  }));
 };
 
 
@@ -323,17 +310,20 @@ handleFinishTurn = () => {
 
         <div className='trade'>
         <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
-        <button onClick = {() => {
-          this.setState({startATrade: false})
-          this.state.tradedProperties = []
-          }
-        }
-          
-          >Finish Making a Trade</button>
+        <button
+        onClick={() => {
+          this.setState({
+            startATrade: false,
+            tradedProperties: [],
+          });
+        }}
+      >
+        Finish Making a Trade
+      </button>
 
         <button onClick = {() =>{
            
-          this.handleTrade()
+          this.handleAcceptTrade()
           
         }} >process trade</button>
         {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
@@ -345,8 +335,10 @@ handleFinishTurn = () => {
           <Board
             state={this.state}
             onSquareClick={this.handleUserTradeClick}
+            handleAcceptTrade = {this.handleAcceptTrade}
+            handleDeclineTrade = {this.handleDeclineTrade}
           />
-
+          
           {this.state.selectedPropertyBuy && (
             <Buy
               property = {this.state.selectedPropertyBuy}

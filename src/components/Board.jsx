@@ -9,7 +9,7 @@ import { properties } from "../containers/Properties.js";
 import DashBoard from "./DashBoard.jsx";
 
 
-export default function Board({ state, onSquareClick }) {
+export default function Board({ state, onSquareClick, handleAcceptTrade, handleDeclineTrade, handleTrade }) {
     
     const players = state.players;
     const [hoveredSquare, setHoveredSquare] = useState(null);
@@ -121,7 +121,7 @@ export default function Board({ state, onSquareClick }) {
                     />
                 </div>
 
-                <DashBoard state={state} />
+                <DashBoard state={state} handleAcceptTrade={handleAcceptTrade} handleDeclineTrade={handleDeclineTrade}/>
                 {hoveredSquare && (
                     <div className="tooltip">
                         <strong>{hoveredSquare.name}</strong>

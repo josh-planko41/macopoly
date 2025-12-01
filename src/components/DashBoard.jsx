@@ -3,7 +3,7 @@ import "../styles/Board.css";
 import { PlayersContext } from '../context/PlayersContext';
 
 
-function DashBoard({ state }) {
+function DashBoard({ state, handleAcceptTrade, handleDeclineTrade }) {
     const players = state.players;
     return (
         <div className="DashBoard">
@@ -70,6 +70,17 @@ function DashBoard({ state }) {
             <pre>
                 {state.propertiesPlayer2.map((property) => property.name)}
             </pre>
+           </div>
+
+
+           <div className="Balance">
+            <h2>Traded Properties: </h2>
+            <pre>
+                {state.tradedProperties.map((property) => property.name)}
+            </pre>
+
+            <button onClick={() => {handleAcceptTrade()}}>accept</button>
+            <button onClick={() => {handleDeclineTrade()}}>decline</button>
            </div>
         </div>
         
