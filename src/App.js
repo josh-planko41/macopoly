@@ -195,8 +195,6 @@ handleTrade = () => {
 };
 
 
-// I need to select a trade first, and then process the trade.
-
 handleUserTradeClick = (property) => {
   if (!this.state.startATrade) return;
   this.setState((prev) => {
@@ -208,8 +206,16 @@ handleUserTradeClick = (property) => {
 };
 
 
-
-
+handleSell = (property) => {
+  const price = property.price;
+  if (this.state.currentPlayer === 1) {
+    this.state.propertiesPlayer1 = this.removeProperty(this.state.propertiesPlayer1, property);
+    this.state.balancePlayer1 += price;
+  } else {
+    this.state.propertiesPlayer2 = this.removeProperty(this.state.propertiesPlayer2, property);
+    this.state.balancePlayer2 += price;
+  }
+};
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
@@ -238,7 +244,26 @@ handleConfirmPayRent = (rent) => {
 
 handleLookingForOtherOptions = (property) => {
   //TODO: This is just temporary code when the player cannot afford the rent. Add more features, such as liquidate properties and bankruptcy, later.
-  this.setState({ selectedPropertyPayRent : null });
+  // get price of the rent and prices of all properties owned by the player
+  const rent = this.getRentForSquares(property);
+  const isP1 = this.state.currentPlayer === 1;
+  const playerBalance = isP1 ? this.state.balancePlayer1 : this.state.balancePlayer2;
+  const playerProperties = isP1 ? this.state.propertiesPlayer1 : this.state.propertiesPlayer2;
+  if (playerBalance >= rent) {
+    alert("You can afford the rent! Please pay the rent.");
+    return;
+  }
+  else if (playerProperties.length === 0 && playerBalance < rent) {
+    alert("You have no properties to sell! You are bankrupt!");
+    return;
+  } else {
+    // sell selected property
+    <Board
+            state={this.state}
+            onSquareClick={this.handleSell()}
+          />
+  }
+  // this.setState({ selectedPropertyPayRent : null });
 }
 
 handleAcceptPayTax = (property) => {
@@ -302,81 +327,81 @@ handleFinishTurn = () => {
  }
 
 
-  render() {
-    const { showPlayerSelect, gameStarted, showCredits } = this.state;
-  
-    if (gameStarted) {
-      return (
-        <div className="App">
-          <Dice
-            state={this.state}
-            onRoll={(total, dice, isDoubles) => {
-              this.setState({
-                lastRoll: total,
-                lastDice: dice,
-                rolledDoubles: isDoubles,   
-              });
-              this.movePlayer(total);
-            }}
-            onFinishTurn={this.handleFinishTurn}
-          />
+render() {
+  const { showPlayerSelect, gameStarted, showCredits } = this.state;
 
-        <div className='trade'>
-        <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
-        <button onClick = {() => {
-          this.setState({startATrade: false})
-          this.state.tradedProperties = []
-          }
+  if (gameStarted) {
+    return (
+      <div className="App">
+        <Dice
+          state={this.state}
+          onRoll={(total, dice, isDoubles) => {
+            this.setState({
+              lastRoll: total,
+              lastDice: dice,
+              rolledDoubles: isDoubles,   
+            });
+            this.movePlayer(total);
+          }}
+          onFinishTurn={this.handleFinishTurn}
+        />
+
+      <div className='trade'>
+      <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
+      <button onClick = {() => {
+        this.setState({startATrade: false})
+        this.state.tradedProperties = []
         }
-          
-          >Finish Making a Trade</button>
+      }
+        
+        >Finish Making a Trade</button>
 
-        <button onClick = {() =>{
-           
-          this.handleTrade()
+      <button onClick = {() =>{
           
-        }} >process trade</button>
-        {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
-        <label >Opponent Player: {this.state.currentPlayer === 1 ? 2 : 1} do you accept this trade</label>
-        <button onClick = {() => this.setState({startATrade: false})}>yes</button>
-        <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
-        </div>
+        this.handleTrade()
+        
+      }} >process trade</button>
+      {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
+      <label >Opponent Player: {this.state.currentPlayer === 1 ? 2 : 1} do you accept this trade</label>
+      <button onClick = {() => this.setState({startATrade: false})}>yes</button>
+      <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
+      </div>
 
-          <Board
-            state={this.state}
-            onSquareClick={this.handleUserTradeClick}
+        <Board
+          state={this.state}
+          onSquareClick={this.handleUserTradeClick}
+        />
+
+        {this.state.selectedPropertyBuy && (
+          <Buy
+            property = {this.state.selectedPropertyBuy}
+            player = {this.state.players.find(
+              (p) => p.number === this.state.currentPlayer
+            )}
+            onConfirm = {this.handleConfirmBuy}
+            onCancel = {this.handleCancelBuy}
           />
+        )}
+        
 
-          {this.state.selectedPropertyBuy && (
-            <Buy
-              property = {this.state.selectedPropertyBuy}
-              player = {this.state.players.find(
-                (p) => p.number === this.state.currentPlayer
-              )}
-              onConfirm = {this.handleConfirmBuy}
-              onCancel = {this.handleCancelBuy}
-            />
-          )}
-          
+        {this.state.selectedPropertyPayRent && (
+          <PayRent
+            property = {this.state.selectedPropertyPayRent}
+            rent = {this.getRentForSquares(this.state.selectedPropertyPayRent)} // To Be Changed, actual rent payment will be determined by many factors
+            onConfirm = {this.handleConfirmPayRent}
+            onLookingForOtherOptions = {this.handleLookingForOtherOptions}
+          />
+        )}
 
-          {this.state.selectedPropertyPayRent && (
-            <PayRent
-              property = {this.state.selectedPropertyPayRent}
-              rent = {this.getRentForSquares(this.state.selectedPropertyPayRent)} // To Be Changed, actual rent payment will be determined by many factors
-              onConfirm = {this.handleConfirmPayRent}
-              onLookingForOtherOptions = {this.handleLookingForOtherOptions}
-            />
-          )}
-
-          {this.state.selectedPropertyPayTax && (
-            <PayTax
-              property = {this.state.selectedPropertyPayTax}
-              onAccept = {this.handleAcceptPayTax}
-            />
-          )}
-        </div>
-      );
-    }
+        {this.state.selectedPropertyPayTax && (
+          <PayTax
+            property = {this.state.selectedPropertyPayTax}
+            onAccept = {this.handleAcceptPayTax}
+          />
+        )}
+      </div>
+    );
+  }
   
     if (showPlayerSelect) {
       return (
@@ -401,6 +426,7 @@ handleFinishTurn = () => {
     );
   }
 }
+
 
 export default App;
 
