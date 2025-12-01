@@ -37,6 +37,7 @@ class App extends Component {
     propertiesPlayer2: [],
 
     //added trade required variables
+    startATrade: false,
     player1PropesedProperty: null,
     player2PropesedProperty: null,
     tradedProperties: [],
