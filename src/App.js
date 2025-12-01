@@ -34,7 +34,12 @@ class App extends Component {
     //added trade required variables
     showMakeATrade: false,
     propertiesPlayer1: [],
-    propertiesPlayer2: []
+    propertiesPlayer2: [],
+
+    //added trade required variables
+    player1PropesedProperty: null,
+    player2PropesedProperty: null,
+    tradedProperties: [],
   };
 
   // handleMakeATrade = () => {
@@ -119,12 +124,98 @@ handleConfirmBuy = (player, property) => {
   });
 };
 
+setPropertiesActive = (properties) => {
+  for (let i = 0; i < properties.length; i++) {
+    properties[i].isActive = true;
+  }
+}
+
+setPropertiesInactive = (properties) => {
+  for (let i = 0; i < properties.length; i++) {
+    properties[i].isActive = false;
+  }
+}
+
+
+removeProperty = (properties, property) => {
+  return properties.filter((p) => p.name !== property.name);
+};
+
+  
+handleTrade = () => {
+ 
+ this.setState((prev) => {
+  const propertyP1 = prev.tradedProperties.find(p => p.owner === 1);
+  const propertyP2 = prev.tradedProperties.find(p => p.owner === 2);
+
+    if (prev.currentPlayer === 1 && prev.startATrade === true) {
+  
+      this.setPropertiesActive(prev.propertiesPlayer1);
+      propertyP2.owner = 1;  
+      propertyP1.owner = 2;
+
+      const newPlayer1Properties = prev.propertiesPlayer2.filter(
+        (p) => p.owner === 1
+      );
+      const newPlayer2Properties = prev.propertiesPlayer2.filter(
+        (p) => p.owner === 2
+      );
+      
+      return {
+        propertiesPlayer1: newPlayer1Properties,
+        propertiesPlayer2: newPlayer2Properties,
+        startATrade: false,
+      };
+    }
+
+    if (prev.currentPlayer === 2 && prev.startATrade === true) {
+      this.setPropertiesActive(prev.propertiesPlayer2);
+
+      propertyP1.owner = 2;
+      propertyP2.owner = 1;
+
+      const newPlayer2Properties = prev.propertiesPlayer1.filter(
+        (p) => p.owner === 2
+      );
+
+      const newPlayer1Properties = prev.propertiesPlayer1.filter(
+        (p) => p.owner === 1
+      );
+
+      return {
+        propertiesPlayer1: newPlayer1Properties,
+        propertiesPlayer2: newPlayer2Properties,
+        startATrade: false,        
+      };
+
+    }
+    return {};
+  });
+};
+
+
+// I need to select a trade first, and then process the trade.
+
+handleUserTradeClick = (property) => {
+  if (!this.state.startATrade) return;
+  this.setState((prev) => {
+    const updated = [...prev.tradedProperties, property];
+    console.log("updated tradedProperties", updated);
+    return { tradedProperties: updated };
+    
+  });
+};
+
+
+
+
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
 
 handleConfirmPayRent = (rent) => {
   this.setState(prev => {
+
     const payerIsP1 = prev.currentPlayer === 1;
 
     const balancePlayer1 = prev.balancePlayer1;
@@ -229,9 +320,31 @@ handleFinishTurn = () => {
             onFinishTurn={this.handleFinishTurn}
           />
 
-          < MakeATrade />
+        <div className='trade'>
+        <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
+        <button onClick = {() => {
+          this.setState({startATrade: false})
+          this.state.tradedProperties = []
+          }
+        }
+          
+          >Finish Making a Trade</button>
 
-          <Board state={this.state} />
+        <button onClick = {() =>{
+           
+          this.handleTrade()
+          
+        }} >process trade</button>
+        {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
+        <label >Opponent Player: {this.state.currentPlayer === 1 ? 2 : 1} do you accept this trade</label>
+        <button onClick = {() => this.setState({startATrade: false})}>yes</button>
+        <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
+        </div>
+
+          <Board
+            state={this.state}
+            onSquareClick={this.handleUserTradeClick}
+          />
 
           {this.state.selectedPropertyBuy && (
             <Buy
@@ -243,6 +356,7 @@ handleFinishTurn = () => {
               onCancel = {this.handleCancelBuy}
             />
           )}
+          
 
           {this.state.selectedPropertyPayRent && (
             <PayRent
@@ -288,3 +402,4 @@ handleFinishTurn = () => {
 }
 
 export default App;
+

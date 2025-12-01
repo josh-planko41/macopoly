@@ -3,12 +3,14 @@
  * Displays the game board with properties and player pawns
  */
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Board.css";
 import { properties } from "../containers/Properties.js";
 import DashBoard from "./DashBoard.jsx";
 
-export default function Board({ state }) {
+
+export default function Board({ state, onSquareClick }) {
+    
     const players = state.players;
     const [hoveredSquare, setHoveredSquare] = useState(null);
 
@@ -36,6 +38,8 @@ export default function Board({ state }) {
         const col = i % 11;
 
         const propIndex = propertyIndexForCell(row, col);
+
+
         if (propIndex !== null && properties[propIndex]) {
             const square = properties[propIndex];
             return (
@@ -46,10 +50,16 @@ export default function Board({ state }) {
                         backgroundColor: square.color,
                         color: square.color === "black" ? "white" : "black",
                     }}
+
                     onMouseEnter={() => setHoveredSquare(properties[propIndex])}
                     onMouseLeave={() => setHoveredSquare(null)}
+                    onClick={() => {
+                    if (onSquareClick) {
+                        onSquareClick(properties[propIndex]);
+                    }
+                }}
                 >
-                    <div className="square-name">{square.name}</div>
+                    <div className="square-name">{properties[propIndex].name}</div>
                     
                     {square.owner === null 
                         ? <div className="square-price">
@@ -126,3 +136,7 @@ export default function Board({ state }) {
             </div>
     );
 }
+
+
+
+

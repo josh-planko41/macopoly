@@ -1,8 +1,17 @@
 
-export default function MakeATrade(params) {
+export default function MakeATrade({handleTrade}) {
     return(
     <div>
-        <button onClick={params.onMakeATrade}>Make a Trade</button>
+        <button onClick = { () => handleTrade}>Make a Trade</button>
     </div>
     );
 }
+
+
+
+
+
+
+
+
+
