@@ -208,8 +208,6 @@ handleUserTradeClick = (property) => {
 };
 
 
-
-
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
@@ -278,21 +276,34 @@ handleFinishTurn = () => {
  getRentForSquares = (square) =>{
 
   if (square.color === 'gray'){
-
     const count = this.getRailroadsOwnedCount(square.owner);
     const rentTable = [25, 50, 100, 200];
     const index = count - 1;
-
     return rentTable[index];
   }
-
   if (square.baseRent) {
     //Temporary
     const baseRent = square.baseRent;
-
+    
     return baseRent;
   }
+ }
 
+ checkOwnedSet = () =>{
+
+  const colors = ["#8E7CC3", "#6EA8DC", "#C27BA0", "#F7B16B", "red", "#FFFF00", "#92C47D", "#3B77D8"];
+  const buildable = [];
+
+  for (const color of colors) {
+    const group = properties.filter(p => p.color === color);
+    const ownsGroup = group.every(p => p.owner === this.state.currentPlayer);
+
+    if (ownsGroup) {
+      buildable.push(color);
+    }
+  }
+
+  return buildable;
  }
 
  getRailroadsOwnedCount = (owner) => {
