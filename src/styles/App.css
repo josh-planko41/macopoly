@@ -358,7 +358,7 @@
   cursor: pointer;
 }
 
-.buildHousesNotAllowed-window {
+.build-floors-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -370,4 +370,26 @@
   z-index: 2000;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.color-choice-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  background: #f3f3f3;
+  transition: background 0.2s ease;
+}
+
+.color-choice-button:hover {
+  background: #e8e8e8;
+}
+
+.color-choice-button:active {
+  background: #dcdcdc;
 }

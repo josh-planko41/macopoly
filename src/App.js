@@ -11,6 +11,7 @@ import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
 import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
+import BuildFloors from './components/BuildFloors.js';
 
 class App extends Component {
   state = {
@@ -30,6 +31,9 @@ class App extends Component {
     square: null,
     lastDice: [1, 1],
     lastRoll: 2,
+
+    //Build Floors variables
+    showBuildFloors: false,
 
     //added trade required variables
     showMakeATrade: false,
@@ -380,6 +384,12 @@ render() {
       <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
       </div>
 
+
+      {/* Build Houses */}
+      <button onClick={() => this.setState({showBuildFloors: true})}>
+        Build Floors
+      </button>
+
         <Board
           state={this.state}
           onSquareClick={this.handleUserTradeClick}
@@ -412,6 +422,15 @@ render() {
             onAccept = {this.handleAcceptPayTax}
           />
         )}
+
+        {this.state.showBuildFloors && (
+          <BuildFloors
+            buildableSets = {this.checkOwnedSet()}
+            properties={properties}
+            onClose={() => this.setState({showBuildFloors: false})}
+          />
+        )}
+
       </div>
     );
   }
