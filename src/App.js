@@ -326,10 +326,6 @@ handleFinishTurn = () => {
   return buildable;
  }
 
-  buildAFloor = (square) =>{
-    square.floors++;
-  }
-
  getRailroadsOwnedCount = (owner) => {
   return properties.filter(function (sq) {
     return sq.color === 'gray' && sq.owner === owner;
@@ -380,6 +376,8 @@ render() {
         <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
         </div>
 
+        <button onClick={() => this.setState({showBuildFloors: true})}>Build Floors</button>
+
           <Board
             state={this.state}
             onSquareClick={this.handleUserTradeClick}
@@ -419,7 +417,6 @@ render() {
           <BuildFloors
             buildableSets = {this.checkOwnedSet()}
             properties={properties}
-            onBuild={() => this.buildAFloor()}
             onClose={() => this.setState({showBuildFloors: false})}
           />
         )}
