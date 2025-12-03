@@ -22,7 +22,7 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     setNewImage2(diceImages[randomNum2]);
     setCount(randomNum1 + randomNum2);
     setHasRolled(true);
-    if (randomNum1 % 2 == 0 && randomNum2 % 2 == 0) {
+    if (randomNum1 == randomNum2) {
       rolledDoubles = true;
     }
     if (onRoll) {
@@ -58,3 +58,7 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     </div>
   );
 }
+
+
+
+

@@ -57,8 +57,43 @@ function DashBoard({ state }) {
                 {state.rolledDoubles  == true ? "Yes" : "No"}
             </pre>
            </div>
+           
+           <div className="Balance">
+            <h2>Player 1 Properties: </h2>
+            <pre>
+                {state.propertiesPlayer1.map((property) => property.name)}
+            </pre>
+           </div>
+
+           <div className="Balance">
+            <h2>Player 2 Properties: </h2>
+            <pre>
+                {state.propertiesPlayer2.map((property) => property.name)}
+            </pre>
+           </div>
         </div>
         
     );
 }
 export default DashBoard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
