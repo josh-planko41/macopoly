@@ -337,6 +337,10 @@ handleFinishTurn = () => {
   return buildable;
  }
 
+  buildAFloor = (square) =>{
+    square.floors++;
+  }
+
  getRailroadsOwnedCount = (owner) => {
   return properties.filter(function (sq) {
     return sq.color === 'gray' && sq.owner === owner;
@@ -427,6 +431,7 @@ render() {
           <BuildFloors
             buildableSets = {this.checkOwnedSet()}
             properties={properties}
+            onBuild={() => this.buildAFloor()}
             onClose={() => this.setState({showBuildFloors: false})}
           />
         )}

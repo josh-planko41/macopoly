@@ -72,7 +72,8 @@ export default function Board({ state, onSquareClick }) {
                         : <div className="square-rent">
                             {square.baseRent != null && (
                                 <>
-                                    {`Rent: ${square.baseRent}FP`}
+                                    {`Rent: ${square.baseRent}FP`}<br />
+                                    {`Floors: ${square.floors}`}
                                 </>
                             )}
                         </div>

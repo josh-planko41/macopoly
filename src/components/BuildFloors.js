@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function BuildFloors({buildableSets, properties, onClose}){
+export default function BuildFloors({buildableSets, properties, onBuild, onClose}){
 
 
     const [selectedColor, setSelectedColor] = useState(null);
@@ -89,6 +89,7 @@ export default function BuildFloors({buildableSets, properties, onClose}){
                 {buildableProps.map((p) => (
                     <li key={p.id}>
                     {p.name} – currently {p.floors || 0} floors
+                    <button onClick={onBuild(p)}>Build a floor on this</button>
                     </li>
                 ))}
                 </ul>
