@@ -11,6 +11,7 @@ import Buy from "./components/Buy.js";
 import PayRent from './components/PayRent.js';
 import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
+import BuildFloors from './components/BuildFloors.js';
 
 class App extends Component {
   state = {
@@ -30,6 +31,9 @@ class App extends Component {
     square: null,
     lastDice: [1, 1],
     lastRoll: 2,
+
+    //Build Floors variables
+    showBuildFloors: false,
 
     //added trade required variables
     showMakeATrade: false,
@@ -195,8 +199,16 @@ handleUserTradeClick = (property) => {
 };
 
 
-
-
+handleSell = (property) => {
+  const price = property.price;
+  if (this.state.currentPlayer === 1) {
+    this.state.propertiesPlayer1 = this.removeProperty(this.state.propertiesPlayer1, property);
+    this.state.balancePlayer1 += price;
+  } else {
+    this.state.propertiesPlayer2 = this.removeProperty(this.state.propertiesPlayer2, property);
+    this.state.balancePlayer2 += price;
+  }
+};
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
@@ -225,7 +237,26 @@ handleConfirmPayRent = (rent) => {
 
 handleLookingForOtherOptions = (property) => {
   //TODO: This is just temporary code when the player cannot afford the rent. Add more features, such as liquidate properties and bankruptcy, later.
-  this.setState({ selectedPropertyPayRent : null });
+  // get price of the rent and prices of all properties owned by the player
+  const rent = this.getRentForSquares(property);
+  const isP1 = this.state.currentPlayer === 1;
+  const playerBalance = isP1 ? this.state.balancePlayer1 : this.state.balancePlayer2;
+  const playerProperties = isP1 ? this.state.propertiesPlayer1 : this.state.propertiesPlayer2;
+  if (playerBalance >= rent) {
+    alert("You can afford the rent! Please pay the rent.");
+    return;
+  }
+  else if (playerProperties.length === 0 && playerBalance < rent) {
+    alert("You have no properties to sell! You are bankrupt!");
+    return;
+  } else {
+    // sell selected property
+    <Board
+            state={this.state}
+            onSquareClick={this.handleSell()}
+          />
+  }
+  // this.setState({ selectedPropertyPayRent : null });
 }
 
 handleAcceptPayTax = (property) => {
@@ -265,21 +296,34 @@ handleFinishTurn = () => {
  getRentForSquares = (square) =>{
 
   if (square.color === 'gray'){
-
     const count = this.getRailroadsOwnedCount(square.owner);
     const rentTable = [25, 50, 100, 200];
     const index = count - 1;
-
     return rentTable[index];
   }
-
   if (square.baseRent) {
     //Temporary
     const baseRent = square.baseRent;
-
+    
     return baseRent;
   }
+ }
 
+ checkOwnedSet = () =>{
+
+  const colors = ["#8E7CC3", "#6EA8DC", "#C27BA0", "#F7B16B", "red", "#FFFF00", "#92C47D", "#3B77D8"];
+  const buildable = [];
+
+  for (const color of colors) {
+    const group = properties.filter(p => p.color === color);
+    const ownsGroup = group.every(p => p.owner === this.state.currentPlayer);
+
+    if (ownsGroup) {
+      buildable.push(color);
+    }
+  }
+
+  return buildable;
  }
 
  getRailroadsOwnedCount = (owner) => {
@@ -289,24 +333,24 @@ handleFinishTurn = () => {
  }
 
 
-  render() {
-    const { showPlayerSelect, gameStarted, showCredits } = this.state;
-  
-    if (gameStarted) {
-      return (
-        <div className="App">
-          <Dice
-            state={this.state}
-            onRoll={(total, dice, isDoubles) => {
-              this.setState({
-                lastRoll: total,
-                lastDice: dice,
-                rolledDoubles: isDoubles,   
-              });
-              this.movePlayer(total);
-            }}
-            onFinishTurn={this.handleFinishTurn}
-          />
+render() {
+  const { showPlayerSelect, gameStarted, showCredits } = this.state;
+
+  if (gameStarted) {
+    return (
+      <div className="App">
+        <Dice
+          state={this.state}
+          onRoll={(total, dice, isDoubles) => {
+            this.setState({
+              lastRoll: total,
+              lastDice: dice,
+              rolledDoubles: isDoubles,   
+            });
+            this.movePlayer(total);
+          }}
+          onFinishTurn={this.handleFinishTurn}
+        />
 
         <div className='trade'>
         <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
@@ -351,24 +395,33 @@ handleFinishTurn = () => {
           )}
           
 
-          {this.state.selectedPropertyPayRent && (
-            <PayRent
-              property = {this.state.selectedPropertyPayRent}
-              rent = {this.getRentForSquares(this.state.selectedPropertyPayRent)} // To Be Changed, actual rent payment will be determined by many factors
-              onConfirm = {this.handleConfirmPayRent}
-              onLookingForOtherOptions = {this.handleLookingForOtherOptions}
-            />
-          )}
+        {this.state.selectedPropertyPayRent && (
+          <PayRent
+            property = {this.state.selectedPropertyPayRent}
+            rent = {this.getRentForSquares(this.state.selectedPropertyPayRent)} // To Be Changed, actual rent payment will be determined by many factors
+            onConfirm = {this.handleConfirmPayRent}
+            onLookingForOtherOptions = {this.handleLookingForOtherOptions}
+          />
+        )}
 
-          {this.state.selectedPropertyPayTax && (
-            <PayTax
-              property = {this.state.selectedPropertyPayTax}
-              onAccept = {this.handleAcceptPayTax}
-            />
-          )}
-        </div>
-      );
-    }
+        {this.state.selectedPropertyPayTax && (
+          <PayTax
+            property = {this.state.selectedPropertyPayTax}
+            onAccept = {this.handleAcceptPayTax}
+          />
+        )}
+
+        {this.state.showBuildFloors && (
+          <BuildFloors
+            buildableSets = {this.checkOwnedSet()}
+            properties={properties}
+            onClose={() => this.setState({showBuildFloors: false})}
+          />
+        )}
+
+      </div>
+    );
+  }
   
     if (showPlayerSelect) {
       return (
@@ -393,6 +446,7 @@ handleFinishTurn = () => {
     );
   }
 }
+
 
 export default App;
 
