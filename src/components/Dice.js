@@ -24,6 +24,7 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     setHasRolled(true);
     if (randomNum1 == randomNum2) {
       rolledDoubles = true;
+      setHasRolled(false);
     }
     if (onRoll) {
       onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2], rolledDoubles);
