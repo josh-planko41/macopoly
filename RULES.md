@@ -1,6 +1,6 @@
 # Rules
 
-2 
+2 players, 30-120 minutes. 
 
 ## Setting Up the Game
 
