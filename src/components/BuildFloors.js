@@ -37,6 +37,20 @@ export default function BuildFloors({buildableSets, properties, onBuild, onClose
         return map[color] || color;
     }
 
+    function getFloorCost(color) {
+        const costs = {
+        "#8E7CC3": 50,  // Purple
+        "#6EA8DC": 50,  // Light Blue
+        "#C27BA0": 100, // Pink
+        "#F7B16B": 100, // Orange
+        "red": 150,     // Red
+        "#FFFF00": 150, // Yellow
+        "#92C47D": 200, // Green
+        "#3B77D8": 200, // Navy Blue
+        };
+        return costs[color] || 50; // Default price if color not found
+    }   
+
     if (!buildableSets || buildableSets.length === 0) {
         return (
             <div className="build-floors-modal">
@@ -51,23 +65,18 @@ export default function BuildFloors({buildableSets, properties, onBuild, onClose
         return (
             <div className="build-floors-modal">
                 <h2>Choose a color to build on</h2>
-
+                {/* ... existing color buttons map ... */}
                 {buildableSets.map((color) => (
                     <button
-                    key={color}
-                    className="color-choice-button"
-                    onClick={() => setSelectedColor(color)}
-                    style={{
-                        backgroundColor: color,
-                        height: "40px",
-                        borderRadius: "6px",
-                        marginBottom: "10px",
-                        border: "none",
-                        cursor: "pointer"
-                    }}
-                    >{getColorName(color)}</button>
+                        key={color}
+                        className="color-choice-button"
+                        onClick={() => setSelectedColor(color)}
+                        style={{ backgroundColor: color, /* ...styles... */ }}
+                    >
+                        {getColorName(color)} - Cost: {getFloorCost(color)} FP
+                    </button>
                 ))}
-
+                
                 <div style={{ marginTop: "1rem" }}>
                     <button onClick={onClose}>Cancel</button>
                 </div>
@@ -77,32 +86,60 @@ export default function BuildFloors({buildableSets, properties, onBuild, onClose
 
     // screen 2: show properties for the chosen color
     const buildableProps = getBuildablePropertiesForColor(selectedColor);
+    const cost = getFloorCost(selectedColor);
 
     return (
         <div className="build-floors-modal">
-            <h2>{getColorName(selectedColor)} properties you can build on</h2>
+            <h2>{getColorName(selectedColor)}</h2>
+            <p>Cost per floor: <strong>{cost} FP</strong></p>
 
-            {buildableProps.length === 0 ? (
-                <p>You can’t build any Floors on this color right now.</p>
+            <div style={{ textAlign: "left", display:"inline-block" }}>
+                {buildableProps.length === 0 ? (
+                    <p>You must build evenly! Switch to the other property in this group.</p>
                 ) : (
-                <ul>
-                {buildableProps.map((p) => (
-                    <li key={p.id}>
-                    {p.name} – currently {p.floors || 0} floors
-                    </li>
-                ))}
-                </ul>
-            )}
+                    <ul style={{ listStyle: "none", padding: 0 }}>
+                    {properties
+                        .filter(p => p.color === selectedColor)
+                        .map((p) => {
+                            const isBuildable = buildableProps.includes(p);
+                            return (
+                                <li key={p.index} style={{ marginBottom: "15px", borderBottom:"1px solid #eee", paddingBottom:"10px" }}>
+                                    <div style={{fontWeight:"bold"}}>{p.name}</div>
+                                    <div>Current Floors: {p.floors || 0}</div>
+                                    
+                                    {isBuildable ? (
+                                        <button 
+                                            style={{
+                                                marginTop: "5px",
+                                                backgroundColor: "#28a745",
+                                                color: "white",
+                                                padding: "5px 10px",
+                                                border: "none",
+                                                borderRadius: "4px",
+                                                cursor: "pointer"
+                                            }}
+                                            onClick={() => onBuild(p)}
+                                        >
+                                            Build Floor (-{cost} FP)
+                                        </button>
+                                    ) : (
+                                        <span style={{ fontSize: "0.8em", color: "gray" }}>
+                                            (Build on other properties first)
+                                        </span>
+                                    )}
+                                </li>
+                            );
+                    })}
+                    </ul>
+                )}
+            </div>
 
-            <div style={{ marginTop: "1rem" }}>
+            <div style={{ marginTop: "1rem", borderTop: "2px solid black", paddingTop: "10px" }}>
                 <button onClick={() => setSelectedColor(null)}>Back to colors</button>
                 <button onClick={onClose} style={{ marginLeft: "0.5rem" }}>Done</button>
             </div>
         </div>
     );
-
-
-
 
 
 

@@ -332,6 +332,51 @@ handleFinishTurn = () => {
   }).length;
  }
 
+ getFloorCost = (color) => {
+    const costs = {
+      "#8E7CC3": 50,  // Purple
+      "#6EA8DC": 50,  // Light Blue
+      "#C27BA0": 100, // Pink
+      "#F7B16B": 100, // Orange
+      "red": 150,
+      "#FFFF00": 150, // Yellow
+      "#92C47D": 200, // Green
+      "#3B77D8": 200, // Navy Blue
+    };
+    return costs[color] || 100; // Default fallback
+  }
+
+ handleBuildFloor = (property) => {
+    const cost = this.getFloorCost(property.color);
+    const isP1 = this.state.currentPlayer === 1;
+    const currentBalance = isP1 ? this.state.balancePlayer1 : this.state.balancePlayer2;
+
+    // 1. Check if player has enough money
+    if (currentBalance < cost) {
+      alert(`You need ${cost} FP to build a floor here.`);
+      return;
+    }
+
+    // 2. Check max floors (usually 4 houses + 1 hotel, or just 5 floors)
+    if ((property.floors || 0) >= 4) {
+      alert("Maximum floors reached for this property.");
+      return;
+    }
+
+    // 3. Deduct balance and update property
+    // Note: We are mutating the property object directly as per your existing pattern
+    property.floors = (property.floors || 0) + 1;
+    
+    // Calculate rent increase (simple example logic, adjust as needed)
+    property.baseRent = property.baseRent + (cost / 2); 
+
+    this.setState((prev) => ({
+      balancePlayer1: isP1 ? prev.balancePlayer1 - cost : prev.balancePlayer1,
+      balancePlayer2: !isP1 ? prev.balancePlayer2 - cost : prev.balancePlayer2,
+
+    }));
+  };
+
 
 render() {
   const { showPlayerSelect, gameStarted, showCredits } = this.state;
@@ -415,9 +460,15 @@ render() {
 
         {this.state.showBuildFloors && (
           <BuildFloors
-            buildableSets = {this.checkOwnedSet()}
+            buildableSets={this.checkOwnedSet()}
             properties={properties}
-            onClose={() => this.setState({showBuildFloors: false})}
+            currentPlayerBalance={
+                this.state.currentPlayer === 1 
+                ? this.state.balancePlayer1 
+                : this.state.balancePlayer2
+            }
+            onBuild={this.handleBuildFloor}  // Pass the handler
+            onClose={() => this.setState({ showBuildFloors: false })}
           />
         )}
 
