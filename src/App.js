@@ -17,7 +17,7 @@ import GameOver from './GameOver.js';
 class App extends Component {
   state = {
     balancePlayer1: 1500,
-    balancePlayer2: 10,
+    balancePlayer2: 1500,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
