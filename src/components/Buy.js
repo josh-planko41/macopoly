@@ -6,7 +6,7 @@ export default function Buy({player, property, onConfirm, onCancel}){
     return(
         <div className="buy-window">
             <h3>Would you like to buy {property.name}?</h3>
-            <p>The price is {property.price}</p>
+            <p>The price is {property.price} FP</p>
             <button onClick={() => onConfirm(player, property)}>Buy</button>
             <button onClick={() => onCancel()}>Cancel</button>     
         </div>

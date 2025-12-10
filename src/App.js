@@ -12,6 +12,7 @@ import PayRent from './components/PayRent.js';
 import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
+import GameOver from './GameOver.js';
 
 class App extends Component {
   state = {
@@ -25,6 +26,7 @@ class App extends Component {
     selectedPropertyPayTax : null,
     showCredits: false,
     rolledDoubles: false,
+    gameOver: false,
 
     // Added simple game state
     currentPlayer: 1,
@@ -127,6 +129,7 @@ handleConfirmBuy = (player, property) => {
       propertiesPlayer2: !isP1 ? [...prev.propertiesPlayer2, property] : prev.propertiesPlayer2,
     };
   });
+  this.handleGameOver();
 };
 
 setPropertiesActive = (properties) => {
@@ -199,6 +202,17 @@ handleUserTradeClick = (property) => {
 };
 
 
+handleGameOver = () => {
+  
+  if (this.state.balancePlayer1 <= 0 || this.state.balancePlayer2 <= 0) {
+    this.setState({gameOver: true});
+    return;
+  }
+}
+
+
+
+
 handleSell = (property) => {
   const price = property.price;
   if (this.state.currentPlayer === 1) {
@@ -208,6 +222,8 @@ handleSell = (property) => {
     this.state.propertiesPlayer2 = this.removeProperty(this.state.propertiesPlayer2, property);
     this.state.balancePlayer2 += price;
   }
+
+  this.handleGameOver();
 };
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
@@ -233,6 +249,7 @@ handleConfirmPayRent = (rent) => {
       selectedPropertyPayRent : null,
     }
   })
+  this.handleGameOver();
 };
 
 handleLookingForOtherOptions = (property) => {
@@ -281,14 +298,20 @@ handleAcceptPayTax = (property) => {
       selectedPropertyPayTax : null,
     }
   })
+
+  this.handleGameOver();
 }
 
 // Flip turn only when player clicks "Finish Turn"
 handleFinishTurn = () => {
+  this.handleGameOver()
+
   this.setState(prev => ({
+
     currentPlayer: prev.currentPlayer === 1 ? 2 : 1,
     // optional: keep square highlight or clear it
     square: prev.square,
+    
   }));
   console.log(this.state.rolledDoubles)
 };
@@ -379,8 +402,12 @@ handleFinishTurn = () => {
 
 
 render() {
-  const { showPlayerSelect, gameStarted, showCredits } = this.state;
-
+  const { showPlayerSelect, gameStarted, showCredits, gameOver } = this.state;
+  if(gameOver){
+    return(
+      <GameOver />
+    )
+  }
   if (gameStarted) {
     return (
       <div className="App">
@@ -441,7 +468,6 @@ render() {
             />
           )}
           
-
         {this.state.selectedPropertyPayRent && (
           <PayRent
             property = {this.state.selectedPropertyPayRent}

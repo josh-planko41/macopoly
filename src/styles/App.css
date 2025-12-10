@@ -391,3 +391,35 @@
 .color-choice-button:active {
   background: #dcdcdc;
 }
+
+
+
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+}
+
+.game-over-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.game-over-message {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.game-over-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
