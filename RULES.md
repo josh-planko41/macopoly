@@ -1,8 +1,11 @@
 # Rules
 
-This will be the markdown file with the rules of the game. For now, I am hyperlinking the video that I am watching in order to complete a rough base version of a board game before we get down to the logic of everything. 
+2 players, 30-120 minutes. 
 
-[Newb Quest - Build a Board Games with React - Front-end-opoly](https://www.youtube.com/watch?v=zUkrx1Vd1G4)
+## Setting Up the Game
 
-Dice Video
-https://youtu.be/u-o30eBK3xs?si=hIFfRxiJ72mPuaXZ
+Welcome the Macopoly! This game is based off of the hit board game Monopoly, with a Macalester twist! To start, press the "Play!" button on the intro screen. This will bring you to the player select screen. Once on the player select screen, Player 1 will select their pawn of choice. Player 2 will follow suit, but be carfeul, don't pick the same pawn! Once both players select their pawns, press "Start" to begin the game. 
+
+## Starting the Game 
+
+Player 1 goes first. Click the "Roll Dice" button to roll your dice. Your pawn will move accordingly to the amount rolled. 
