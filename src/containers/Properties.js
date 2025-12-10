@@ -27,10 +27,10 @@ const properties = [
     {index : 13, name : "George Draper Dayton Hall", color : "#C27BA0", price : 140, baseRent: 10, floors: 0, owner: null, isActive:false},
     {index : 14, name : "Grand Cambridge Apartments", color : "#C27BA0", price : 160, baseRent: 12, floors: 0, owner: null, isActive:false},
     {index : 15, name : "A Line", color : "gray", price : 200, owner: null, isActive:false},
-    {index : 16, name : "Humanities", color : "#F7B16B", price : 180, baseRent: 14, floors: 0, owner: 1, isActive:false},
+    {index : 16, name : "Humanities", color : "#F7B16B", price : 180, baseRent: 14, floors: 0, owner: null, isActive:false},
     {index : 17, name : "Community Chest", color : "white", isActive:false},
-    {index : 18, name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B", price : 180, floors: 0, baseRent: 16, owner: 1, isActive:false},
-    {index : 19, name : "Carnegie Hall", color : "#F7B16B", price : 200, baseRent: 18, floors: 0, owner: 1, isActive:false},
+    {index : 18, name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B", price : 180, floors: 0, baseRent: 16, owner: null, isActive:false},
+    {index : 19, name : "Carnegie Hall", color : "#F7B16B", price : 200, baseRent: 18, floors: 0, owner: null, isActive:false},
     
     // bottom row of properties, right -> left
     {index : 20, name : "Free Parking", color : "white", isActive:false},
@@ -52,9 +52,9 @@ const properties = [
     {index : 34, name : "Campus Center", color : "#92C47D", price : 320, baseRent: 28, floors: 0, owner: null, isActive:false},
     {index : 35, name : "Green Line", color : "gray", price : 200, owner: null, isActive:false},
     {index : 36, name : "Chance", color : "white", isActive:false},
-    {index : 37, name : "Janet Wallace Fine Arts Center", color : "#3B77D8", price : 350, baseRent: 35, floors: 0, owner: 1, isActive:false},
+    {index : 37, name : "Janet Wallace Fine Arts Center", color : "#3B77D8", price : 350, baseRent: 35, floors: 0, owner: null, isActive:false},
     {index : 38, name : "MacBooks", color : "white", taxAmount : 75, isActive:false},
-    {index : 39, name : "Leonard Center", color : "#3B77D8", price : 400, baseRent: 50, floors: 0, owner: 1, isActive:false},
+    {index : 39, name : "Leonard Center", color : "#3B77D8", price : 400, baseRent: 50, floors: 0, owner: null, isActive:false},
     
 ];
 
