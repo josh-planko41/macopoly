@@ -85,6 +85,21 @@ class App extends Component {
     const others = prevState.players.filter(p => p.number !== prevState.currentPlayer);
 
     const newLocation = (active.location + total) % BOARD.length;
+    const passedGo = newLocation < active.location;
+
+    const balanceP1 = prevState.balancePlayer1;
+    const balanceP2 = prevState.balancePlayer2;
+
+    const updatedBalanceP1 =
+      prevState.currentPlayer === 1 && passedGo
+        ? balanceP1 + 200
+        : balanceP1;
+
+    const updatedBalanceP2 =
+      prevState.currentPlayer === 2 && passedGo
+        ? balanceP2 + 200
+        : balanceP2;
+    
     const landingSquare = BOARD[newLocation];
     const landingType = landingSquare?.type ?? landingSquare?.color;
     const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
@@ -97,6 +112,9 @@ class App extends Component {
 
     return {
       players: [...others, updated].sort((a, b) => a.number - b.number),
+      balancePlayer1: updatedBalanceP1,
+      balancePlayer2: updatedBalanceP2,
+
       square: {
         name_sqaure: BOARD[newLocation].name,
         last_move: {
@@ -104,6 +122,7 @@ class App extends Component {
           final_square: BOARD[newLocation].name
         },
       },
+      
       lastRoll: total,
       selectedPropertyBuy: landingSquare.price && !landingSquare.owner ? landingSquare : null,
       selectedPropertyPayRent: landingSquare.owner && landingSquare.owner != prevState.currentPlayer ? landingSquare : null,
