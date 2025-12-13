@@ -3,6 +3,16 @@ import "../styles/Board.css";
 import { PlayersContext } from '../context/PlayersContext';
 
 
+
+/**
+ * DashBoard Component
+ * Displays the game board with properties and player pawns. Uses state provided as props to show relevant game details for the users. 
+ * Allows users to accept and decline trade forms inside the dashboard.
+ * @param {Object} state - game state object
+ * @param {Function} handleAcceptTrade - function to handle accepting a trade
+ * @param {Function} handleDeclineTrade - function to handle declining a trade
+ * @returns {JSX.Element}
+ */
 function DashBoard({ state, handleAcceptTrade, handleDeclineTrade }) {
     const players = state.players;
     return (

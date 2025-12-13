@@ -3,6 +3,20 @@ import '../styles/App.css';
 import { PlayersContext } from '../context/PlayersContext';   
 import Players from './Players';
 
+/**
+ * Dice Roll component for the game.
+ * Handles rolling two dice, updating dice visuals, detecting doubles,
+ * and triggering turn-related callbacks.
+ *
+ * @param {Object} props - Component props.
+ * @param {Function} props.onRoll - Called after a roll with the total, dice values, and doubles flag.
+ * @param {Function} props.onMove - (Optional) Moves the current player based on roll total.
+ * @param {Function} props.onFinishTurn - Ends the current player's turn.
+ * @param {Object} props.state - Global game state (used to access current player).
+ * @param {boolean} props.rolledDoubles - Indicates whether the last roll was a double.
+ *
+ * @returns {JSX.Element} Dice roller UI for the current player.
+ */
 export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDoubles }) {
   const diceImages = { 1:'d1', 2:'d2', 3:'d3', 4:'d4', 5:'d5', 6:'d6' };
   rolledDoubles = false;
@@ -29,7 +43,6 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     if (onRoll) {
       onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2], rolledDoubles);
     };
-
     console.log('players:', players);
   };
 
@@ -59,7 +72,3 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     </div>
   );
 }
-
-
-
-

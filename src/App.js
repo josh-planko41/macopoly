@@ -17,7 +17,7 @@ import GameOver from './GameOver.js';
 class App extends Component {
   state = {
     balancePlayer1: 1500,
-    balancePlayer2: 1500,
+    balancePlayer2: 10,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
@@ -74,13 +74,24 @@ class App extends Component {
     this.setState({ players: normalized, gameStarted: true });
   }
 
-  movePlayer = (total) => {
+  /**
+      * Move the active player to a new location based on the rolled total and update the state (indirectly throigh prevState) to reflect the player movement.
+      * The new location is calculated by adding the rolled total to the current location of the active player.
+      * If the new location is before the start of the board, the player passes "Go" and receives 200 dollars.
+      * it determines the type of square the player landed on, and prompts the player to take the appropriate action:
+        * If the new location is a property square and not owned, the active player can buy it.
+        * If the new location is a property square and owned by the other player, the active player has to pay that player's rent.
+        * If the new location is a "Pay Tax" square, the active player has to pay the tax amount.
+      * The function also updates the active player's score based on the type of square they landed on.
+      * @param {number} total - The rolled total.
+   */
+  movePlayer = (total) => { 
   if (typeof total !== 'number') {
     console.warn('movePlayer requires a rolled total. Roll first, then Move / Finish Turn.');
     return;
   }
 
-  this.setState((prevState) => {
+  this.setState((prevState) => { //prevState is used instead of state to avoid mutating the state directly, and ensure that we are accessing the latest fully committed state (main state is asynchronous and might not be fully updated when we call setState).
     const active = prevState.players.find(p => p.number === prevState.currentPlayer);
     const others = prevState.players.filter(p => p.number !== prevState.currentPlayer);
 
@@ -131,7 +142,7 @@ class App extends Component {
   });
 };
 
-  /**
+/**
  * Buying: set owner and deduct from the **active** player's balance.
  */
 handleConfirmBuy = (player, property) => {
@@ -151,24 +162,41 @@ handleConfirmBuy = (player, property) => {
   this.handleGameOver();
 };
 
+
+/**
+ * sets all properties to active, indicating the start of a trade
+ * @param {List<Object>} properties - a list of properties
+ */
 setPropertiesActive = (properties) => {
   for (let i = 0; i < properties.length; i++) {
     properties[i].isActive = true;
   }
 }
-
+/**
+ * sets all properties to inactive, indicating the end of a trade
+ * @param {*} properties 
+ */
 setPropertiesInactive = (properties) => {
   for (let i = 0; i < properties.length; i++) {
     properties[i].isActive = false;
   }
 }
 
-
+/**
+ * removes a property from the list of properties(proprties)
+ * @param {*} properties  
+ * @param {*} property
+ */
 removeProperty = (properties, property) => {
   return properties.filter((p) => p.name !== property.name);
 };
 
-  
+
+/**
+ * A callback that handles trade logic. It is called when the "Accept Trade" button is clicked,
+ * and switches the traded properties between players.
+ * In the end, it updates the state to reflect the new ownership of the properties, and sets the startATrade flag to false.
+ */
 handleAcceptTrade = () => {
   this.setState((prev) => {
     if (!prev.startATrade) return prev;
@@ -200,6 +228,11 @@ handleAcceptTrade = () => {
   });
 };
 
+
+/**
+ * A callback that handles trade logic. It is called when the "Decline Trade" button is clicked,
+ * and resets the traded properties and the startATrade flag.
+ */
 handleDeclineTrade = () => {
   this.setState((prev) => ({
     tradedProperties: [],
@@ -208,8 +241,12 @@ handleDeclineTrade = () => {
 };
 
 
-// I need to select a trade first, and then process the trade.
-
+/**
+ * A callback function that is called when the user clicks on a property to initiate a trade. 
+ * It adds the clicked property to the tradedProperties array and updates the state with the newly traded properties.
+ * @param {Object} property 
+ * @returns 
+ */
 handleUserTradeClick = (property) => {
   if (!this.state.startATrade) return;
   this.setState((prev) => {
@@ -221,6 +258,11 @@ handleUserTradeClick = (property) => {
 };
 
 
+/**
+ * A callback function that is triggered when the game ends. 
+ * It checks if either player has run out of money, and if this is the case, it sets the gameOver flag to true.
+ * The gameOver flag is then used to render the GameOver component.
+ */
 handleGameOver = () => {
   
   if (this.state.balancePlayer1 <= 0 || this.state.balancePlayer2 <= 0) {
@@ -321,7 +363,11 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
-// Flip turn only when player clicks "Finish Turn"
+/**
+ * A callback function that indicates the end of the player's turn.
+ * It updates the state to switch to the next player and clears the square highlight.
+ * It also checks if the game has ended.
+ */
 handleFinishTurn = () => {
   this.handleGameOver()
 
@@ -456,11 +502,7 @@ render() {
         Finish Making a Trade
       </button>
 
-        <button onClick = {() =>{
-           
-          this.handleAcceptTrade()
-          
-        }} >process trade</button>
+       
         {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
         <label >Opponent Player: {this.state.currentPlayer === 1 ? 2 : 1} do you accept this trade</label>
         <button onClick = {() => this.setState({startATrade: false})}>yes</button>
@@ -547,4 +589,7 @@ render() {
 
 
 export default App;
+
+
+
 
