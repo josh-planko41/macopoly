@@ -398,8 +398,9 @@ handleAcceptPayTax = (property) => {
 chance = () => {
   console.log("chance cards");
 
-  const randomIndex = Math.random(0,10)
-  const chosenCard = chanceCards[randomIndex]; // temporary fixed card
+  const randomIndex =Math.floor(Math.random() * (8 - 0));
+  console.log("randomly chosen number: ", randomIndex)
+  const chosenCard = chanceCards[randomIndex];
 
   this.setState({
     showChance: true,
@@ -687,6 +688,13 @@ render() {
                 }
                 if (this.state.activeChanceCard.name === "Work out in the LC") {
                   this.setPlayerLocation(39);
+                }
+                if (this.state.activeChanceCard.name === "Your parents send you grocery money") {
+                  if (this.state.currentPlayer === 1){
+                    this.state.balancePlayer1 += 150
+                  } else {
+                    this.state.balancePlayer2 += 150
+                  }
                 }
                 
                 if (typeof this.state.activeChanceCard.result === "function") {
