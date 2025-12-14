@@ -145,6 +145,14 @@ class App extends Component {
     const sentToPrisonPlayer1 = landingSquare?.name === "Go To Duprison" && prevState.currentPlayer === 1;
     const sentToPrisonPlayer2 = landingSquare?.name === "Go To Duprison" && prevState.currentPlayer === 2;
 
+    // if (sentToPrisonPlayer1) {
+    //   this.setPlayerLocation(10)
+    // }
+    if (sentToPrisonPlayer1 || sentToPrisonPlayer2) {
+      this.setPlayerLocation(10);
+    }
+    
+
     const landingType = landingSquare?.type ?? landingSquare?.color;
     const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
 
@@ -263,7 +271,6 @@ handlePay50ToLeavePrison = () => {
 releaseCurrentPlayerFromPrison = () => {
   this.setState((prev) => {
     const isP1 = prev.currentPlayer === 1;
-
     if (isP1) {
       return {
         inPrisonPlayer1: false,
@@ -509,39 +516,14 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
-// chance = (location) => {
-//   // const chanceCardsExports = 
-//   console.log("chance cards")
-//   console.log("players location is: ", location)
 
-//   const activePlayer = this.state.players.find(
-//     p => p.number === this.state.currentPlayer
-//   );
-
-//   // Chance squares: 7, 22, 36
-//     // const randomIndex = Math.floor(Math.random() * chanceCards.length);
-
-//   const chosenCard = chanceCards[10];
-//   console.log("Chance Card Drawn: ", chosenCard.name);
-//   if (chosenCard.name === "Take Route 63 down Grand Ave") {
-//     <Chance
-//      {...chosenCard.name}
-//      />
-//     this.setPlayerLocation(5)
-//   }
-
-//   if (typeof chosenCard.result === "function") {
-//     chosenCard.result(this.state.currentPlayer);
-//   }
-  
-// };
 
 chance = () => {
   console.log("chance cards");
 
-  const randomIndex =Math.floor(Math.random() * (8 - 0));
+  const randomIndex =Math.floor(Math.random() * (9 - 0));
   console.log("randomly chosen number: ", randomIndex)
-  const chosenCard = chanceCards[randomIndex];
+  const chosenCard = chanceCards[7];
 
   this.setState({
     showChance: true,
@@ -816,9 +798,9 @@ render() {
                 if (this.state.activeChanceCard.name === "Start another semester (collect $200)") {
                   this.setPlayerLocation(0);
                   if (this.state.currentPlayer === 1) {
-                    this.state.balancePlayer1 += 200
+                    this.state.balancePlayer1 += 100
                   } else {
-                    this.state.balancePlayer2 += 200
+                    this.state.balancePlayer2 += 100
                   }
                 } 
                 if (this.state.activeChanceCard.name === "Go to a football game at Macalester Stadium") {
@@ -845,6 +827,16 @@ render() {
                     this.state.balancePlayer1 += 150
                   } else {
                     this.state.balancePlayer2 += 150
+                  }
+                }
+                if (this.state.activeChanceCard.name === "Go to Duprison") {
+                  this.setPlayerLocation(10)
+                  if(this.state.currentPlayer == 1){
+                    this.state.inPrisonPlayer1 = true;
+
+                  }
+                  else{
+                    this.state.inPrisonPlayer2 = true;
                   }
                 }
                 
