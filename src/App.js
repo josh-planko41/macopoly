@@ -13,6 +13,7 @@ import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
+import Chance from './components/Chance.js';
 import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
 class App extends Component {
   state = {
@@ -50,6 +51,9 @@ class App extends Component {
     player2PropesedProperty: null,
     tradedProperties: [],
 
+    // for chance cards
+    showChance: false,
+    activeChanceCard: null,
   };
 
   // handleMakeATrade = () => {
@@ -123,7 +127,7 @@ class App extends Component {
     };
 
     if (landingSquare.name === "Chance") {
-      this.chance(newLocation);
+      this.chance();
     }
 
     return {
@@ -366,29 +370,44 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
-chance = (location) => {
-  // const chanceCardsExports = 
-  console.log("chance cards")
-  console.log("players location is: ", location)
+// chance = (location) => {
+//   // const chanceCardsExports = 
+//   console.log("chance cards")
+//   console.log("players location is: ", location)
 
-  const activePlayer = this.state.players.find(
-    p => p.number === this.state.currentPlayer
-  );
+//   const activePlayer = this.state.players.find(
+//     p => p.number === this.state.currentPlayer
+//   );
 
-  // Chance squares: 7, 22, 36
-    // const randomIndex = Math.floor(Math.random() * chanceCards.length);
+//   // Chance squares: 7, 22, 36
+//     // const randomIndex = Math.floor(Math.random() * chanceCards.length);
 
-  const chosenCard = chanceCards[10];
-  console.log("Chance Card Drawn: ", chosenCard.name);
-  if (chosenCard.name === "Take Route 63 down Grand Ave") {
-    
-    this.setPlayerLocation(5)
-  }
+//   const chosenCard = chanceCards[10];
+//   console.log("Chance Card Drawn: ", chosenCard.name);
+//   if (chosenCard.name === "Take Route 63 down Grand Ave") {
+//     <Chance
+//      {...chosenCard.name}
+//      />
+//     this.setPlayerLocation(5)
+//   }
 
-  if (typeof chosenCard.result === "function") {
-    chosenCard.result(this.state.currentPlayer);
-  }
+//   if (typeof chosenCard.result === "function") {
+//     chosenCard.result(this.state.currentPlayer);
+//   }
   
+// };
+
+chance = () => {
+  console.log("chance cards");
+
+  const chosenCard = chanceCards[10]; // temporary fixed card
+
+  this.setState({
+    showChance: true,
+    activeChanceCard: {
+      ...chosenCard,
+    },
+  });
 };
 
 setPlayerLocation = (destination) => {
@@ -627,7 +646,29 @@ render() {
               onCancel = {this.handleCancelBuy}
             />
           )}
-          
+
+          {this.state.showChance && (
+            <Chance
+              chanceCardName={this.state.activeChanceCard.name}
+              location={this.state.activeChanceCard.location}
+              onAccept={() => {
+                // Execute card effect AFTER user clicks
+                if (this.state.activeChanceCard.name === "Take Route 63 down Grand Ave") {
+                  this.setPlayerLocation(5);
+                }
+
+                if (typeof this.state.activeChanceCard.result === "function") {
+                  this.state.activeChanceCard.result(this.state.currentPlayer);
+                }
+
+                this.setState({
+                  showChance: false,
+                  activeChanceCard: null,
+                });
+              }}
+            />
+          )}
+
         {this.state.selectedPropertyPayRent && (
           <PayRent
             property = {this.state.selectedPropertyPayRent}
