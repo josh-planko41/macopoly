@@ -122,6 +122,10 @@ class App extends Component {
       score: Math.max(0, (active.score ?? 0) + increaseScore),
     };
 
+    if (landingSquare.name === "Chance") {
+      this.chance(newLocation);
+    }
+
     return {
       players: [...others, updated].sort((a, b) => a.number - b.number),
       balancePlayer1: updatedBalanceP1,
@@ -362,26 +366,85 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
-// checkChance = () => {
-//   const chanceCardsExports = 
+chance = (location) => {
+  // const chanceCardsExports = 
+  console.log("chance cards")
+  console.log("players location is: ", location)
 
-//   const activePlayer = this.state.players.find(
-//     p => p.number === this.state.currentPlayer
-//   );
-//   const location = activePlayer.location;
+  const activePlayer = this.state.players.find(
+    p => p.number === this.state.currentPlayer
+  );
 
-//   // Chance squares: 7, 22, 36
-//   if (location === 7 || location === 22 || location === 36) {
-//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
-//     const chosenCard = chanceCards[randomIndex];
+  // Chance squares: 7, 22, 36
+    // const randomIndex = Math.floor(Math.random() * chanceCards.length);
 
-//     console.log("Chance Card Drawn: ", chosenCard.name);
+  const chosenCard = chanceCards[10];
+  console.log("Chance Card Drawn: ", chosenCard.name);
+  if (chosenCard.name === "Take Route 63 down Grand Ave") {
+    
+    this.setPlayerLocation(5)
+  }
 
-//     if (typeof chosenCard.result === "function") {
-//       chosenCard.result(this.state.currentPlayer);
-//     }
-//   }
-// };
+  if (typeof chosenCard.result === "function") {
+    chosenCard.result(this.state.currentPlayer);
+  }
+  
+};
+
+setPlayerLocation = (destination) => {
+   this.setState((prevState) => {
+    const active = prevState.players.find(
+      (p) => p.number === prevState.currentPlayer
+    );
+    const others = prevState.players.filter(
+      (p) => p.number !== prevState.currentPlayer
+    );
+
+    const passedGo = destination < active.location;
+
+    const landingSquare = BOARD[destination];
+
+    const updatedPlayer = {
+      ...active,
+      location: destination,
+    };
+
+    return {
+      players: [...others, updatedPlayer].sort((a, b) => a.number - b.number),
+
+      balancePlayer1:
+        prevState.currentPlayer === 1 && passedGo
+          ? prevState.balancePlayer1 + 200
+          : prevState.balancePlayer1,
+
+      balancePlayer2:
+        prevState.currentPlayer === 2 && passedGo
+          ? prevState.balancePlayer2 + 200
+          : prevState.balancePlayer2,
+
+      square: {
+        name_square: landingSquare.name,
+        last_move: {
+          initial_square: BOARD[active.location].name,
+          final_square: landingSquare.name,
+        },
+      },
+
+      selectedPropertyBuy:
+        landingSquare.price && !landingSquare.owner ? landingSquare : null,
+
+      selectedPropertyPayRent:
+        landingSquare.owner &&
+        landingSquare.owner !== prevState.currentPlayer
+          ? landingSquare
+          : null,
+
+      selectedPropertyPayTax:
+        landingSquare.taxAmount ? landingSquare : null,
+      };
+  } );
+};
+
 
 /**
  * A callback function that indicates the end of the player's turn.
@@ -390,7 +453,6 @@ handleAcceptPayTax = (property) => {
  */
 handleFinishTurn = () => {
   this.handleGameOver()
-  // this.checkChance();
 
   this.setState(prev => ({
 
@@ -399,7 +461,6 @@ handleFinishTurn = () => {
     square: prev.square,
     
   }));
-  console.log("chance cards", chanceCards)
 };
 
  getRentForSquares = (square) =>{
