@@ -28,8 +28,6 @@ class App extends Component {
     showCredits: false,
     rolledDoubles: false,
     gameOver: false,
-    onChance: false,
-    chanceCards: chanceCards,
 
     // Added simple game state
     currentPlayer: 1,
@@ -400,7 +398,8 @@ handleAcceptPayTax = (property) => {
 chance = () => {
   console.log("chance cards");
 
-  const chosenCard = chanceCards[10]; // temporary fixed card
+  const randomIndex = Math.random(0,10)
+  const chosenCard = chanceCards[randomIndex]; // temporary fixed card
 
   this.setState({
     showChance: true,
@@ -462,6 +461,14 @@ setPlayerLocation = (destination) => {
         landingSquare.taxAmount ? landingSquare : null,
       };
   } );
+};
+
+getPlayerLocation = (playerNumber) => {
+  const player = this.state.players.find(
+    p => p.number === playerNumber
+  );
+
+  return player ? player.location : null;
 };
 
 
@@ -582,15 +589,13 @@ handleFinishTurn = () => {
 
 
 render() {
-  const { showPlayerSelect, gameStarted, showCredits, gameOver, onChance } = this.state;
+  const { showPlayerSelect, gameStarted, showCredits, gameOver } = this.state;
   if(gameOver){
     return(
       <GameOver />
     )
   }
-  if (onChance) {
 
-  }
   if (gameStarted) {
     return (
       <div className="App">
@@ -656,7 +661,34 @@ render() {
                 if (this.state.activeChanceCard.name === "Take Route 63 down Grand Ave") {
                   this.setPlayerLocation(5);
                 }
-
+                if (this.state.activeChanceCard.name === "Start another semester (collect $200)") {
+                  this.setPlayerLocation(0);
+                  if (this.state.currentPlayer === 1) {
+                    this.state.balancePlayer1 += 200
+                  } else {
+                    this.state.balancePlayer2 += 200
+                  }
+                } 
+                if (this.state.activeChanceCard.name === "Go to a football game at Macalester Stadium") {
+                  this.setPlayerLocation(24);
+                }
+                if (this.state.activeChanceCard.name === "Visit an friend in Kirk Hall") {
+                  this.setPlayerLocation(11);
+                }
+                if (this.state.activeChanceCard.name === "Your friend pays their debts (gain $50)") {
+                  if (this.state.currentPlayer === 1){
+                    this.state.balancePlayer1 += 50
+                  } else {
+                    this.state.balancePlayer2 += 50
+                  }
+                }
+                if (this.state.activeChanceCard.name === "Go back 3 spaces") {
+                  this.setPlayerLocation(this.getPlayerLocation(this.state.currentPlayer) - 3);
+                }
+                if (this.state.activeChanceCard.name === "Work out in the LC") {
+                  this.setPlayerLocation(39);
+                }
+                
                 if (typeof this.state.activeChanceCard.result === "function") {
                   this.state.activeChanceCard.result(this.state.currentPlayer);
                 }
