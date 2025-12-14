@@ -48,7 +48,7 @@ export default function Board({ state, onSquareClick, handleAcceptTrade, handleD
                     className="square"
                     style={{
                         backgroundColor: square.color,
-                        color: square.color === "black" ? "white" : "black",
+                                                color: square.color === "black" ? "white" : "black",
                     }}
 
                     onMouseEnter={() => setHoveredSquare(properties[propIndex])}

@@ -14,6 +14,7 @@ import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
 
+
 class App extends Component {
   state = {
     balancePlayer1: 1500,
