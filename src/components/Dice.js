@@ -29,7 +29,7 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
   
 
   const rollDice = () => {
-    const randomNum1 =3
+    const randomNum1 =6
     const randomNum2 =4
     setNewImage(diceImages[randomNum1]);
     setNewImage2(diceImages[randomNum2]);

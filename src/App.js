@@ -95,8 +95,6 @@ class App extends Component {
 
   }
 
-   
-
 
   this.setState((prevState) => { //prevState is used instead of state to avoid mutating the state directly, and ensure that we are accessing the latest fully committed state (main state is asynchronous and might not be fully updated when we call setState).
     const active = prevState.players.find(p => p.number === prevState.currentPlayer);
@@ -421,28 +419,28 @@ handleFinishTurn = () => {
   }
 
   if (square.baseRent) {
-    //Temporary
+
     const baseRent = square.baseRent;
-    
     return baseRent;
+    
   }
  }
 
- checkOwnedSet = () =>{
+ checkOwnedSet = (player) =>{
 
   const colors = ["#8E7CC3", "#6EA8DC", "#C27BA0", "#F7B16B", "red", "#FFFF00", "#92C47D", "#3B77D8"];
   const buildable = [];
 
   for (const color of colors) {
     const group = properties.filter(p => p.color === color);
-    const ownsGroup = group.every(p => p.owner === this.state.currentPlayer);
+    const ownsGroup = group.every(p => p.owner === player);
 
     if (ownsGroup) {
       buildable.push(color);
     }
   }
 
-  return buildable.is.state.rolled
+  return buildable;
  }
 
  getRailroadsOwnedCount = (owner) => {
@@ -587,7 +585,7 @@ render() {
 
         {this.state.showBuildFloors && (
           <BuildFloors
-            buildableSets={this.checkOwnedSet()}
+            buildableSets={this.checkOwnedSet(this.state.currentPlayer)}
             properties={properties}
             currentPlayerBalance={
                 this.state.currentPlayer === 1 
