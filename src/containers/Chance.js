@@ -21,7 +21,6 @@ const chanceCards = [
     { name : "Pay out poker debts (owe $50)", owner: null, result : payTo(50, owner, reciever)}, 
     { name : "Take Route 63 down Grand Ave", owner: null, result : move(5, owner)}, 
     { name : "Your parents send you grocery money", owner: null, result : collect(150, owner)}
-
 ]
 
 function collect(amount, player) {
