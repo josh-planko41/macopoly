@@ -13,7 +13,7 @@ import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
-
+import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
 class App extends Component {
   state = {
     balancePlayer1: 1500,
@@ -27,6 +27,8 @@ class App extends Component {
     showCredits: false,
     rolledDoubles: false,
     gameOver: false,
+    onChance: false,
+    chanceCards: chanceCards,
 
     // Added simple game state
     currentPlayer: 1,
@@ -47,6 +49,7 @@ class App extends Component {
     player1PropesedProperty: null,
     player2PropesedProperty: null,
     tradedProperties: [],
+
   };
 
   // handleMakeATrade = () => {
@@ -78,7 +81,11 @@ class App extends Component {
   if (typeof total !== 'number') {
     console.warn('movePlayer requires a rolled total. Roll first, then Move / Finish Turn.');
     return;
+
   }
+
+   
+
 
   this.setState((prevState) => {
     const active = prevState.players.find(p => p.number === prevState.currentPlayer);
@@ -91,15 +98,11 @@ class App extends Component {
     const balanceP2 = prevState.balancePlayer2;
 
     const updatedBalanceP1 =
-      prevState.currentPlayer === 1 && passedGo
-        ? balanceP1 + 200
-        : balanceP1;
+      prevState.currentPlayer === 1 && passedGo ? balanceP1 + 200 : balanceP1;
 
     const updatedBalanceP2 =
-      prevState.currentPlayer === 2 && passedGo
-        ? balanceP2 + 200
-        : balanceP2;
-    
+      prevState.currentPlayer === 2 && passedGo ? balanceP2 + 200 : balanceP2;
+
     const landingSquare = BOARD[newLocation];
     const landingType = landingSquare?.type ?? landingSquare?.color;
     const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
@@ -122,10 +125,10 @@ class App extends Component {
           final_square: BOARD[newLocation].name
         },
       },
-      
+
       lastRoll: total,
       selectedPropertyBuy: landingSquare.price && !landingSquare.owner ? landingSquare : null,
-      selectedPropertyPayRent: landingSquare.owner && landingSquare.owner != prevState.currentPlayer ? landingSquare : null,
+      selectedPropertyPayRent: landingSquare.owner && landingSquare.owner !== prevState.currentPlayer ? landingSquare : null,
       selectedPropertyPayTax: landingSquare.taxAmount ? landingSquare : null,
     };
   });
@@ -230,8 +233,6 @@ handleGameOver = () => {
 }
 
 
-
-
 handleSell = (property) => {
   const price = property.price;
   if (this.state.currentPlayer === 1) {
@@ -321,9 +322,44 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
+// checkChance = () => {
+//   const playerLocation = this.state.players.find((p) => p.number === this.state.currentPlayer);
+
+//   if (playerLocation === BOARD[7] || playerLocation === BOARD[22] || playerLocation === BOARD[36]) {
+
+//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
+//     const chosenCard = chanceCards[randomIndex];
+
+//     console.log("Chance Card Drawn: ", chosenCard.name);
+
+    
+//   }
+// }
+// checkChance = () => {
+//   const chanceCardsExports = 
+
+//   const activePlayer = this.state.players.find(
+//     p => p.number === this.state.currentPlayer
+//   );
+//   const location = activePlayer.location;
+
+//   // Chance squares: 7, 22, 36
+//   if (location === 7 || location === 22 || location === 36) {
+//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
+//     const chosenCard = chanceCards[randomIndex];
+
+//     console.log("Chance Card Drawn: ", chosenCard.name);
+
+//     if (typeof chosenCard.result === "function") {
+//       chosenCard.result(this.state.currentPlayer);
+//     }
+//   }
+// };
+
 // Flip turn only when player clicks "Finish Turn"
 handleFinishTurn = () => {
   this.handleGameOver()
+  // this.checkChance();
 
   this.setState(prev => ({
 
@@ -332,7 +368,7 @@ handleFinishTurn = () => {
     square: prev.square,
     
   }));
-  console.log(this.state.rolledDoubles)
+  console.log("chance cards", chanceCards)
 };
 
  getRentForSquares = (square) =>{
@@ -365,7 +401,7 @@ handleFinishTurn = () => {
     }
   }
 
-  return buildable;
+  return buildable.is.state.rolled
  }
 
  getRailroadsOwnedCount = (owner) => {
@@ -421,11 +457,14 @@ handleFinishTurn = () => {
 
 
 render() {
-  const { showPlayerSelect, gameStarted, showCredits, gameOver } = this.state;
+  const { showPlayerSelect, gameStarted, showCredits, gameOver, onChance } = this.state;
   if(gameOver){
     return(
       <GameOver />
     )
+  }
+  if (onChance) {
+
   }
   if (gameStarted) {
     return (
