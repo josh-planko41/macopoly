@@ -29,9 +29,8 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
   
 
   const rollDice = () => {
-    const randomNum1 = Math.floor(Math.random() * 6) + 1;
-    const randomNum2 = Math.floor(Math.random() * 6) + 1;
-
+    const randomNum1 =3
+    const randomNum2 =4
     setNewImage(diceImages[randomNum1]);
     setNewImage2(diceImages[randomNum2]);
     setCount(randomNum1 + randomNum2);
