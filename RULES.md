@@ -1,4 +1,4 @@
-# Rules
+# Rules of Macopoly
 
 2 players, 30-120 minutes. 
 
@@ -29,6 +29,12 @@ Whenever a player lands on an unowned property they may buy that property from t
 ## Paying Rent
 
 When a player lands on property owned by another player, the owner collects rent from them in accordance with the amount printed on the property's space.
+
+## Making a Trade
+
+At any point during their turn, a player may choose to Make a Trade with another player by selecting the "Make a Trade" button below the dice, selecting the properties on the board that they'd like included in the trade by clicking those spaces, and then pressing "Process Trade."
+
+Once a trade is proposed, the player receiving the proposal has the ability to either Accept or Decline using the buttons at the bottom of the dashboard located to the right of the game board. In the case where a trade is accepted upon by both parties, the player who proposed the original trade finally presses the "Process Trade" button to lock in the agreement. 
 
 ## Free Parking
 
