@@ -55,7 +55,6 @@ const properties = [
     {index : 37, name : "Janet Wallace Fine Arts Center", color : "#3B77D8", price : 350, baseRent: 35, floors: 0, owner: null, isActive:false},
     {index : 38, name : "MacBooks", color : "white", taxAmount : 75, isActive:false},
     {index : 39, name : "Leonard Center", color : "#3B77D8", price : 400, baseRent: 50, floors: 0, owner: null, isActive:false},
-    
 ];
 
 

@@ -14,10 +14,17 @@ import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
 import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
+
+//start another semester
+//go to a football game at Macalester Stadium
+
+
+
+
 class App extends Component {
   state = {
     balancePlayer1: 1500,
-    balancePlayer2: 10,
+    balancePlayer2: 1500,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
@@ -49,13 +56,20 @@ class App extends Component {
     player1PropesedProperty: null,
     player2PropesedProperty: null,
     tradedProperties: [],
+    
+    // prison vars
+    inPrisonPlayer1: false,
+    inPrisonPlayer2: false,
+    inPrisonPlayer: null,
+    player1paid50: false,
+    player2paid50: false,
+    player1rolledDoubles: false,
+    player2rolledDoubles: false,
+    player1gotOutOfPrison: false,
+    player2gotOutOfPrison: false
+
 
   };
-
-  // handleMakeATrade = () => {
-  //   this.setState({ showMakeATrade: true });
-    
-  // }
 
   handlePlay = () => {
     this.setState({ showPlayerSelect: true });
@@ -92,29 +106,36 @@ class App extends Component {
   if (typeof total !== 'number') {
     console.warn('movePlayer requires a rolled total. Roll first, then Move / Finish Turn.');
     return;
-
   }
 
-   
 
-
-  this.setState((prevState) => { //prevState is used instead of state to avoid mutating the state directly, and ensure that we are accessing the latest fully committed state (main state is asynchronous and might not be fully updated when we call setState).
+ this.setState((prevState) => {
     const active = prevState.players.find(p => p.number === prevState.currentPlayer);
+    if (!active) return prevState; // safety guard
+
+    // If the CURRENT player is the one in prison, block movement
+    const currentPlayerInPrison =
+      (prevState.currentPlayer === 1 && prevState.inPrisonPlayer1) || (prevState.currentPlayer === 2 && prevState.inPrisonPlayer2);
+
+    if (currentPlayerInPrison) {
+      return { ...prevState, lastRoll: total };
+    }
+
     const others = prevState.players.filter(p => p.number !== prevState.currentPlayer);
 
     const newLocation = (active.location + total) % BOARD.length;
     const passedGo = newLocation < active.location;
 
-    const balanceP1 = prevState.balancePlayer1;
-    const balanceP2 = prevState.balancePlayer2;
-
     const updatedBalanceP1 =
-      prevState.currentPlayer === 1 && passedGo ? balanceP1 + 200 : balanceP1;
+      prevState.currentPlayer === 1 && passedGo ? prevState.balancePlayer1 + 200 : prevState.balancePlayer1;
 
     const updatedBalanceP2 =
-      prevState.currentPlayer === 2 && passedGo ? balanceP2 + 200 : balanceP2;
+      prevState.currentPlayer === 2 && passedGo ? prevState.balancePlayer2 + 200 : prevState.balancePlayer2;
 
     const landingSquare = BOARD[newLocation];
+    const sentToPrisonPlayer1 = landingSquare?.name === "Go To Duprison" && prevState.currentPlayer === 1;
+    const sentToPrisonPlayer2 = landingSquare?.name === "Go To Duprison" && prevState.currentPlayer === 2;
+
     const landingType = landingSquare?.type ?? landingSquare?.color;
     const increaseScore = landingType && landingType === active.pawn ? 2 : -1;
 
@@ -125,15 +146,26 @@ class App extends Component {
     };
 
     return {
+      ...prevState,
       players: [...others, updated].sort((a, b) => a.number - b.number),
       balancePlayer1: updatedBalanceP1,
       balancePlayer2: updatedBalanceP2,
+      
+      inPrisonPlayer1: sentToPrisonPlayer1 ? true : prevState.inPrisonPlayer1,
+      player1gotOutOfPrison: sentToPrisonPlayer1 ? false : prevState.player1gotOutOfPrison,
+      player1paid50: sentToPrisonPlayer1 ? false : prevState.player1paid50,
+      player1rolledDoubles: sentToPrisonPlayer1 ? false : prevState.player1rolledDoubles,
 
+      inPrisonPlayer2: sentToPrisonPlayer2 ? true : prevState.inPrisonPlayer2,
+      player2gotOutOfPrison: sentToPrisonPlayer2 ? false : prevState.player2gotOutOfPrison,
+      player2paid50: sentToPrisonPlayer2 ? false : prevState.player2paid50,
+      player2rolledDoubles: sentToPrisonPlayer2 ? false : prevState.player2rolledDoubles,
+      
       square: {
         name_sqaure: BOARD[newLocation].name,
         last_move: {
           initial_square: BOARD[active.location].name,
-          final_square: BOARD[newLocation].name
+          final_square: BOARD[newLocation].name,
         },
       },
 
@@ -144,6 +176,105 @@ class App extends Component {
     };
   });
 };
+
+
+
+handlePrisonOnRoll = (isDoubles) => {
+  this.setState((prev) => {
+    const isP1 = prev.currentPlayer === 1;
+
+    const currentInPrison =
+      (isP1 && prev.inPrisonPlayer1) || (!isP1 && prev.inPrisonPlayer2);
+
+    // Not in prison → no changes
+    if (!currentInPrison) return prev;
+
+    // In prison + rolled doubles → release
+    if (isDoubles) {
+      if (isP1) {
+        return {
+          inPrisonPlayer1: false,
+          player1rolledDoubles: true,
+          player1paid50: false,
+          player1gotOutOfPrison: true,
+        };
+      }
+
+      return {
+        inPrisonPlayer2: false,
+        player2rolledDoubles: true,
+        player2paid50: false,
+        player2gotOutOfPrison: true,
+      };
+    }
+
+    // In prison + not doubles → stays in prison (no changes)
+    return prev;
+  });
+};
+
+
+
+
+handlePay50ToLeavePrison = () => {
+  this.setState((prev) => {
+    const isP1 = prev.currentPlayer === 1;
+
+    if (isP1 && prev.balancePlayer1 < 50) return prev;
+    if (!isP1 && prev.balancePlayer2 < 50) return prev;
+
+    if (isP1) {
+      return {
+        balancePlayer1: prev.balancePlayer1 - 50,
+        balancePlayer2: prev.balancePlayer2,
+        player1paid50: true,
+        inPrisonPlayer1: false,
+        player1gotOutOfPrison: true,
+        player1rolledDoubles: false, 
+      };
+    }
+
+    return {
+      balancePlayer1: prev.balancePlayer1,
+      balancePlayer2: prev.balancePlayer2 - 50,
+      player2paid50: true,
+      inPrisonPlayer2: false,
+      player2gotOutOfPrison: true,
+      player2rolledDoubles: false, 
+    };
+  });
+};
+
+
+
+releaseCurrentPlayerFromPrison = () => {
+  this.setState((prev) => {
+    const isP1 = prev.currentPlayer === 1;
+
+    if (isP1) {
+      return {
+        inPrisonPlayer1: false,
+        player1paid50: false,
+        player1rolledDoubles: false,
+        player1gotOutOfPrison: true,
+      };
+    }
+
+    return {
+      inPrisonPlayer2: false,
+      player2paid50: false,
+      player2rolledDoubles: false,
+      player2gotOutOfPrison: true,
+    };
+  });
+};
+
+
+isCurrentPlayerInPrison = (state = this.state) => {
+  return (state.currentPlayer === 1 && state.inPrisonPlayer1) ||
+         (state.currentPlayer === 2 && state.inPrisonPlayer2);
+};
+
 
 /**
  * Buying: set owner and deduct from the **active** player's balance.
@@ -230,6 +361,7 @@ handleAcceptTrade = () => {
     };
   });
 };
+
 
 
 /**
@@ -502,16 +634,21 @@ render() {
   if (gameStarted) {
     return (
       <div className="App">
-        <Dice
+        <Dice 
           state={this.state}
           onRoll={(total, dice, isDoubles) => {
-            this.setState({
-              lastRoll: total,
-              lastDice: dice,
-              rolledDoubles: isDoubles,   
-            });
-            this.movePlayer(total);
-          }}
+          this.setState({
+            lastRoll: total,
+            lastDice: dice,
+            rolledDoubles: isDoubles,
+          });
+
+          // ✅ if in prison, doubles can release them
+          this.handlePrisonOnRoll(isDoubles);
+
+          // movePlayer will block if still in prison
+          this.movePlayer(total);
+        }}
           onFinishTurn={this.handleFinishTurn}
         />
 
@@ -528,6 +665,11 @@ render() {
         Finish Making a Trade
       </button>
 
+     
+        <button onClick={this.handlePay50ToLeavePrison}>
+          Pay $50 to Leave Prison
+        </button>
+      
        
         {/* <label>Current Player: {this.state.currentPlayer} propose a trade</label>
         <label >Opponent Player: {this.state.currentPlayer === 1 ? 2 : 1} do you accept this trade</label>
@@ -613,9 +755,4 @@ render() {
   }
 }
 
-
 export default App;
-
-
-
-

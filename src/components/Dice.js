@@ -17,7 +17,7 @@ import Players from './Players';
  *
  * @returns {JSX.Element} Dice roller UI for the current player.
  */
-export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDoubles }) {
+export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDoubles, imprisonedPlayer }) {
   const diceImages = { 1:'d1', 2:'d2', 3:'d3', 4:'d4', 5:'d5', 6:'d6' };
   rolledDoubles = false;
   const { players } = useContext(PlayersContext);
@@ -29,15 +29,16 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
   
 
   const rollDice = () => {
-    const randomNum1 =3
-    const randomNum2 =4
+
+    const randomNum1 = 4
+    const randomNum2 =1
     setNewImage(diceImages[randomNum1]);
     setNewImage2(diceImages[randomNum2]);
     setCount(randomNum1 + randomNum2);
     setHasRolled(true);
     if (randomNum1 == randomNum2) {
       rolledDoubles = true;
-      setHasRolled(false);
+      //setHasRolled(false);
     }
     if (onRoll) {
       onRoll(randomNum1 + randomNum2, [randomNum1, randomNum2], rolledDoubles);
@@ -46,7 +47,8 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
   };
 
   const handleTurn = () => {
-    if (onFinishTurn) onFinishTurn();
+    if (onFinishTurn)
+    onFinishTurn();
     setHasRolled(false);
   };
 
@@ -71,3 +73,4 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
     </div>
   );
 }
+
