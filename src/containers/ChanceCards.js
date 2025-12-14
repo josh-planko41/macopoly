@@ -7,8 +7,7 @@
 
 import React from 'react';
 
-
-    export const chanceCards = [
+export const chanceCards = [
     { name : "Start another semester (collect $200)", result: player => collect(200, player)},
     { name : "Go to a football game at Macalester Stadium", result: player => move(24, player)}, 
     { name : "Visit an friend in Kirk Hall", result : player => move(11, player)}, 
