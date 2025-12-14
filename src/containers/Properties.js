@@ -23,7 +23,7 @@ const properties = [
     // right column of properties, top -> bottom
     {index : 10, name : "Duprison + Just Visiting", color : "white", isActive:false},
     {index : 11, name : "Kirk Hall", color : "#C27BA0", price : 140, baseRent: 10, floors: 0, owner: null, isActive:false},
-    {index : 12, name : "Facilities", color : "black", price : 150, owner: null, isActive:false},
+    {index : 12, name : "Facilities", color : "black", price : 150, owner: 1, isActive:false},
     {index : 13, name : "George Draper Dayton Hall", color : "#C27BA0", price : 140, baseRent: 10, floors: 0, owner: null, isActive:false},
     {index : 14, name : "Grand Cambridge Apartments", color : "#C27BA0", price : 160, baseRent: 12, floors: 0, owner: null, isActive:false},
     {index : 15, name : "A Line", color : "gray", price : 200, owner: null, isActive:false},
@@ -41,7 +41,7 @@ const properties = [
     {index : 25, name : "B Line", color : "gray", price : 200, owner: null, isActive:false},
     {index : 26, name : "President's Home", color : "#FFFF00", price : 260, baseRent: 22, floors: 0, owner: null, isActive:false},
     {index : 27, name : "Memorial Chapel", color : "#FFFF00", price : 260, baseRent: 22, floors: 0, owner: null, isActive:false},
-    {index : 28, name : "Public Safety", color : "black", price : 150, owner: null, isActive:false},
+    {index : 28, name : "Public Safety", color : "black", price : 150, owner: 1, isActive:false},
     {index : 29, name : "Old Main", color : "#FFFF00", price : 280, baseRent: 24, floors: 0, owner: null, isActive:false},
 
     // left column of properties, bottom -> top

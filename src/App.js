@@ -17,7 +17,7 @@ import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, l
 class App extends Component {
   state = {
     balancePlayer1: 1500,
-    balancePlayer2: 10,
+    balancePlayer2: 1500,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
@@ -471,6 +471,14 @@ handleFinishTurn = () => {
     const index = count - 1;
     return rentTable[index];
   }
+
+  if (square.color === "black"){
+    const count = this.getBlackOwnedCount(square.owner);
+    const multiplier = [4, 10];
+    const index = count - 1;
+    return multiplier[index] * (this.state.lastRoll);
+  }
+
   if (square.baseRent) {
     //Temporary
     const baseRent = square.baseRent;
@@ -499,6 +507,12 @@ handleFinishTurn = () => {
  getRailroadsOwnedCount = (owner) => {
   return properties.filter(function (sq) {
     return sq.color === 'gray' && sq.owner === owner;
+  }).length;
+ }
+
+ getBlackOwnedCount = (owner) => {
+  return properties.filter(function (sq) {
+    return sq.color === 'black' && sq.owner === owner;
   }).length;
  }
 
