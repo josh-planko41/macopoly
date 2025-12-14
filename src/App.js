@@ -13,6 +13,7 @@ import PayTax from './components/PayTax.js';
 import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
+import Chance from './components/Chance.js';
 import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
 
 //start another semester
@@ -25,6 +26,7 @@ class App extends Component {
   state = {
     balancePlayer1: 1500,
     balancePlayer2: 1500,
+    balancePlayer2: 1500,
     showPlayerSelect: false,
     players: [],
     gameStarted: false,
@@ -34,8 +36,6 @@ class App extends Component {
     showCredits: false,
     rolledDoubles: false,
     gameOver: false,
-    onChance: false,
-    chanceCards: chanceCards,
 
     // Added simple game state
     currentPlayer: 1,
@@ -70,6 +70,16 @@ class App extends Component {
 
 
   };
+
+    // for chance cards
+    showChance: false,
+    activeChanceCard: null,
+  };
+
+  // handleMakeATrade = () => {
+  //   this.setState({ showMakeATrade: true });
+    
+  // }
 
   handlePlay = () => {
     this.setState({ showPlayerSelect: true });
@@ -144,6 +154,10 @@ class App extends Component {
       location: newLocation,
       score: Math.max(0, (active.score ?? 0) + increaseScore),
     };
+
+    if (landingSquare.name === "Chance") {
+      this.chance();
+    }
 
     return {
       ...prevState,
@@ -496,26 +510,110 @@ handleAcceptPayTax = (property) => {
   this.handleGameOver();
 }
 
-// checkChance = () => {
-//   const chanceCardsExports = 
+// chance = (location) => {
+//   // const chanceCardsExports = 
+//   console.log("chance cards")
+//   console.log("players location is: ", location)
 
 //   const activePlayer = this.state.players.find(
 //     p => p.number === this.state.currentPlayer
 //   );
-//   const location = activePlayer.location;
 
 //   // Chance squares: 7, 22, 36
-//   if (location === 7 || location === 22 || location === 36) {
-//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
-//     const chosenCard = chanceCards[randomIndex];
+//     // const randomIndex = Math.floor(Math.random() * chanceCards.length);
 
-//     console.log("Chance Card Drawn: ", chosenCard.name);
-
-//     if (typeof chosenCard.result === "function") {
-//       chosenCard.result(this.state.currentPlayer);
-//     }
+//   const chosenCard = chanceCards[10];
+//   console.log("Chance Card Drawn: ", chosenCard.name);
+//   if (chosenCard.name === "Take Route 63 down Grand Ave") {
+//     <Chance
+//      {...chosenCard.name}
+//      />
+//     this.setPlayerLocation(5)
 //   }
+
+//   if (typeof chosenCard.result === "function") {
+//     chosenCard.result(this.state.currentPlayer);
+//   }
+  
 // };
+
+chance = () => {
+  console.log("chance cards");
+
+  const randomIndex =Math.floor(Math.random() * (8 - 0));
+  console.log("randomly chosen number: ", randomIndex)
+  const chosenCard = chanceCards[randomIndex];
+
+  this.setState({
+    showChance: true,
+    activeChanceCard: {
+      ...chosenCard,
+    },
+  });
+};
+
+setPlayerLocation = (destination) => {
+   this.setState((prevState) => {
+    const active = prevState.players.find(
+      (p) => p.number === prevState.currentPlayer
+    );
+    const others = prevState.players.filter(
+      (p) => p.number !== prevState.currentPlayer
+    );
+
+    const passedGo = destination < active.location;
+
+    const landingSquare = BOARD[destination];
+
+    const updatedPlayer = {
+      ...active,
+      location: destination,
+    };
+
+    return {
+      players: [...others, updatedPlayer].sort((a, b) => a.number - b.number),
+
+      balancePlayer1:
+        prevState.currentPlayer === 1 && passedGo
+          ? prevState.balancePlayer1 + 200
+          : prevState.balancePlayer1,
+
+      balancePlayer2:
+        prevState.currentPlayer === 2 && passedGo
+          ? prevState.balancePlayer2 + 200
+          : prevState.balancePlayer2,
+
+      square: {
+        name_square: landingSquare.name,
+        last_move: {
+          initial_square: BOARD[active.location].name,
+          final_square: landingSquare.name,
+        },
+      },
+
+      selectedPropertyBuy:
+        landingSquare.price && !landingSquare.owner ? landingSquare : null,
+
+      selectedPropertyPayRent:
+        landingSquare.owner &&
+        landingSquare.owner !== prevState.currentPlayer
+          ? landingSquare
+          : null,
+
+      selectedPropertyPayTax:
+        landingSquare.taxAmount ? landingSquare : null,
+      };
+  } );
+};
+
+getPlayerLocation = (playerNumber) => {
+  const player = this.state.players.find(
+    p => p.number === playerNumber
+  );
+
+  return player ? player.location : null;
+};
+
 
 /**
  * A callback function that indicates the end of the player's turn.
@@ -524,7 +622,6 @@ handleAcceptPayTax = (property) => {
  */
 handleFinishTurn = () => {
   this.handleGameOver()
-  // this.checkChance();
 
   this.setState(prev => ({
 
@@ -533,7 +630,6 @@ handleFinishTurn = () => {
     square: prev.square,
     
   }));
-  console.log("chance cards", chanceCards)
 };
 
  getRentForSquares = (square) =>{
@@ -544,34 +640,48 @@ handleFinishTurn = () => {
     const index = count - 1;
     return rentTable[index];
   }
+
+  if (square.color === "black"){
+    const count = this.getBlackOwnedCount(square.owner);
+    const multiplier = [4, 10];
+    const index = count - 1;
+    return multiplier[index] * (this.state.lastRoll);
+  }
+
   if (square.baseRent) {
-    //Temporary
+
     const baseRent = square.baseRent;
-    
     return baseRent;
+    
   }
  }
 
- checkOwnedSet = () =>{
+ checkOwnedSet = (player) =>{
 
   const colors = ["#8E7CC3", "#6EA8DC", "#C27BA0", "#F7B16B", "red", "#FFFF00", "#92C47D", "#3B77D8"];
   const buildable = [];
 
   for (const color of colors) {
     const group = properties.filter(p => p.color === color);
-    const ownsGroup = group.every(p => p.owner === this.state.currentPlayer);
+    const ownsGroup = group.every(p => p.owner === player);
 
     if (ownsGroup) {
       buildable.push(color);
     }
   }
 
-  return buildable.is.state.rolled
+  return buildable;
  }
 
  getRailroadsOwnedCount = (owner) => {
   return properties.filter(function (sq) {
     return sq.color === 'gray' && sq.owner === owner;
+  }).length;
+ }
+
+ getBlackOwnedCount = (owner) => {
+  return properties.filter(function (sq) {
+    return sq.color === 'black' && sq.owner === owner;
   }).length;
  }
 
@@ -622,15 +732,13 @@ handleFinishTurn = () => {
 
 
 render() {
-  const { showPlayerSelect, gameStarted, showCredits, gameOver, onChance } = this.state;
+  const { showPlayerSelect, gameStarted, showCredits, gameOver } = this.state;
   if(gameOver){
     return(
       <GameOver />
     )
   }
-  if (onChance) {
 
-  }
   if (gameStarted) {
     return (
       <div className="App">
@@ -696,7 +804,63 @@ render() {
               onCancel = {this.handleCancelBuy}
             />
           )}
-          
+
+          {this.state.showChance && (
+            <Chance
+              chanceCardName={this.state.activeChanceCard.name}
+              location={this.state.activeChanceCard.location}
+              onAccept={() => {
+                // Execute card effect AFTER user clicks
+                if (this.state.activeChanceCard.name === "Take Route 63 down Grand Ave") {
+                  this.setPlayerLocation(5);
+                }
+                if (this.state.activeChanceCard.name === "Start another semester (collect $200)") {
+                  this.setPlayerLocation(0);
+                  if (this.state.currentPlayer === 1) {
+                    this.state.balancePlayer1 += 200
+                  } else {
+                    this.state.balancePlayer2 += 200
+                  }
+                } 
+                if (this.state.activeChanceCard.name === "Go to a football game at Macalester Stadium") {
+                  this.setPlayerLocation(24);
+                }
+                if (this.state.activeChanceCard.name === "Visit an friend in Kirk Hall") {
+                  this.setPlayerLocation(11);
+                }
+                if (this.state.activeChanceCard.name === "Your friend pays their debts (gain $50)") {
+                  if (this.state.currentPlayer === 1){
+                    this.state.balancePlayer1 += 50
+                  } else {
+                    this.state.balancePlayer2 += 50
+                  }
+                }
+                if (this.state.activeChanceCard.name === "Go back 3 spaces") {
+                  this.setPlayerLocation(this.getPlayerLocation(this.state.currentPlayer) - 3);
+                }
+                if (this.state.activeChanceCard.name === "Work out in the LC") {
+                  this.setPlayerLocation(39);
+                }
+                if (this.state.activeChanceCard.name === "Your parents send you grocery money") {
+                  if (this.state.currentPlayer === 1){
+                    this.state.balancePlayer1 += 150
+                  } else {
+                    this.state.balancePlayer2 += 150
+                  }
+                }
+                
+                if (typeof this.state.activeChanceCard.result === "function") {
+                  this.state.activeChanceCard.result(this.state.currentPlayer);
+                }
+
+                this.setState({
+                  showChance: false,
+                  activeChanceCard: null,
+                });
+              }}
+            />
+          )}
+
         {this.state.selectedPropertyPayRent && (
           <PayRent
             property = {this.state.selectedPropertyPayRent}
@@ -715,7 +879,7 @@ render() {
 
         {this.state.showBuildFloors && (
           <BuildFloors
-            buildableSets={this.checkOwnedSet()}
+            buildableSets={this.checkOwnedSet(this.state.currentPlayer)}
             properties={properties}
             currentPlayerBalance={
                 this.state.currentPlayer === 1 

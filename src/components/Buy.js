@@ -1,4 +1,7 @@
 
+/**
+ * Function for buying a square when landing on an unowned property
+ */
 export default function Buy({player, property, onConfirm, onCancel}){
     
     if (!player || !property) return null;

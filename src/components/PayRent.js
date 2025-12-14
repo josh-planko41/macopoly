@@ -1,3 +1,7 @@
+
+/**
+ * Function for paying rent to the square owners.
+ */
 export default function PayRent({property, rent, onConfirm, onLookingForOtherOptions}){
 
     return(

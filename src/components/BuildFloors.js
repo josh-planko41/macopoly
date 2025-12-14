@@ -1,3 +1,8 @@
+
+/**
+ * Function of building floors on an owned property.
+ * A player must own a whole color set to build floors on one of the properties.
+ */
 import React, { useState } from "react";
 
 export default function BuildFloors({buildableSets, properties, onBuild, onClose}){

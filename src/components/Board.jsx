@@ -32,6 +32,8 @@ export default function Board({ state, onSquareClick, handleAcceptTrade, handleD
         if (col === 0) return 31 + (9 - row);
         return null;
     };
+
+
     
     const tilesForShowing = Array.from({ length: total }, (_, i) => {
         const row = Math.floor(i / 11);
@@ -69,12 +71,22 @@ export default function Board({ state, onSquareClick, handleAcceptTrade, handleD
                                 </>
                             )}
                         </div>
-                        : <div className="square-rent">
+                        : <div className="square-price">
                             {square.baseRent != null && (
                                 <>
                                     {`Rent: ${square.baseRent}FP`}<br />
                                     {`Floors: ${square.floors}`}
                                 </>
+                            )}
+
+                            {square.color === "black" && (
+                                properties[12].owner ===  properties[28].owner
+                                    ? <>
+                                        {`Multiplier: 10x`}
+                                      </>
+                                    : <>
+                                        {`Multiplier: 4x`}
+                                      </>
                             )}
                         </div>
                     }

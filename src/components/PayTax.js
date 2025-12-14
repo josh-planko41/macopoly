@@ -1,3 +1,8 @@
+
+/**
+ * Function for MacBooks and Activity Fee Squares
+ */
+
 export default function PayTax ({property, onAccept}){
 
     return(
