@@ -66,15 +66,14 @@ class App extends Component {
     player1rolledDoubles: false,
     player2rolledDoubles: false,
     player1gotOutOfPrison: false,
-    player2gotOutOfPrison: false
-
-
-  };
-
+    player2gotOutOfPrison: false,
+    
     // for chance cards
     showChance: false,
     activeChanceCard: null,
+
   };
+
 
   // handleMakeATrade = () => {
   //   this.setState({ showMakeATrade: true });
@@ -918,5 +917,6 @@ render() {
     );
   }
 }
+
 
 export default App;
