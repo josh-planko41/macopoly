@@ -365,53 +365,6 @@ handleAcceptPayTax = (property) => {
 }
 
 // checkChance = () => {
-//   const playerLocation = this.state.players.find((p) => p.number === this.state.currentPlayer);
-
-//   if (playerLocation === BOARD[7] || playerLocation === BOARD[22] || playerLocation === BOARD[36]) {
-
-//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
-//     const chosenCard = chanceCards[randomIndex];
-
-//     console.log("Chance Card Drawn: ", chosenCard.name);
-
-    
-//   }
-// }
-// checkChance = () => {
-//   const chanceCardsExports = 
-
-//   const activePlayer = this.state.players.find(
-//     p => p.number === this.state.currentPlayer
-//   );
-//   const location = activePlayer.location;
-
-//   // Chance squares: 7, 22, 36
-//   if (location === 7 || location === 22 || location === 36) {
-//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
-//     const chosenCard = chanceCards[randomIndex];
-
-//     console.log("Chance Card Drawn: ", chosenCard.name);
-
-//     if (typeof chosenCard.result === "function") {
-//       chosenCard.result(this.state.currentPlayer);
-//     }
-//   }
-// };
-
-// checkChance = () => {
-//   const playerLocation = this.state.players.find((p) => p.number === this.state.currentPlayer);
-
-//   if (playerLocation === BOARD[7] || playerLocation === BOARD[22] || playerLocation === BOARD[36]) {
-
-//     const randomIndex = Math.floor(Math.random() * chanceCards.length);
-//     const chosenCard = chanceCards[randomIndex];
-
-//     console.log("Chance Card Drawn: ", chosenCard.name);
-
-    
-//   }
-// }
-// checkChance = () => {
 //   const chanceCardsExports = 
 
 //   const activePlayer = this.state.players.find(
