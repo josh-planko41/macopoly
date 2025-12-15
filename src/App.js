@@ -847,6 +847,9 @@ render() {
                     this.state.balancePlayer2 += 150
                   }
                 }
+                 if (this.state.activeChanceCard.name === "Get out of Duprison") {
+                    this.setPlayerLocation
+                 }
                 
                 if (typeof this.state.activeChanceCard.result === "function") {
                   this.state.activeChanceCard.result(this.state.currentPlayer);
@@ -917,6 +920,4 @@ render() {
     );
   }
 }
-
-
 export default App;
