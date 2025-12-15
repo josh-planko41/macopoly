@@ -30,8 +30,8 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
 
   const rollDice = () => {
 
-    const randomNum1 = 4
-    const randomNum2 = 1
+    const randomNum1 = Math.floor(Math.random() * 6) + 1;
+    const randomNum2 = Math.floor(Math.random() * 6) + 1;
     setNewImage(diceImages[randomNum1]);
     setNewImage2(diceImages[randomNum2]);
     setCount(randomNum1 + randomNum2);
@@ -55,8 +55,8 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
   return (
     <div>
       <center>
-        <h1>Player {state.currentPlayer}'s turn</h1>
-        <h2>You rolled: {count}</h2>
+        <h1 className = "dice-header"> Player {state.currentPlayer}'s turn</h1>
+        <h2 className = "dice-subtext"> You rolled: {count}</h2>
         <div className="container">
           <img className="imgSquare" src={`/images/diceImages/${image}.png`} alt="die 1" />
           <div style={{ width:'5px', display:'inline-block' }}></div>

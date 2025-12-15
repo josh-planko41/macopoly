@@ -11,7 +11,7 @@ const properties = [
     // top row of properties, left -> right
     {index : 0, name : "Start a New Semester", color : "white", isActive:false},
     {index : 1, name : "Turck Hall", color : "#8E7CC3", price : 60, baseRent: 3, floors: 0, owner: null, isActive:false},
-    {index : 2, name : "Community Chest", color : "white", isActive:false},
+    {index : 2, name : "Chance", color : "white", isActive:false},
     {index : 3, name : "Doty Hall", color : "#8E7CC3", price : 60, baseRent: 3, floors: 0, owner: null, isActive:false},
     {index : 4, name : "Activity Fee", color : "white", taxAmount : 200, isActive:false},
     {index : 5, name : "Route 63", color : "gray", price : 200, owner: null, isActive:false},
@@ -28,7 +28,7 @@ const properties = [
     {index : 14, name : "Grand Cambridge Apartments", color : "#C27BA0", price : 160, baseRent: 12, floors: 0, owner: null, isActive:false},
     {index : 15, name : "A Line", color : "gray", price : 200, owner: null, isActive:false},
     {index : 16, name : "Humanities", color : "#F7B16B", price : 180, baseRent: 14, floors: 0, owner: null, isActive:false},
-    {index : 17, name : "Community Chest", color : "white", isActive:false},
+    {index : 17, name : "Chance", color : "white", isActive:false},
     {index : 18, name : "Weyerhaeuser Hall (Adimission Office)",color : "#F7B16B", price : 180, floors: 0, baseRent: 16, owner: null, isActive:false},
     {index : 19, name : "Carnegie Hall", color : "#F7B16B", price : 200, baseRent: 18, floors: 0, owner: null, isActive:false},
     
@@ -48,7 +48,7 @@ const properties = [
     {index : 30, name : "Go To Duprison", color : "white", isActive:false},
     {index : 31, name : "Dewitt Wallace Library", color : "#92C47D", price : 300, baseRent: 26, floors: 0, owner: null, isActive:false},
     {index : 32, name : "Olin-Rice Science Center", color : "#92C47D", price : 300, baseRent: 26, floors: 0, owner: null, isActive:false},
-    {index : 33, name : "Community Chest", color : "white", isActive:false},
+    {index : 33, name : "Chance", color : "white", isActive:false},
     {index : 34, name : "Campus Center", color : "#92C47D", price : 320, baseRent: 28, floors: 0, owner: null, isActive:false},
     {index : 35, name : "Green Line", color : "gray", price : 200, owner: null, isActive:false},
     {index : 36, name : "Chance", color : "white", isActive:false},
