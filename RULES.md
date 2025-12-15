@@ -32,9 +32,9 @@ When a player lands on property owned by another player, the owner collects rent
 
 ## Making a Trade
 
-At any point during their turn, a player may choose to Make a Trade with another player by selecting the "Make a Trade" button below the dice, selecting the properties on the board that they'd like included in the trade by clicking those spaces, and then pressing "Process Trade."
+At any point during their turn, a player may choose to Make a Trade with another player by selecting the "Make a Trade" button below the dice, and selecting the properties on the board that they'd like included in the trade by clicking those spaces in any order. 
 
-Once a trade is proposed, the player receiving the proposal has the ability to either Accept or Decline using the buttons at the bottom of the dashboard located to the right of the game board. In the case where a trade is accepted upon by both parties, the player who proposed the original trade finally presses the "Process Trade" button to lock in the agreement. 
+Once a trade is proposed, the player receiving the proposal has the ability to either Accept or Decline using the buttons at the bottom of the dashboard located to the right of the game board. In the case where a trade is accepted upon by both parties, the player who proposed the original trade finally presses the "Finish Making a Trade" button or, if they wish to pass the dice to the next player immediately after the trade, the "Finish Turn" button to lock in the agreement. 
 
 ## Free Parking
 
