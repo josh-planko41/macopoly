@@ -15,7 +15,7 @@ import { PlayersContext } from '../context/PlayersContext';
 function DashBoard({ state, handleAcceptTrade, handleDeclineTrade }) {
     const players = state.players;
     return (
-        <div className="DashBoard">
+        <div className="dashboard">
          <div className="player-pawns">
                         {players.map(player => (
                             <img
@@ -27,66 +27,66 @@ function DashBoard({ state, handleAcceptTrade, handleDeclineTrade }) {
                         ))}
             </div>
 
-            <div className='CurrentPlayer'>
+            <div className='current-player'>
                 <h1>Current Player: {state.currentPlayer}  </h1>
             </div>
 
-           <div className="CurrentSquare">
+           <div className="current-square">
                 <h2>Current Square:</h2>
-                <pre>{state.square?.name_sqaure || ""}</pre>
+                <div>{state.square?.name_sqaure || ""}</div>
             </div>
 
-            <div className="LastMove">
+            <div className="last-move">
                 <h2>Last Move:</h2>
-                <pre>
+                <div>
                     {state.square?.last_move
                     ? `${state.square.last_move.initial_square} → ${state.square.last_move.final_square}`
                     : ""}
-                </pre>
+                </div>
             </div>
 
-            <div className="Balance">
+            <div className="balance">
                 <h2>Balance Player 1: </h2>
-                <pre>
+                <div>
                     {state.balancePlayer1}
-                </pre>
+                </div>
             </div>
 
 
-            <div className="Balance">
+            <div className="balance">
                 <h2>Balance Player 2: </h2>
-                <pre>
+                <div>
                     {state.balancePlayer2}
-                </pre>
+                </div>
             </div>
 
-           <div className="Balance">
+           <div className="balance">
             <h2>Rolled Doubles: </h2>
-            <pre>
+            <div>
                 {state.rolledDoubles  == true ? "Yes" : "No"}
-            </pre>
+            </div>
            </div>
            
-           <div className="Balance">
+           <div className="balance">
             <h2>Player 1 Properties: </h2>
-            <pre>
-                {state.propertiesPlayer1.map((property) => property.name)}
-            </pre>
+            <div>
+                {state.propertiesPlayer1.map((property) => property.name).join(", ")}
+            </div>
            </div>
 
-           <div className="Balance">
+           <div className="balance">
             <h2>Player 2 Properties: </h2>
-            <pre>
-                {state.propertiesPlayer2.map((property) => property.name)}
-            </pre>
+            <div>
+                {state.propertiesPlayer2.map((property) => property.name).join(", ")}
+            </div>
            </div>
 
 
-           <div className="Balance">
+           <div className="balance">
             <h2>Traded Properties: </h2>
-            <pre>
-                {state.tradedProperties.map((property) => property.name)}
-            </pre>
+            <div>
+                {state.tradedProperties.map((property) => property.name).join(", ")}
+            </div>
 
             <button className = "dash-buttons" onClick={() => {handleAcceptTrade()}}>Accept</button>
             <button className = "dash-buttons" onClick={() => {handleDeclineTrade()}}>Decline</button>
