@@ -522,7 +522,7 @@ chance = () => {
 
   const randomIndex =Math.floor(Math.random() * (9 - 0));
   console.log("randomly chosen number: ", randomIndex)
-  const chosenCard = chanceCards[7];
+  const chosenCard = chanceCards[randomIndex];
 
   this.setState({
     showChance: true,
@@ -744,8 +744,8 @@ render() {
         />
 
         <div className='trade'>
-        <button onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
-        <button
+        <button className = "trade-button" onClick = {() => this.setState({startATrade: true})}>Make a Trade</button>
+        <button className = "trade-button"
         onClick={() => {
           this.setState({
             startATrade: false,
@@ -757,7 +757,7 @@ render() {
       </button>
 
      
-        <button onClick={this.handlePay50ToLeavePrison}>
+        <button className = "trade-button" onClick={this.handlePay50ToLeavePrison}>
           Pay $50 to Leave Prison
         </button>
       
@@ -768,7 +768,7 @@ render() {
         <button onClick = {() => this.setState({startATrade: false})}>no</button> */}
         </div>
 
-        <button onClick={() => this.setState({showBuildFloors: true})}>Build Floors</button>
+        <button className = "floor-button" onClick={() => this.setState({showBuildFloors: true})}>Build Floors</button>
 
           <Board
             state={this.state}

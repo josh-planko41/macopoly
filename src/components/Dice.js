@@ -62,11 +62,11 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
           <div style={{ width:'5px', display:'inline-block' }}></div>
           <img className="imgSquare" src={`/images/diceImages/${image2}.png`} alt="die 2" />
           {hasRolled ? (
-            <button className="diceButton" onClick={handleTurn} style={{ marginLeft:'10px' }}>
+            <button className="dice-button" onClick={handleTurn} style={{ marginLeft:'10px' }}>
             Finish Turn
             </button>
           ) : (
-            <button className="diceButton" onClick={rollDice}>Roll Dice</button>
+            <button className="dice-button" onClick={rollDice}>Roll Dice</button>
           )}
         </div>
       </center>

@@ -282,7 +282,7 @@
 
 /* end of player select page css styles */
 
-/* CSS styles for the game board and game windows */
+/* CSS styles for the game buttons and game windows */
 
 .container {
   background-color: rgba(93, 103, 112, 0.5);
@@ -301,7 +301,7 @@
   padding: 0.5rem 0.5rem;
 }
 
-.diceButton {
+.dice-button {
   width: center;
   height: auto;
   background-color: rgb(10, 68, 108);
@@ -310,6 +310,10 @@
   border-radius: 10px;
   font-family: "Georgia", serif;
   font-size: 16px;
+}
+
+.dice-button:hover {
+  opacity: 0.8;
 }
 
 .dice-header{
@@ -335,6 +339,36 @@
   text-align: center;
   margin-top: 0.25rem;
 }
+
+.trade-button{
+  width: center;
+  height: auto;
+  background-color: rgb(10, 68, 108);
+  color: rgb(255,255,255);
+  padding: 5px;
+  border-radius: 10px;
+  font-family: "Georgia", serif;
+  font-size: 16px;
+}
+
+.trade-button:hover {
+  opacity: 0.8;
+}
+
+.floor-button{
+  width: center;
+  height: auto;
+  background-color: rgb(192, 99, 7);
+  color: rgb(255,255,255);
+  padding: 5px;
+  border-radius: 10px;
+  font-family: "Georgia", serif;
+  font-size: 16px;
+}
+
+.floor-button:hover {
+  opacity: 0.8;
+} 
 
 .buy-window {
   position: fixed;

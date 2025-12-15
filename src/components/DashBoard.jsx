@@ -88,8 +88,8 @@ function DashBoard({ state, handleAcceptTrade, handleDeclineTrade }) {
                 {state.tradedProperties.map((property) => property.name)}
             </pre>
 
-            <button onClick={() => {handleAcceptTrade()}}>accept</button>
-            <button onClick={() => {handleDeclineTrade()}}>decline</button>
+            <button className = "dash-buttons" onClick={() => {handleAcceptTrade()}}>Accept</button>
+            <button className = "dash-buttons" onClick={() => {handleDeclineTrade()}}>Decline</button>
            </div>
         </div>
         
