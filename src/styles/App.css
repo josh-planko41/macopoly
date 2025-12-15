@@ -280,6 +280,7 @@
 
 /* end of player select page css styles */
 
+/* CSS styles for the game board and game windows */
 
 .container {
   text-align: center;
@@ -356,6 +357,8 @@
   cursor: pointer;
 }
 
+/* CSS styles for the build floors modal and buttons */
+
 .build-floors-modal {
   position: fixed;
   top: 50%;
@@ -392,7 +395,9 @@
   background: #dcdcdc;
 }
 
+/* end of CSS styles for the build floors modal and buttons */
 
+/* CSS styles for game over window */
 
 .game-over {
   display: flex;
@@ -423,3 +428,5 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* end of css styles for game over window */

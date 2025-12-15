@@ -16,10 +16,6 @@ import GameOver from './GameOver.js';
 import Chance from './components/Chance.js';
 import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
 
-//start another semester
-//go to a football game at Macalester Stadium
-
-
 
 
 class App extends Component {
@@ -236,7 +232,7 @@ handlePrisonOnRoll = (isDoubles) => {
 
 
 
-
+// defines the logic for paying to leave prison
 handlePay50ToLeavePrison = () => {
   this.setState((prev) => {
     const isP1 = prev.currentPlayer === 1;
@@ -267,7 +263,7 @@ handlePay50ToLeavePrison = () => {
 };
 
 
-
+// logic for relasing the current player from prison
 releaseCurrentPlayerFromPrison = () => {
   this.setState((prev) => {
     const isP1 = prev.currentPlayer === 1;
@@ -289,7 +285,7 @@ releaseCurrentPlayerFromPrison = () => {
   });
 };
 
-
+// checks if the current player is in prison
 isCurrentPlayerInPrison = (state = this.state) => {
   return (state.currentPlayer === 1 && state.inPrisonPlayer1) ||
          (state.currentPlayer === 2 && state.inPrisonPlayer2);
@@ -426,7 +422,7 @@ handleGameOver = () => {
   }
 }
 
-
+// handles the selling of a property
 handleSell = (property) => {
   const price = property.price;
   if (this.state.currentPlayer === 1) {
@@ -439,10 +435,13 @@ handleSell = (property) => {
 
   this.handleGameOver();
 };
+
+// button handler for when the player decides not to buy a property
 handleCancelBuy = () => {
   this.setState({ selectedPropertyBuy: null });
 };
 
+//button handle for when the playe pays rent
 handleConfirmPayRent = (rent) => {
   this.setState(prev => {
 
@@ -533,6 +532,7 @@ chance = () => {
   });
 };
 
+// sets the player's location on the board
 setPlayerLocation = (destination) => {
    this.setState((prevState) => {
     const active = prevState.players.find(
@@ -637,6 +637,7 @@ handleFinishTurn = () => {
   }
  }
 
+ // checks if the player owns all properties in a color set
  checkOwnedSet = (player) =>{
 
   const colors = ["#8E7CC3", "#6EA8DC", "#C27BA0", "#F7B16B", "red", "#FFFF00", "#92C47D", "#3B77D8"];
@@ -680,6 +681,7 @@ handleFinishTurn = () => {
     return costs[color] || 100; // Default fallback
   }
 
+  // button handler for building floors
  handleBuildFloor = (property) => {
     const cost = this.getFloorCost(property.color);
     const isP1 = this.state.currentPlayer === 1;

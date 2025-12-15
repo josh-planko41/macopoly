@@ -1,4 +1,8 @@
 import React from "react";
+/**
+ * Function for displaying the Jail window.
+ * @param {Object} player - The player object containing the player's information.
+ */
 
 export default function Jail(player) {
   return (

@@ -2,6 +2,9 @@
  * Home Page Component
  * Displays welcome message and Play button
  * Calls onPlay callback when Play button is clicked
+ * Includes Credits button that calls credits callback when clicked
+ * @param {function} onPlay - Callback function to handle Play button click
+ * @param {function} credits - Callback function to handle Credits button click
  */
 
 import React from 'react';

@@ -1,6 +1,8 @@
 
 /**
  * Function for MacBooks and Activity Fee Squares
+ * @param {Object} property - The property object containing the name and tax amount
+ * @param {Function} onAccept - The function to be called when the user accepts the tax payment
  */
 
 export default function PayTax ({property, onAccept}){
