@@ -55,7 +55,7 @@ Properties in Macopoly may be sold ONLY when a player is facing bankruptcy due t
 
 ## Duprison
 
-A player lands in Duprison when. . . (1.) their pawn lands on the space marked "Go to Duprison"; (2.) they draw a card marked "Go to Duprison"; (3.) they roll doubles three times in succession. When a player is sent to Duprison they cannot collect 200 FP salary in that move since, regardless of where their pawn is on the board, it goes directly to Duprison. A player's turn ends when they are sent to Duprison. If a player is not "sent to Duprison" but in the ordinary course of play lands on that space, they are "Just Visiting", incur no penalty, and move ahead in the usual manner on his next turn.
+A player lands in Duprison when. . . (1.) their pawn lands on the space marked "Go to Duprison"; (2.) they draw a card marked "Go to Duprison"; (3.) they roll doubles three times in succession. When a player is sent to Duprison they cannot collect 200 FP salary in that move since, regardless of where their pawn is on the board, it goes directly to Duprison. A player's turn ends when they are sent to Duprison. If a player is not "sent to Duprison" but in the ordinary course of play lands on that space, they are "Just Visiting", incur no penalty, and move ahead in the usual manner on their next turn.
 
 A player gets out of Jail by... (1.) rolling doubles on any of their next three turns. If they succeed in doing this they immediately move forward the number of spaces shown by their doubles roll. Even though they rolled doubles they do not take another turn; (2.) using the "Get Out of Duprison" card if they have it. If the player does not roll doubles by their third turn they must pay the 50 FP fine. They then get out of Duprison and immediately move forward the number of spaces shown by their roll.
 
@@ -65,7 +65,7 @@ Players that land on these spaces must pay the corresponding amount of FP.
 
 ## Chance
 
-When a player lands on these spaces a card will automatically be shown and the player will automatically follow instructions displayed on the screen. 
+When a player lands on a Chance space a card will automatically be shown and the player will be prompted to follow instructions displayed on the screen. 
 
 ## Bankruptcy and Ending the Game
 
