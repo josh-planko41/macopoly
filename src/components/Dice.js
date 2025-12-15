@@ -58,9 +58,9 @@ export default function Roll({ onRoll, onMove, onFinishTurn, state, rolledDouble
         <h1 className = "dice-header"> Player {state.currentPlayer}'s turn</h1>
         <h2 className = "dice-subtext"> You rolled: {count}</h2>
         <div className="container">
-          <img className="imgSquare" src={`/images/diceImages/${image}.png`} alt="die 1" />
+          <img className="img-square" src={`/images/diceImages/${image}.png`} alt="die 1" />
           <div style={{ width:'5px', display:'inline-block' }}></div>
-          <img className="imgSquare" src={`/images/diceImages/${image2}.png`} alt="die 2" />
+          <img className="img-square" src={`/images/diceImages/${image2}.png`} alt="die 2" />
           {hasRolled ? (
             <button className="dice-button" onClick={handleTurn} style={{ marginLeft:'10px' }}>
             Finish Turn
