@@ -1,6 +1,10 @@
 
 /**
  * Function for paying rent to the square owners.
+ * @param {Object} property - The property that the player landed on.
+ * @param {number} rent - The amount of rent that the player needs to pay.
+ * @param {Function} onConfirm - Function to be called when the player confirms paying the rent.
+ * @param {Function} onLookingForOtherOptions - Function to be called when the player cannot afford the rent and wants to look for other options.
  */
 export default function PayRent({property, rent, onConfirm, onLookingForOtherOptions}){
 

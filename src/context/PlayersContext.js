@@ -1,5 +1,8 @@
 import React, { createContext, Component } from 'react';
 
+/**
+ * Player Context manages the state of the players and their associated pawns. 
+ */
 export const PlayersContext = createContext();
 
 export class PlayersProvider extends Component {

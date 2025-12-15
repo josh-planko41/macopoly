@@ -1,4 +1,9 @@
-
+/**
+ * Function for creating the window when a player lands on a Chance square.
+ * 
+ * @param {string} chanceCardName - The name of the chance card that was drawn.
+ * @param {function} onAccept - The function to call when the player accepts the chance card.
+ */
 export default function Chance({ chanceCardName, onAccept }) {
   return (
     <div className="payTax-window">

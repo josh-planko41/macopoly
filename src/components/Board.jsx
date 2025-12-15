@@ -34,7 +34,7 @@ export default function Board({ state, onSquareClick, handleAcceptTrade, handleD
     };
 
 
-    
+    // defines the tiles that are shown on the board
     const tilesForShowing = Array.from({ length: total }, (_, i) => {
         const row = Math.floor(i / 11);
         const col = i % 11;

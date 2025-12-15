@@ -2,6 +2,10 @@
 /**
  * Function of building floors on an owned property.
  * A player must own a whole color set to build floors on one of the properties.
+ * @param {Array} buildableSets - Array of color sets that the player can build on.
+ * @param {Array} properties - Array of property objects with details like color, floors, etc.
+ * @param {Function} onBuild - Function to call when a player decides to build a floor on a property.
+ * @param {Function} onClose - Function to call when the modal is closed.
  */
 import React, { useState } from "react";
 
