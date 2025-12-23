@@ -23,33 +23,3 @@ export const chanceCards = [
     // { name : "Go back 3 spaces", result : player => move(player.getPropertyIndex() - 3, player)},
 ]
 
-
-export function collect(amount, player) {
-    // increment owners balance by amount
-}
-
-export function move(spaceIndex, player) {
-    // move player to specified space index
-}
-
-export function nearestUtilAndMove(player) {
-    // find nearest utility and move player there
-}
-
-export function nearestTransitAndMove(player) {
-    // find nearest transit and move player there
-}
-
-export function leavePrison(player) {
-    // allow player to leave prison without paying or rolling doubles
-}
-
-export function imprison(player) {
-    // send player to prison and update their status
-}
-
-export function payTo(amount, player, receiver) {
-    // player pays amount to receiver
-}
-
-// export default  chanceCards

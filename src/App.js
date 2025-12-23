@@ -14,7 +14,7 @@ import MakeATrade from './components/trade.js';
 import BuildFloors from './components/BuildFloors.js';
 import GameOver from './GameOver.js';
 import Chance from './components/Chance.js';
-import {chanceCards, collect, move, dMonearestUtilAnve, nearestTransitAndMove, leavePrison, imprison, payTo} from './containers/ChanceCards.js'
+import {chanceCards} from './containers/ChanceCards.js'
 
 
 
